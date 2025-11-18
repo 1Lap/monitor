@@ -7,9 +7,11 @@ This is a background telemetry logger for **Le Mans Ultimate (LMU)** that automa
 ## Features
 
 - ✅ Automatically detects when LMU is running
-- ✅ Captures telemetry at ~20Hz while you drive
+- ✅ Captures telemetry at ~43Hz while you drive
 - ✅ Saves complete lap data to CSV when you cross the finish line
-- ✅ No configuration needed - just run and drive!
+- ✅ MVP format output (12 essential channels, ~1MB per lap)
+- ✅ Compatible with browser-based telemetry viewers
+- ✅ No configuration needed - just enable the plugin and drive!
 
 ## Requirements
 
@@ -19,24 +21,29 @@ This is a background telemetry logger for **Le Mans Ultimate (LMU)** that automa
 
 ## Quick Start
 
-### 1. Enable LMU Telemetry Plugin
+### 1. Enable LMU Telemetry Plugin (First Time Only)
 
-Before first use, you need to enable LMU's shared memory plugin:
+⚠️ **Important**: The rF2SharedMemoryMapPlugin is already installed with LMU, but you need to enable it once.
+
+**Steps:**
 
 1. Navigate to: `C:\Users\<YourName>\Documents\Studio 397\UserData\<YourPlayerName>\`
-2. Open `CustomPluginVariables.JSON` in a text editor
-3. Find the rF2SharedMemoryMapPlugin section
+2. Open `CustomPluginVariables.JSON` in a text editor (Notepad works fine)
+3. Find the `"rF2SharedMemoryMapPlugin"` section
 4. Change `"Enabled"` from `0` to `1`
-5. Save the file
+5. Save the file and close the editor
+6. **Restart LMU** if it's already running
 
-**Example:**
+**Example (what to look for in the file):**
 ```json
 {
   "rF2SharedMemoryMapPlugin": {
-    "Enabled": 1
+    "Enabled": 1    ← Change this from 0 to 1
   }
 }
 ```
+
+**Note**: You only need to do this once. The setting persists across LMU sessions.
 
 ### 2. Run the Logger
 
@@ -62,17 +69,26 @@ Example: `20251118083646537645_lap3.csv`
 
 ### What's in the CSV?
 
-Each CSV file contains:
-- **Player info**: Your name, session ID
-- **Lap summary**: Lap time, sector times, track/car info
-- **Session data**: Track temperature, weather, etc.
-- **Car setup**: Wing settings, tire pressures (where available)
-- **Telemetry samples**: Detailed data captured ~20 times per second:
-  - Speed, RPM, throttle, brake, steering
-  - Tire temperatures, brake temperatures, tire wear
-  - Suspension position, G-forces
-  - Position coordinates (X, Y, Z)
-  - And 100+ more fields!
+Each CSV file uses the **LMUTelemetry v2 MVP format**:
+
+**Metadata section:**
+- Player name, track name, car name
+- Session timestamp (UTC)
+- Lap time and track length
+- Format version (for compatibility)
+
+**Telemetry data (12 essential channels):**
+Captured ~43 times per second:
+- **LapDistance [m]** - Distance around the lap
+- **LapTime [s]** - Time into the lap
+- **Sector [int]** - Current sector (0-3)
+- **Speed [km/h]** - Vehicle speed
+- **EngineRevs [rpm]** - Engine RPM
+- **ThrottlePercentage [%]** - Throttle input (0-100%)
+- **BrakePercentage [%]** - Brake input (0-100%)
+- **Steer [%]** - Steering input (-100 to +100%)
+- **Gear [int]** - Current gear
+- **X, Y, Z [m]** - Position coordinates
 
 ## Understanding the Console Output
 
@@ -125,14 +141,14 @@ When you complete a lap:
 2. Check the console for error messages
 3. Verify the `telemetry_output/` folder exists
 
-### CSV files are huge
+### CSV file size
 
-**Answer**: This is normal! A 2-minute lap can generate:
-- ~2,400 samples (at 20Hz)
-- 100+ fields per sample
-- Result: 10-15 MB per lap
+**Answer**: A typical 5-minute lap generates:
+- ~13,000 samples (at 43Hz)
+- 12 channels per sample
+- Result: ~1 MB per lap
 
-This gives you extremely detailed telemetry data for analysis.
+This is the MVP format - streamlined for browser-based analysis while maintaining all essential telemetry data.
 
 ## Tips
 
@@ -159,15 +175,16 @@ The CSV files can be imported into:
 
 ## Known Issues
 
-- **Capture rate is ~20Hz** instead of the target 100Hz
+- **Capture rate is ~43Hz** instead of the target 100Hz
   - Impact: Slightly lower resolution data
   - Still perfectly usable for lap analysis
-  - Fix planned for future versions
+  - Performance has improved 2x from initial versions
+  - Further optimization planned for future versions
 
-- **Some fields show zeros**:
-  - Oil pressure, wind data not available from game
-  - Car setup data partially unavailable
-  - This is a limitation of LMU's shared memory
+- **Track length shows 0.00**:
+  - Currently not extracted from shared memory
+  - Doesn't affect viewer compatibility (optional field)
+  - Fix planned for future versions
 
 ## Support
 
@@ -178,9 +195,17 @@ For issues or questions:
 
 ## Version
 
-Current Version: 1.0 (Phase 6 - Windows Testing Complete)
+**Current Version**: v0.1.1 - MVP Format Release
 
-Built with: Python 3.13, pyRfactor2SharedMemory
+**Changes in this version:**
+- LMUTelemetry v2 MVP format (12 channels)
+- 43Hz capture rate (2.1x improvement)
+- ~1MB per lap (down from ~11MB)
+- Compatible with browser-based telemetry viewers
+- 60/60 tests passing
+- Tested on Windows with live LMU
+
+**Built with**: Python 3.13, pyRfactor2SharedMemory
 
 ---
 
