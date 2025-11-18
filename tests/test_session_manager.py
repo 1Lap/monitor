@@ -33,13 +33,18 @@ class TestSessionManager:
 
     def test_session_id_generation(self):
         """Should generate unique session IDs"""
+        import time
         manager = SessionManager()
         id1 = manager.generate_session_id()
+        time.sleep(0.001)  # Sleep 1ms to ensure different timestamp
         id2 = manager.generate_session_id()
 
         assert id1 != id2
         assert len(id1) > 0
         assert len(id2) > 0
+        # Verify format: YYYYMMDDHHMMSS + microseconds (20 chars)
+        assert len(id1) == 20
+        assert id1.isdigit()
 
     def test_lap_buffer_management(self):
         """Should buffer telemetry samples correctly"""
