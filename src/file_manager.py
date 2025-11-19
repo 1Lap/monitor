@@ -24,13 +24,13 @@ class FileManager:
         Args:
             config: Configuration dictionary with optional keys:
                 - output_dir: Base directory for output files (default: "./telemetry_output")
-                - filename_format: Format string for filenames (default: "{date}_{time}_{track}_{car}_{driver}_lap{lap}_t{lap_time}s_{session_id}.csv")
+                - filename_format: Format string for filenames (default: "{date}_{time}_{track}_{car}_{driver}_lap{lap}_t{lap_time}s.csv")
         """
         self.config = config or {}
         self.output_dir = Path(self.config.get('output_dir', './telemetry_output'))
         self.filename_format = self.config.get(
             'filename_format',
-            '{date}_{time}_{track}_{car}_{driver}_lap{lap}_t{lap_time}s_{session_id}.csv'
+            '{date}_{time}_{track}_{car}_{driver}_lap{lap}_t{lap_time}s.csv'
         )
 
         # Create output directory if it doesn't exist
@@ -70,6 +70,11 @@ class FileManager:
         """
         Generate filename for lap data
 
+        Uses field-aware sanitization:
+        - Hyphens (-) within field values (replacing spaces)
+        - Underscores (_) between fields
+        - Lowercase for consistency
+
         Args:
             lap_summary: Lap summary (contains lap number)
             session_info: Session info (contains session_id, car, track, etc.)
@@ -80,6 +85,7 @@ class FileManager:
         lap = lap_summary.get('lap', 0)
         session_id = session_info.get('session_id', self._generate_fallback_session_id())
 
+        # Get raw field values
         car = session_info.get('car_name') or 'unknown-car'
         track = session_info.get('track_name') or 'unknown-track'
         driver = (
@@ -88,6 +94,11 @@ class FileManager:
             or session_info.get('driver')
             or 'unknown-driver'
         )
+
+        # Sanitize fields individually (lowercase, spaces to hyphens)
+        car = self._sanitize_field(car)
+        track = self._sanitize_field(track)
+        driver = self._sanitize_field(driver)
 
         timestamp = self._resolve_timestamp(session_info.get('date'))
         date_str = timestamp.strftime('%Y-%m-%d')
@@ -107,14 +118,51 @@ class FileManager:
             lap_time=lap_time_seconds
         )
 
-        # Sanitize filename (remove invalid characters)
+        # Final sanitization for any remaining invalid characters
         filename = self._sanitize_filename(filename)
 
         return filename
 
+    def _sanitize_field(self, field_value: str) -> str:
+        """
+        Sanitize an individual field value for use in filename
+
+        Converts to lowercase and replaces spaces/invalid chars with hyphens.
+        This makes field values internally consistent while field separators
+        use underscores.
+
+        Args:
+            field_value: The field value to sanitize
+
+        Returns:
+            Sanitized field value
+        """
+        # Convert to lowercase
+        sanitized = field_value.lower()
+
+        # Replace invalid characters with hyphens
+        invalid_chars = ['<', '>', ':', '"', '/', '\\', '|', '?', '*', '_']
+        for char in invalid_chars:
+            sanitized = sanitized.replace(char, '-')
+
+        # Replace spaces with hyphens
+        sanitized = sanitized.replace(' ', '-')
+
+        # Remove any duplicate hyphens
+        while '--' in sanitized:
+            sanitized = sanitized.replace('--', '-')
+
+        # Strip leading/trailing hyphens
+        sanitized = sanitized.strip('-')
+
+        return sanitized
+
     def _sanitize_filename(self, filename: str) -> str:
         """
-        Sanitize filename by removing invalid characters
+        Final sanitization pass for complete filename
+
+        Removes any remaining invalid filesystem characters.
+        By this point, fields should already be sanitized.
 
         Args:
             filename: Original filename
@@ -122,13 +170,10 @@ class FileManager:
         Returns:
             Sanitized filename
         """
-        # Replace invalid characters with underscores
+        # Replace any remaining invalid characters with underscores
         invalid_chars = ['<', '>', ':', '"', '/', '\\', '|', '?', '*']
         for char in invalid_chars:
             filename = filename.replace(char, '_')
-
-        # Replace spaces with underscores
-        filename = filename.replace(' ', '_')
 
         return filename
 
@@ -207,18 +252,21 @@ class FileManager:
 
         return count
 
-    def get_session_laps(self, session_id: str) -> list[str]:
+    def get_session_laps(self, filter_string: str) -> list[str]:
         """
-        Get all lap files for a specific session
+        Get all lap files matching a filter string
+
+        Can be used to filter by date, time, track, car, driver, or any substring
+        that appears in the filename. Useful for grouping laps from the same session.
 
         Args:
-            session_id: Session ID to filter by
+            filter_string: String to match in filenames (e.g., '2025-11-18_13-52' for a session)
 
         Returns:
-            List of filenames for this session
+            List of filenames matching the filter
         """
         if not self.output_dir.exists():
             return []
 
-        pattern = f"*{session_id}*.csv"
+        pattern = f"*{filter_string}*.csv"
         return [f.name for f in self.output_dir.glob(pattern)]

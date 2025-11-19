@@ -78,7 +78,7 @@ class TestFileManager:
         assert saved_content == csv_content
 
     def test_filename_generation_with_session_and_lap(self, temp_dir):
-        """Should generate filename with session ID and lap number"""
+        """Should generate clean filename with field-aware separators (hyphens within, underscores between)"""
         manager = FileManager({'output_dir': str(temp_dir)})
 
         lap_summary = {'lap': 5, 'lap_time': 140.2}
@@ -88,18 +88,27 @@ class TestFileManager:
         filepath = manager.save_lap(csv_content, lap_summary, session_info)
 
         filename = Path(filepath).name
+        # Should include date and time
         assert '2025-11-18' in filename
         assert '13-52' in filename
-        assert 'Algarve_International_Circuit' in filename
-        assert 'BMW_M4_GT3_Evo' in filename
-        assert 'David_Dean' in filename
+        # Should include track, car, and driver (lowercase with hyphens)
+        assert 'algarve-international-circuit' in filename
+        assert 'bmw-m4-gt3-evo' in filename
+        assert 'david-dean' in filename
+        # Should include lap number and lap time
         assert 'lap5' in filename
         assert 't140s' in filename
-        assert '2025111812345' in filename
+        # Should NOT include redundant session_id
+        assert '2025111812345' not in filename
+        # Fields should be separated by underscores
         assert filename.endswith('.csv')
+        # Verify overall structure with underscores between fields
+        assert '_algarve-international-circuit_' in filename
+        assert '_bmw-m4-gt3-evo_' in filename
+        assert '_david-dean_' in filename
 
     def test_custom_filename_format(self, temp_dir):
-        """Should support custom filename format"""
+        """Should support custom filename format with field sanitization"""
         custom_format = '{track}_{car}_lap{lap}.csv'
         manager = FileManager({
             'output_dir': str(temp_dir),
@@ -113,12 +122,13 @@ class TestFileManager:
         filepath = manager.save_lap(csv_content, lap_summary, session_info)
 
         filename = Path(filepath).name
-        assert 'Bahrain' in filename
-        assert 'Toyota' in filename
+        # Fields should be lowercase
+        assert 'bahrain' in filename
+        assert 'toyota' in filename
         assert 'lap3' in filename
 
     def test_sanitizes_invalid_filename_characters(self, temp_dir):
-        """Should remove/replace invalid filename characters"""
+        """Should remove/replace invalid filename characters with field-aware sanitization"""
         manager = FileManager({'output_dir': str(temp_dir)})
 
         lap_summary = {'lap': 1}
@@ -131,15 +141,19 @@ class TestFileManager:
         filepath = manager.save_lap(csv_content, lap_summary, session_info)
 
         filename = Path(filepath).name
-        # Invalid characters should be replaced
+        # Invalid characters should be removed from filename
         assert '<' not in filename
         assert '>' not in filename
         assert ':' not in filename
         assert '"' not in filename
         assert '/' not in filename
         assert '\\' not in filename
-        # Spaces should be replaced with underscores
+        # Spaces should be replaced with hyphens (within fields)
         assert ' ' not in filename
+        # Should have lowercase field values
+        assert 'car' in filename
+        assert 'name' in filename
+        assert 'track-with-spaces' in filename
 
     def test_list_saved_laps(self, temp_dir):
         """Should list all saved lap files"""
@@ -205,22 +219,25 @@ class TestFileManager:
         assert len(manager.list_saved_laps()) == 0
 
     def test_get_session_laps(self, temp_dir):
-        """Should filter laps by session ID"""
+        """Should filter laps by date/time prefix (session identifier)"""
         manager = FileManager({'output_dir': str(temp_dir)})
 
-        # Save laps from two different sessions
+        # Save laps from two different sessions (different times)
+        session1_time = datetime(2025, 11, 18, 13, 52, 0)
+        session2_time = datetime(2025, 11, 18, 15, 30, 0)
+
         for i in range(1, 4):
-            manager.save_lap("test", {'lap': i}, build_session_info(session_id='session1'))
+            manager.save_lap("test", {'lap': i}, build_session_info(date=session1_time))
 
         for i in range(1, 3):
-            manager.save_lap("test", {'lap': i}, build_session_info(session_id='session2'))
+            manager.save_lap("test", {'lap': i}, build_session_info(date=session2_time))
 
-        # Get laps for session1
-        session1_laps = manager.get_session_laps('session1')
+        # Get laps for session1 (filter by date_time prefix)
+        session1_laps = manager.get_session_laps('2025-11-18_13-52')
         assert len(session1_laps) == 3
 
-        # Get laps for session2
-        session2_laps = manager.get_session_laps('session2')
+        # Get laps for session2 (filter by date_time prefix)
+        session2_laps = manager.get_session_laps('2025-11-18_15-30')
         assert len(session2_laps) == 2
 
     def test_get_output_directory(self, temp_dir):
