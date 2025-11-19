@@ -50,11 +50,15 @@ class TelemetryApp:
         # Initialize telemetry loop with lap completion callback
         self.telemetry_loop = TelemetryLoop({
             **self.config,
-            'on_lap_complete': self.on_lap_complete
+            'on_lap_complete': self.on_lap_complete,
+            'on_opponent_lap_complete': self.on_opponent_lap_complete,
+            'track_opponents': True,  # Enable opponent tracking
+            'track_opponent_ai': False,  # Only track remote players, not AI
         })
 
         # Track statistics
         self.laps_saved = 0
+        self.opponent_laps_saved = 0
         self.samples_collected = 0
 
         # Setup signal handlers for graceful shutdown
@@ -122,6 +126,71 @@ class TelemetryApp:
         except Exception as e:
             print(f"    [ERROR] Error saving lap: {e}")
 
+    def on_opponent_lap_complete(self, opponent_lap_data):
+        """
+        Callback when an opponent completes a lap (fastest lap only)
+
+        Args:
+            opponent_lap_data: OpponentLapData with driver name, lap time, samples, etc.
+        """
+        from src.opponent_tracker import OpponentLapData
+
+        print(f"\n*** Opponent lap completed: {opponent_lap_data.driver_name}")
+        print(f"    Lap {opponent_lap_data.lap_number}: {opponent_lap_data.lap_time:.3f}s")
+        print(f"    Position: P{opponent_lap_data.position if opponent_lap_data.position else '?'}")
+        print(f"    Car: {opponent_lap_data.car_name or 'Unknown'}")
+        print(f"    Samples: {len(opponent_lap_data.samples)}")
+        print(f"    Fastest: {opponent_lap_data.is_fastest}")
+
+        # Get session info
+        session_info = self.telemetry_reader.get_session_info()
+        session_info['session_id'] = self.telemetry_loop.session_manager.current_session_id
+        session_info['player_name'] = opponent_lap_data.driver_name
+        session_info['car_name'] = opponent_lap_data.car_name or session_info.get('car_name', 'Unknown')
+
+        # Detect sector boundaries from lap data
+        track_length = session_info.get('track_length', 0.0)
+        if track_length > 0 and opponent_lap_data.samples:
+            sector_boundaries, num_sectors = detect_sector_boundaries(opponent_lap_data.samples, track_length)
+            session_info['sector_boundaries'] = sector_boundaries
+            session_info['num_sectors'] = num_sectors
+
+        metadata = build_metadata_block(session_info, opponent_lap_data.samples)
+
+        # Format as CSV
+        csv_content = self.csv_formatter.format_lap(
+            lap_data=opponent_lap_data.samples,
+            metadata=metadata,
+        )
+
+        # Save to file with opponent's name in filename
+        try:
+            # Sanitize driver name for filename
+            safe_driver_name = opponent_lap_data.driver_name.replace(' ', '_').replace('/', '_')
+            position_str = f"_P{opponent_lap_data.position}" if opponent_lap_data.position else ""
+
+            # Custom filename: {session_id}_lap{lap}_{driver_name}_P{position}.csv
+            lap_summary = {
+                'lap': opponent_lap_data.lap_number,
+            }
+
+            # Use session_id if available, otherwise generate timestamp-based name
+            session_id = session_info.get('session_id', 'opponent')
+            filename = f"{session_id}_lap{opponent_lap_data.lap_number}_{safe_driver_name}{position_str}.csv"
+
+            filepath = self.file_manager.save(
+                content=csv_content,
+                filename=filename
+            )
+
+            self.opponent_laps_saved += 1
+
+            print(f"    [OK] Saved to: {filepath}")
+            print(f"    Total opponent laps saved: {self.opponent_laps_saved}")
+
+        except Exception as e:
+            print(f"    [ERROR] Error saving opponent lap: {e}")
+
     def signal_handler(self, signum, frame):
         """Handle shutdown signals gracefully"""
         print("\n\nShutting down gracefully...")
@@ -176,8 +245,10 @@ class TelemetryApp:
         print("=" * 60)
         print("Session Summary")
         print("=" * 60)
-        print(f"Laps saved: {self.laps_saved}")
+        print(f"Player laps saved: {self.laps_saved}")
+        print(f"Opponent laps saved: {self.opponent_laps_saved}")
         print(f"Samples collected: {self.samples_collected}")
+        print(f"Opponents tracked: {self.telemetry_loop.opponent_tracker.get_opponent_count()}")
         print(f"Output directory: {self.file_manager.get_output_directory()}")
         print()
 
@@ -204,12 +275,14 @@ class TelemetryApp:
         telemetry_available = status.get('telemetry_available', False)
         lap = status.get('lap', 0)
         samples = status.get('samples_buffered', 0)
+        opponents = status.get('opponents_tracked', 0)
 
         print(f"[{state.value if hasattr(state, 'value') else state}] "
               f"Process: {'YES' if process_detected else 'NO'} | "
               f"Telemetry: {'YES' if telemetry_available else 'NO'} | "
               f"Lap: {lap} | "
-              f"Samples: {samples}")
+              f"Samples: {samples} | "
+              f"Opponents: {opponents}")
 
 
 def main():

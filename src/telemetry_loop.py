@@ -5,6 +5,7 @@ from typing import Dict, Any, Optional, Callable
 from src.process_monitor import ProcessMonitor
 from src.session_manager import SessionManager, SessionState
 from src.telemetry.telemetry_interface import get_telemetry_reader
+from src.opponent_tracker import OpponentTracker
 
 
 class TelemetryLoop:
@@ -27,7 +28,10 @@ class TelemetryLoop:
             config: Configuration dictionary with optional keys:
                 - target_process: Process name to monitor (default: "LMU.exe")
                 - poll_interval: Seconds between polls (default: 0.01 for ~100Hz)
-                - on_lap_complete: Callback function(lap_data, lap_summary)
+                - on_lap_complete: Callback function(lap_data, lap_summary, session_info)
+                - on_opponent_lap_complete: Callback function(opponent_lap_data)
+                - track_opponents: Enable opponent tracking (default: True)
+                - track_opponent_ai: Track AI opponents (default: False)
         """
         self.config = config or {}
         self.poll_interval = self.config.get('poll_interval', 0.01)
@@ -45,8 +49,14 @@ class TelemetryLoop:
         self.telemetry_reader = get_telemetry_reader()
         self._min_speed_kmh = min_speed
 
+        # Initialize opponent tracking
+        self.track_opponents = self.config.get('track_opponents', True)
+        track_ai = self.config.get('track_opponent_ai', False)
+        self.opponent_tracker = OpponentTracker(track_remote_only=not track_ai, track_ai=track_ai)
+
         # Callbacks
         self.on_lap_complete = self.config.get('on_lap_complete', None)
+        self.on_opponent_lap_complete = self.config.get('on_opponent_lap_complete', None)
 
         # Control flags
         self._running = False
@@ -175,10 +185,27 @@ class TelemetryLoop:
             # Add sample to buffer
             self.session_manager.add_sample(telemetry, timestamp=current_time)
 
+            # Poll opponents if enabled
+            if self.track_opponents and self.on_opponent_lap_complete:
+                try:
+                    opponents = self.telemetry_reader.get_all_vehicles()
+                    for opponent_telemetry in opponents:
+                        completed_laps = self.opponent_tracker.update_opponent(
+                            opponent_telemetry,
+                            timestamp=current_time
+                        )
+                        # Trigger callback for each completed lap
+                        for opponent_lap_data in completed_laps:
+                            self.on_opponent_lap_complete(opponent_lap_data)
+                except Exception as e:
+                    # Don't fail the main loop if opponent tracking has issues
+                    pass
+
             # Update status
             status['state'] = self.session_manager.state
             status['lap'] = self.session_manager.current_lap
             status['samples_buffered'] = len(self.session_manager.lap_samples)
+            status['opponents_tracked'] = self.opponent_tracker.get_opponent_count() if self.track_opponents else 0
 
         except Exception as e:
             self.session_manager.state = SessionState.ERROR

@@ -33,6 +33,18 @@ class TelemetryReaderInterface(ABC):
         """
         pass
 
+    @abstractmethod
+    def get_all_vehicles(self) -> list[Dict[str, Any]]:
+        """
+        Get telemetry for all vehicles in the session (for opponent tracking)
+
+        Returns:
+            List of telemetry dictionaries, one per vehicle.
+            Each dict includes 'driver_name', 'control' (control type), and telemetry fields.
+            Returns empty list if not in multiplayer or no opponents available.
+        """
+        pass
+
 
 def get_telemetry_reader() -> TelemetryReaderInterface:
     """

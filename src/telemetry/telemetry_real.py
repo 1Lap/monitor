@@ -264,6 +264,102 @@ class RealTelemetryReader(TelemetryReaderInterface):
             print(f"Error getting session info: {e}")
             return {}
 
+    def get_all_vehicles(self) -> list[Dict[str, Any]]:
+        """
+        Get telemetry for all vehicles in session (for opponent tracking)
+
+        Returns:
+            List of telemetry dicts, one per vehicle (excludes local player)
+            Empty list if not available or not in multiplayer
+        """
+        if not self.is_available():
+            return []
+
+        try:
+            scor_info = self.info.Rf2Scor.mScoringInfo
+            num_vehicles = scor_info.mNumVehicles
+
+            if num_vehicles <= 1:  # Only player, no opponents
+                return []
+
+            vehicles = []
+
+            # Iterate through all vehicles
+            for i in range(num_vehicles):
+                try:
+                    vehicle_scor = self.info.Rf2Scor.mVehicles[i]
+                    vehicle_tele = self.info.Rf2Tele.mVehicles[i]
+
+                    # Skip local player (mIsPlayer == True or mControl == 0)
+                    if vehicle_scor.mIsPlayer or vehicle_scor.mControl == 0:
+                        continue
+
+                    # Extract basic info
+                    driver_name = self.Cbytestring2Python(vehicle_scor.mDriverName)
+                    if not driver_name:  # Skip empty slots
+                        continue
+
+                    car_name = self.Cbytestring2Python(vehicle_tele.mVehicleName) or \
+                               self.Cbytestring2Python(vehicle_scor.mVehicleName)
+
+                    # Get lap info
+                    lap = vehicle_scor.mTotalLaps if vehicle_scor.mTotalLaps > 0 else 1
+                    lap_distance = vehicle_scor.mLapDist
+
+                    # Calculate lap time from last lap time + current sector times
+                    # This is an approximation - actual lap time accumulated during the lap
+                    sector1_time = vehicle_scor.mCurSector1
+                    sector2_time = vehicle_scor.mCurSector2
+                    last_lap_time = vehicle_scor.mLastLapTime
+
+                    # Use last lap time if available, otherwise estimate from sectors
+                    if last_lap_time > 0:
+                        lap_time = last_lap_time
+                    elif sector2_time > 0:
+                        lap_time = sector2_time  # In sector 3
+                    elif sector1_time > 0:
+                        lap_time = sector1_time  # In sector 2
+                    else:
+                        lap_time = 0.0  # In sector 1, time not meaningful yet
+
+                    # Calculate speed from local velocity
+                    speed = (vehicle_tele.mLocalVel.x**2 +
+                            vehicle_tele.mLocalVel.y**2 +
+                            vehicle_tele.mLocalVel.z**2)**0.5 * 3.6  # m/s to km/h
+
+                    # Create telemetry dict for this vehicle
+                    vehicle_data = {
+                        'driver_name': driver_name,
+                        'car_name': car_name,
+                        'control': vehicle_scor.mControl,  # -1=nobody, 0=local, 1=AI, 2=remote, 3=replay
+                        'position': vehicle_scor.mPlace,
+                        'lap': lap,
+                        'lap_distance': lap_distance,
+                        'lap_time': lap_time,
+                        'speed': speed,
+                        'rpm': vehicle_tele.mEngineRPM,
+                        'gear': vehicle_tele.mGear,
+                        'throttle': vehicle_tele.mUnfilteredThrottle * 100.0,  # 0-1 to 0-100%
+                        'brake': vehicle_tele.mUnfilteredBrake * 100.0,  # 0-1 to 0-100%
+                        'steering': vehicle_tele.mUnfilteredSteering * 100.0,  # -1 to 1 to -100% to 100%
+                        'position_x': vehicle_tele.mPos.x,
+                        'position_y': vehicle_tele.mPos.y,
+                        'position_z': vehicle_tele.mPos.z,
+                        'track_length': float(scor_info.mLapDist),
+                    }
+
+                    vehicles.append(vehicle_data)
+
+                except (AttributeError, IndexError) as e:
+                    # Skip vehicle if data unavailable
+                    continue
+
+            return vehicles
+
+        except Exception as e:
+            print(f"Error getting vehicle data: {e}")
+            return []
+
     @staticmethod
     def _session_from_int(session_code: int) -> str:
         mapping = {

@@ -224,3 +224,95 @@ class MockTelemetryReader(TelemetryReaderInterface):
             'max_revs': 8400.0,
             'idle_revs': 1680.0,
         }
+
+    def get_all_vehicles(self) -> list[Dict[str, Any]]:
+        """
+        Return mock opponent data for testing multiplayer features
+
+        Returns list of 2-3 mock opponents with telemetry data
+        """
+        now = time.perf_counter()
+        elapsed = now - self.lap_start_time
+
+        opponents = []
+
+        # Opponent 1: Remote player, slightly behind
+        lap1_time_offset = 2.5  # 2.5 seconds behind player
+        lap1_elapsed = max(0, elapsed - lap1_time_offset)
+        lap1_distance = (lap1_elapsed * 70) % self.track_length
+        lap1_speed = 250 + math.sin(lap1_distance / 1000) * 25
+
+        opponents.append({
+            'driver_name': 'Alice Johnson',
+            'car_name': 'Ferrari 499P',
+            'control': 2,  # Remote player
+            'position': 4,
+            'lap': self.lap if lap1_elapsed > 0 else self.lap - 1,
+            'lap_distance': lap1_distance,
+            'lap_time': lap1_elapsed,
+            'speed': lap1_speed,
+            'rpm': 7100 + (lap1_speed - 250) * 10,
+            'gear': 6,
+            'throttle': 95.0 if lap1_speed > 200 else 50.0,
+            'brake': 10.0 if lap1_speed < 180 else 0.0,
+            'steering': math.sin(lap1_elapsed) * 30.0,
+            'position_x': -269.26 + (1000 * math.cos(lap1_distance / self.track_length * 2 * math.pi)),
+            'position_y': 7.30,
+            'position_z': -218.97 + (1000 * math.sin(lap1_distance / self.track_length * 2 * math.pi)),
+            'track_length': self.track_length,
+        })
+
+        # Opponent 2: Remote player, ahead of player
+        lap2_time_offset = -3.2  # 3.2 seconds ahead of player
+        lap2_elapsed = elapsed - lap2_time_offset
+        lap2_distance = (lap2_elapsed * 72) % self.track_length
+        lap2_speed = 265 + math.sin(lap2_distance / 1000) * 22
+        lap2_lap = self.lap if lap2_elapsed >= 0 else self.lap + 1
+
+        opponents.append({
+            'driver_name': 'Bob Martinez',
+            'car_name': 'Porsche 963',
+            'control': 2,  # Remote player
+            'position': 2,
+            'lap': lap2_lap,
+            'lap_distance': lap2_distance,
+            'lap_time': lap2_elapsed if lap2_elapsed > 0 else 0,
+            'speed': lap2_speed,
+            'rpm': 7300 + (lap2_speed - 265) * 10,
+            'gear': 7,
+            'throttle': 98.0 if lap2_speed > 200 else 48.0,
+            'brake': 5.0 if lap2_speed < 180 else 0.0,
+            'steering': math.sin(lap2_elapsed) * 28.0,
+            'position_x': -269.26 + (1000 * math.cos(lap2_distance / self.track_length * 2 * math.pi)),
+            'position_y': 7.30,
+            'position_z': -218.97 + (1000 * math.sin(lap2_distance / self.track_length * 2 * math.pi)),
+            'track_length': self.track_length,
+        })
+
+        # Opponent 3: AI player (to test filtering)
+        lap3_time_offset = 5.0  # 5 seconds behind
+        lap3_elapsed = max(0, elapsed - lap3_time_offset)
+        lap3_distance = (lap3_elapsed * 68) % self.track_length
+        lap3_speed = 245 + math.sin(lap3_distance / 1000) * 20
+
+        opponents.append({
+            'driver_name': 'AI Driver',
+            'car_name': 'Cadillac V-Series.R',
+            'control': 1,  # AI
+            'position': 8,
+            'lap': self.lap if lap3_elapsed > 0 else self.lap - 1,
+            'lap_distance': lap3_distance,
+            'lap_time': lap3_elapsed,
+            'speed': lap3_speed,
+            'rpm': 7000 + (lap3_speed - 245) * 10,
+            'gear': 6,
+            'throttle': 92.0 if lap3_speed > 200 else 52.0,
+            'brake': 12.0 if lap3_speed < 180 else 0.0,
+            'steering': math.sin(lap3_elapsed) * 32.0,
+            'position_x': -269.26 + (1000 * math.cos(lap3_distance / self.track_length * 2 * math.pi)),
+            'position_y': 7.30,
+            'position_z': -218.97 + (1000 * math.sin(lap3_distance / self.track_length * 2 * math.pi)),
+            'track_length': self.track_length,
+        })
+
+        return opponents
