@@ -1,6 +1,10 @@
-The writers time measurements are off
+RESOLVED: The writers time measurements are off
 
-910s would be very slow for a lap of Sebring. I was doing closer to 2:10
+**Root Cause**: In `telemetry_real.py:101`, lap_time was incorrectly using `scor.mLapStartET` (lap start timestamp) instead of calculating the actual lap time as `scor.mCurrentET - scor.mLapStartET`.
+
+**Fix**: Changed line 101 to: `'lap_time': scor.mCurrentET - scor.mLapStartET`
+
+**Evidence**: 910s would be very slow for a lap of Sebring. I was doing closer to 2:10 (130s)
 
 *** Lap 4 completed!
     Lap time: 910.819s

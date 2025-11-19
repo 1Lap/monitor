@@ -98,7 +98,7 @@ class RealTelemetryReader(TelemetryReaderInterface):
                 'lap': lap,
                 'lap_distance': lap_distance,
                 'total_distance': total_distance,
-                'lap_time': scor.mLapStartET,
+                'lap_time': scor.mCurrentET - scor.mLapStartET,  # Current lap time = current time - lap start time
                 'sector1_time': scor.mCurSector1,
                 'sector2_time': scor.mCurSector2,
                 'sector3_time': 0.0,  # Sector 3 calculated from lap - S1 - S2
