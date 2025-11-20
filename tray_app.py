@@ -21,8 +21,10 @@ On Windows: Will use real LMU telemetry
 
 import time
 import sys
+import os
 import argparse
 import threading
+import logging
 from datetime import datetime
 from src.telemetry_loop import TelemetryLoop
 from src.csv_formatter import CSVFormatter
@@ -33,6 +35,45 @@ from src.settings_ui import SettingsConfig, show_settings_dialog
 from src.tray_ui import TrayUI
 from src.session_manager import SessionState
 from src.update_manager import UpdateManager
+
+
+def setup_logging():
+    """
+    Configure logging to write to file instead of console
+
+    Creates telemetry_logger.log in the application directory with:
+    - INFO level and above
+    - Timestamps for each log entry
+    - Both file and console output (console only if not running as .exe)
+    """
+    # Get log file path (in same directory as executable/script)
+    if getattr(sys, 'frozen', False):
+        # Running as compiled executable
+        app_dir = os.path.dirname(sys.executable)
+    else:
+        # Running as script
+        app_dir = os.path.dirname(os.path.abspath(__file__))
+
+    log_file = os.path.join(app_dir, 'telemetry_logger.log')
+
+    # Configure root logger
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s [%(levelname)s] %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S',
+        handlers=[
+            logging.FileHandler(log_file, mode='a', encoding='utf-8'),
+            # Also output to console when running as script (for development)
+            logging.StreamHandler(sys.stdout) if not getattr(sys, 'frozen', False) else logging.NullHandler()
+        ]
+    )
+
+    return log_file
+
+
+# Configure logging at module level
+LOG_FILE_PATH = setup_logging()
+logger = logging.getLogger(__name__)
 
 
 class TrayTelemetryApp:
@@ -110,10 +151,10 @@ class TrayTelemetryApp:
 
         if not lap_completed:
             # Discard incomplete laps
-            print(f"[INFO] Lap {lap_summary['lap']} incomplete ({stop_reason}) - discarding")
+            logger.info(f"Lap {lap_summary['lap']} incomplete ({stop_reason}) - discarding")
             return
 
-        print(f"[INFO] Lap {lap_summary['lap']} completed: {lap_summary.get('lap_time', 0.0):.3f}s")
+        logger.info(f"Lap {lap_summary['lap']} completed: {lap_summary.get('lap_time', 0.0):.3f}s")
 
         # Get session info
         session_info = self.telemetry_reader.get_session_info()
@@ -159,10 +200,10 @@ class TrayTelemetryApp:
             self.laps_saved += 1
             self.samples_collected += len(lap_data)
 
-            print(f"[OK] Saved to: {filepath}")
+            logger.info(f"Saved to: {filepath}")
 
         except Exception as e:
-            print(f"[ERROR] Error saving lap: {e}")
+            logger.error(f"Error saving lap: {e}")
 
     def on_opponent_lap_complete(self, opponent_lap_data):
         """
@@ -173,7 +214,7 @@ class TrayTelemetryApp:
         """
         from src.opponent_tracker import OpponentLapData
 
-        print(f"[INFO] Opponent lap: {opponent_lap_data.driver_name} - {opponent_lap_data.lap_time:.3f}s")
+        logger.info(f"Opponent lap: {opponent_lap_data.driver_name} - {opponent_lap_data.lap_time:.3f}s")
 
         # Validate lap time
         MIN_LAP_TIME = 30.0
@@ -233,10 +274,10 @@ class TrayTelemetryApp:
             )
 
             self.opponent_laps_saved += 1
-            print(f"[OK] Saved opponent lap to: {filepath}")
+            logger.info(f"Saved opponent lap to: {filepath}")
 
         except Exception as e:
-            print(f"[ERROR] Error saving opponent lap: {e}")
+            logger.error(f"Error saving opponent lap: {e}")
 
     def _get_track_name(self) -> str:
         """Get current track name from session info"""
@@ -289,7 +330,7 @@ class TrayTelemetryApp:
             update_info: Update information dict or None if check failed
         """
         if update_info and update_info.get('available'):
-            print(f"[INFO] Update available: {update_info['latest_version']}")
+            logger.info(f"Update available: {update_info['latest_version']}")
             # Handle update in main thread if tray is available
             if hasattr(self, 'tray_ui') and self.tray_ui:
                 # Show notification
@@ -300,32 +341,31 @@ class TrayTelemetryApp:
 
     def check_for_updates_manual(self):
         """Manually check for updates (called from menu)"""
-        print("[INFO] Checking for updates...")
+        logger.info("Checking for updates...")
 
         def on_checked(update_info):
             if update_info is None:
-                print("[INFO] Could not check for updates (network error)")
+                logger.info("Could not check for updates (network error)")
             elif update_info.get('available'):
-                print(f"[INFO] Update available: {update_info['latest_version']}")
+                logger.info(f"Update available: {update_info['latest_version']}")
                 # Show dialog
                 self.update_manager.handle_update_available(update_info)
             else:
-                print("[INFO] Already using the latest version")
+                logger.info("Already using the latest version")
 
         self.update_manager.check_for_updates_async(on_checked)
 
     def start(self):
         """Start the application with system tray UI"""
-        print("=" * 60)
-        print("LMU Telemetry Logger - System Tray Application")
-        print("=" * 60)
-        print(f"Target process: {self.config['target_process']}")
-        print(f"Output directory: {self.config['output_dir']}")
-        print(f"Poll rate: ~{1.0 / self.config['poll_interval']:.0f}Hz")
-        print()
-        print("Starting system tray icon...")
-        print("Right-click icon for menu (Start/Stop, Pause/Resume, etc.)")
-        print()
+        logger.info("=" * 60)
+        logger.info("LMU Telemetry Logger - System Tray Application")
+        logger.info("=" * 60)
+        logger.info(f"Target process: {self.config['target_process']}")
+        logger.info(f"Output directory: {self.config['output_dir']}")
+        logger.info(f"Poll rate: ~{1.0 / self.config['poll_interval']:.0f}Hz")
+        logger.info(f"Log file: {LOG_FILE_PATH}")
+        logger.info("Starting system tray icon...")
+        logger.info("Right-click icon for menu (Start/Stop, Pause/Resume, etc.)")
 
         self.running = True
 
@@ -340,7 +380,7 @@ class TrayTelemetryApp:
         try:
             self.tray_ui.start()
         except KeyboardInterrupt:
-            print("\nShutting down...")
+            logger.info("Shutting down...")
             self.stop()
 
     def stop(self):
@@ -352,16 +392,14 @@ class TrayTelemetryApp:
         if self.telemetry_thread and self.telemetry_thread.is_alive():
             self.telemetry_thread.join(timeout=2.0)
 
-        print()
-        print("=" * 60)
-        print("Session Summary")
-        print("=" * 60)
-        print(f"Player laps saved: {self.laps_saved}")
-        print(f"Opponent laps saved: {self.opponent_laps_saved}")
-        print(f"Samples collected: {self.samples_collected}")
-        print(f"Output directory: {self.file_manager.get_output_directory()}")
-        print()
-        print("Goodbye!")
+        logger.info("=" * 60)
+        logger.info("Session Summary")
+        logger.info("=" * 60)
+        logger.info(f"Player laps saved: {self.laps_saved}")
+        logger.info(f"Opponent laps saved: {self.opponent_laps_saved}")
+        logger.info(f"Samples collected: {self.samples_collected}")
+        logger.info(f"Output directory: {self.file_manager.get_output_directory()}")
+        logger.info("Goodbye!")
 
 
 def main():
@@ -391,12 +429,12 @@ Examples:
 
     # Show settings dialog if requested
     if args.settings:
-        print("Opening settings dialog...")
+        logger.info("Opening settings dialog...")
         saved = show_settings_dialog(args.config)
         if not saved:
-            print("Settings cancelled. Exiting.")
+            logger.info("Settings cancelled. Exiting.")
             sys.exit(0)
-        print("Settings saved!\n")
+        logger.info("Settings saved!")
 
     # Start application
     app = TrayTelemetryApp(config_file=args.config)

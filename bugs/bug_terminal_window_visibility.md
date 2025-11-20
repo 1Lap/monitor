@@ -1,9 +1,11 @@
 # Bug: Terminal Window Opens on Application Launch
 
+**Status**: ✅ **RESOLVED** (2025-11-20)
+
 ## Summary
 When the application is launched via the `.exe`, a terminal/console window opens alongside the system tray icon. This is unwanted for most users but helpful for debugging.
 
-## Current Behavior
+## Original Behavior
 - Running `LMU_Telemetry_Logger.exe` opens a console window
 - Console shows debug output (INFO, ERROR messages)
 - Window remains open until application exits
@@ -74,17 +76,54 @@ Add a checkbox in Settings UI:
 - `tray_app.py` - Add logging to file
 - `src/tray_ui.py` - Add "Open Log File" menu item
 
+## Solution Implemented
+
+Implemented **Option 2** (recommended solution):
+
+### Changes Made
+
+1. **build.bat** - Added `--noconsole` flag to PyInstaller
+   - Line 18: `pyinstaller --onedir --noconsole ^`
+   - Prevents console window from appearing when running .exe
+
+2. **tray_app.py** - Added file logging system
+   - New `setup_logging()` function configures Python logging module
+   - Logs written to `telemetry_logger.log` in application directory
+   - Format: `YYYY-MM-DD HH:MM:SS [LEVEL] message`
+   - Replaced all `print()` statements with `logger.info()` / `logger.error()` calls
+   - Console output only shown when running as script (development mode)
+   - When running as .exe, output only goes to log file
+
+3. **src/tray_ui.py** - Added "Open Log File" menu item
+   - New menu item after "Open Output Folder"
+   - `on_open_log_file()` handler opens log in default text editor
+   - Cross-platform support: Windows (startfile), macOS (open), Linux (xdg-open)
+   - Silently handles case where log file doesn't exist yet
+
+### Benefits
+- ✅ No console window for end users
+- ✅ All debug output captured in log file
+- ✅ Easy access to logs via system tray menu
+- ✅ Single executable (no separate debug build needed)
+- ✅ Developers still see console output when running as script
+
 ## Testing
-- [ ] Build with `--noconsole` flag
-- [ ] Launch exe, verify no console appears
-- [ ] Verify logs are written to file
-- [ ] Test "Open Log File" menu item opens log in default text editor
-- [ ] Verify all debug output is captured in log file
+- [x] Added `--noconsole` flag to build script
+- [x] Implemented file logging system
+- [x] Added "Open Log File" menu item
+- [x] Code compiles without syntax errors
+- [ ] Build with `--noconsole` flag (requires Windows)
+- [ ] Launch exe, verify no console appears (requires Windows)
+- [ ] Verify logs are written to file (requires Windows)
+- [ ] Test "Open Log File" menu item opens log in default text editor (requires Windows)
+- [ ] Verify all debug output is captured in log file (requires Windows)
 
 ## Priority
 **Medium** - Cosmetic issue but affects user experience. Most users don't need console output.
 
-## Related Files
-- `/home/user/eztel-writer/build.bat:18-27` - PyInstaller command
-- `/home/user/eztel-writer/tray_app.py:320-328` - Print statements throughout
-- `/home/user/eztel-writer/src/tray_ui.py` - System tray menu
+## Related Files (Modified)
+- `/home/user/eztel-writer/build.bat:18` - PyInstaller command (added --noconsole flag)
+- `/home/user/eztel-writer/tray_app.py:40-76` - Logging setup (new setup_logging() function)
+- `/home/user/eztel-writer/tray_app.py` - Replaced all print() with logger calls
+- `/home/user/eztel-writer/src/tray_ui.py:86` - Added "Open Log File" menu item
+- `/home/user/eztel-writer/src/tray_ui.py:176-206` - Added on_open_log_file() handler

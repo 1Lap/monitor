@@ -1,5 +1,6 @@
 """System tray UI for telemetry logger"""
 
+import os
 import sys
 import subprocess
 from typing import Any, Optional
@@ -83,6 +84,7 @@ class TrayUI:
                 enabled=self._is_pause_resume_enabled
             ),
             Item('Open Output Folder', self.on_open_folder),
+            Item('Open Log File', self.on_open_log_file),
             pystray.Menu.SEPARATOR,
             Item('Settings...', self.on_settings),
             Item('Check for Updates...', self.on_check_for_updates),
@@ -170,6 +172,37 @@ class TrayUI:
             subprocess.run(['open', output_dir])
         else:  # Linux
             subprocess.run(['xdg-open', output_dir])
+
+    def on_open_log_file(self):
+        """Handle Open Log File menu click"""
+        # Get log file path from tray_app module
+        try:
+            from tray_app import LOG_FILE_PATH
+            log_file = LOG_FILE_PATH
+        except ImportError:
+            # Fallback: determine log file path
+            if getattr(sys, 'frozen', False):
+                # Running as compiled executable
+                app_dir = os.path.dirname(sys.executable)
+            else:
+                # Running as script
+                app_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            log_file = os.path.join(app_dir, 'telemetry_logger.log')
+
+        # Check if log file exists
+        if not os.path.exists(log_file):
+            return  # Silently return if log file doesn't exist yet
+
+        # Open log file using platform-specific command
+        if sys.platform == 'win32':
+            # On Windows, open with default text editor
+            os.startfile(log_file)
+        elif sys.platform == 'darwin':
+            # On macOS, open with default text editor
+            subprocess.run(['open', log_file])
+        else:  # Linux
+            # On Linux, open with default text editor
+            subprocess.run(['xdg-open', log_file])
 
     def on_settings(self):
         """Handle Settings menu click"""
