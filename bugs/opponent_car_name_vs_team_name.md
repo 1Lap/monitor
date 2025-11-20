@@ -257,50 +257,79 @@ This is different from games like iRacing where car model is clearly separated f
 
 ## Current Status (2025-11-20)
 
-### Debug Logging Added
+### ✅ INVESTIGATION COMPLETE
 
-**File**: `src/telemetry/telemetry_real.py:305-318`
-
-Added debug output that prints vehicle identification fields for the first opponent:
-
-```python
-[DEBUG] Vehicle identification fields for 'Igor Pikachu':
-  mVehicleName (tele): '...'
-  mVehicleName (scor): '...'
-  mVehicleClass:       '...'
-  mPitGroup:           '...'
-  car_name (used):     '...'
+**Debug output received**:
+```
+[DEBUG] Vehicle identification fields for 'J P':
+  mVehicleName (tele): 'Iron Dames #85:LM'
+  mVehicleName (scor): 'Iron Dames #85:LM'
+  mVehicleClass:       'GTE'
+  mPitGroup:           'Group32'
+  car_name (used):     'Iron Dames #85:LM'
 ```
 
-### Next Steps
+### Findings
 
-1. **User Action Required**: Run the telemetry logger in a multiplayer session
-2. **Observe Debug Output**: Check console for the debug output
-3. **Share Results**: Report back what the fields contain
-4. **Implement Fix**: Based on findings, update code to use correct fields
+**BAD NEWS**: LMU/rF2 shared memory **does NOT expose the car make/model separately**.
 
-### Expected Debug Output Example
+Available fields:
+- ❌ `mVehicleName`: Contains team entry name (e.g., "Iron Dames #85:LM") - NOT car model
+- ❌ `mVehicleClass`: Contains class only (e.g., "GTE") - too generic, doesn't distinguish Porsche vs Ferrari
+- ❌ `mPitGroup`: Contains generic group (e.g., "Group32") - not useful
 
-If we see something like:
-```
-[DEBUG] Vehicle identification fields for 'Igor Pikachu':
-  mVehicleName (tele): 'Oreca 07 Gibson #16'
-  mVehicleName (scor): 'Proton Competition #16'
-  mVehicleClass:       'LMP2'
-  mPitGroup:           'Proton Competition'
-  car_name (used):     'Oreca 07 Gibson #16'
-```
+**CONCLUSION**: The car make/model (e.g., "Porsche 911 RSR", "Ferrari 488 GTE") is NOT available in shared memory. It's defined in the vehicle files (.veh) but not exposed to telemetry plugins.
 
-Then the fix would be to use telemetry mVehicleName for car model and mPitGroup for team name.
+### Proposed Solution
 
-OR if we see:
-```
-[DEBUG] Vehicle identification fields for 'Igor Pikachu':
-  mVehicleName (tele): 'Proton Competition #16'
-  mVehicleName (scor): 'Proton Competition #16'
-  mVehicleClass:       'Oreca 07 - LMP2'
-  mPitGroup:           'Proton Competition'
-  car_name (used):     'Proton Competition #16'
-```
+Since we can't get the actual car model, we have two options:
 
-Then the fix would be to use mVehicleClass for car model and mVehicleName (or mPitGroup) for team name.
+**Option A: Keep current behavior, improve metadata**
+- ✅ Filename continues to use team entry name (e.g., "iron-dames-#85-lm")
+- ✅ Add vehicle class to filename for better organization (e.g., "gte_iron-dames-#85-lm")
+- ✅ Add vehicle class to CSV metadata
+- ✅ Document limitation clearly
+
+**Option B: Manual car model mapping (future enhancement)**
+- Create a mapping file: team entry → car model
+- Users could edit this file to map entries to car models
+- More complex, requires maintenance
+
+**RECOMMENDATION**: Go with Option A for now.
+
+### Implementation Plan (Option A)
+
+1. **Add vehicle class to telemetry dict**
+   ```python
+   vehicle_data = {
+       'car_name': car_name,           # Team entry (e.g., "Iron Dames #85:LM")
+       'car_class': vehicle_class,     # NEW: Class (e.g., "GTE")
+       # ...
+   }
+   ```
+
+2. **Update filename format to include class**
+   ```
+   Before: 2025-11-20_15-23_spa_iron-dames-#85-lm_jp_lap2_t95s.csv
+   After:  2025-11-20_15-23_spa_gte_iron-dames-#85-lm_jp_lap2_t95s.csv
+                                      ^^^^
+                                      Class helps group by car type
+   ```
+
+3. **Add CarClass to CSV metadata**
+   ```csv
+   Format,LMUTelemetry
+   Version,3
+   Player,J P
+   TrackName,Spa-Francorchamps
+   CarName,Iron Dames #85:LM
+   CarClass,GTE                  ← NEW: Helps identify car category
+   SessionUTC,2025-11-20T15:23:45
+   LapTime [s],95.234
+   TrackLen [m],7004.0
+   ```
+
+4. **Update documentation**
+   - Explain that CarName is the team entry, not car model
+   - Explain that CarClass helps categorize (HYPERCAR, LMP2, GTE, GT3)
+   - Suggest manual organization if users need car-specific grouping

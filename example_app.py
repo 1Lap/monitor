@@ -158,7 +158,11 @@ class TelemetryApp:
         # Build session info specifically for opponent (don't use player's info!)
         session_info = {
             'player_name': opponent_lap_data.driver_name,
-            'car_name': opponent_lap_data.car_name or 'Unknown',
+            'car_name': opponent_lap_data.car_name or 'Unknown',  # Team entry (legacy)
+            'car_model': opponent_lap_data.car_model or 'Unknown',  # Car make/model
+            'team_name': opponent_lap_data.team_name or 'Unknown',  # Team name
+            'manufacturer': opponent_lap_data.manufacturer or 'Unknown',  # Manufacturer
+            'car_class': opponent_lap_data.car_class or 'Unknown',  # Vehicle class
             'track_name': self._get_track_name(),
             'session_type': self._get_session_type(),
             'game_version': '1.0',

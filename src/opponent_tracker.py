@@ -13,7 +13,11 @@ class OpponentLapData:
     samples: List[Dict[str, Any]]
     is_fastest: bool
     position: Optional[int] = None
-    car_name: Optional[str] = None
+    car_name: Optional[str] = None  # Team entry name (e.g., "Action Express Racing #311:LM")
+    car_model: Optional[str] = None  # Car make/model (e.g., "Cadillac V-Series.R")
+    team_name: Optional[str] = None  # Team name (e.g., "Action Express Racing")
+    manufacturer: Optional[str] = None  # Manufacturer (e.g., "Cadillac")
+    car_class: Optional[str] = None  # Vehicle class (e.g., "Hypercar", "GTE", "GT3")
 
 
 class OpponentTracker:
@@ -112,6 +116,10 @@ class OpponentTracker:
                     is_fastest=True,  # Mark as fastest since we only return fastest
                     position=telemetry.get('position'),
                     car_name=telemetry.get('car_name'),
+                    car_model=telemetry.get('car_model'),
+                    team_name=telemetry.get('team_name'),
+                    manufacturer=telemetry.get('manufacturer'),
+                    car_class=telemetry.get('car_class'),
                 )
                 completed_laps.append(lap_data)
 

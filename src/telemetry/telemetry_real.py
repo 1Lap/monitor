@@ -1,8 +1,16 @@
 """Real telemetry reader from pyRfactor2SharedMemory (Windows only)"""
 
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 from datetime import datetime
 from .telemetry_interface import TelemetryReaderInterface
+
+# Import REST API client for vehicle metadata
+try:
+    from ..lmu_rest_api import LMURestAPI
+    REST_API_AVAILABLE = True
+except ImportError:
+    REST_API_AVAILABLE = False
+    LMURestAPI = None
 
 
 class RealTelemetryReader(TelemetryReaderInterface):
@@ -41,6 +49,22 @@ class RealTelemetryReader(TelemetryReaderInterface):
         self.SimInfoAPI = SimInfoAPI
         self.Cbytestring2Python = Cbytestring2Python
         self.info = SimInfoAPI()
+
+        # Initialize REST API client for vehicle metadata
+        self.rest_api: Optional[LMURestAPI] = None
+        if REST_API_AVAILABLE and LMURestAPI:
+            try:
+                self.rest_api = LMURestAPI()
+                if self.rest_api.is_available():
+                    # Fetch vehicle data on startup
+                    self.rest_api.fetch_vehicle_data()
+                    print("[LMU REST API] Vehicle metadata loaded successfully")
+                else:
+                    print("[LMU REST API] API not available, will use shared memory only")
+                    self.rest_api = None
+            except Exception as e:
+                print(f"[LMU REST API] Error initializing: {e}")
+                self.rest_api = None
 
     def is_available(self) -> bool:
         """Check if shared memory is accessible"""
@@ -302,20 +326,23 @@ class RealTelemetryReader(TelemetryReaderInterface):
                     car_name = self.Cbytestring2Python(vehicle_tele.mVehicleName) or \
                                self.Cbytestring2Python(vehicle_scor.mVehicleName)
 
-                    # DEBUG: Log vehicle identification fields for first opponent
-                    # This helps understand what fields contain car model vs team name
-                    # TODO: Remove after investigation complete
-                    if i == 0 and car_name:  # Only log for first opponent to avoid spam
-                        vehicle_class = self.Cbytestring2Python(vehicle_scor.mVehicleClass) if hasattr(vehicle_scor, 'mVehicleClass') else 'N/A'
-                        pit_group = self.Cbytestring2Python(vehicle_scor.mPitGroup) if hasattr(vehicle_scor, 'mPitGroup') else 'N/A'
-                        tele_vehicle = self.Cbytestring2Python(vehicle_tele.mVehicleName) if hasattr(vehicle_tele, 'mVehicleName') else 'N/A'
-                        scor_vehicle = self.Cbytestring2Python(vehicle_scor.mVehicleName) if hasattr(vehicle_scor, 'mVehicleName') else 'N/A'
-                        print(f"\n[DEBUG] Vehicle identification fields for '{driver_name}':")
-                        print(f"  mVehicleName (tele): '{tele_vehicle}'")
-                        print(f"  mVehicleName (scor): '{scor_vehicle}'")
-                        print(f"  mVehicleClass:       '{vehicle_class}'")
-                        print(f"  mPitGroup:           '{pit_group}'")
-                        print(f"  car_name (used):     '{car_name}'\n")
+                    # Enrich with REST API data (car model, manufacturer, team name)
+                    car_model = ''
+                    team_name = ''
+                    manufacturer = ''
+                    vehicle_class_api = ''
+
+                    if self.rest_api:
+                        vehicle_meta = self.rest_api.lookup_vehicle(car_name)
+                        if vehicle_meta:
+                            car_model = vehicle_meta.get('car_model', '')
+                            team_name = vehicle_meta.get('team', '')
+                            manufacturer = vehicle_meta.get('manufacturer', '')
+                            vehicle_class_api = vehicle_meta.get('class', '')
+
+                    # Fallback: if REST API unavailable, use shared memory vehicle class
+                    if not vehicle_class_api:
+                        vehicle_class_api = self.Cbytestring2Python(vehicle_scor.mVehicleClass) if hasattr(vehicle_scor, 'mVehicleClass') else ''
 
                     # Get lap info
                     lap = vehicle_scor.mTotalLaps if vehicle_scor.mTotalLaps > 0 else 1
@@ -333,7 +360,11 @@ class RealTelemetryReader(TelemetryReaderInterface):
                     # Create telemetry dict for this vehicle
                     vehicle_data = {
                         'driver_name': driver_name,
-                        'car_name': car_name,
+                        'car_name': car_name,  # Team entry name (e.g., "Action Express Racing #311:LM 1.41")
+                        'car_model': car_model,  # Car make/model (e.g., "Cadillac V-Series.R")
+                        'team_name': team_name,  # Team name (e.g., "Action Express Racing")
+                        'manufacturer': manufacturer,  # Manufacturer (e.g., "Cadillac")
+                        'car_class': vehicle_class_api,  # Class (e.g., "Hypercar", "GTE", "GT3")
                         'control': vehicle_scor.mControl,  # -1=nobody, 0=local, 1=AI, 2=remote, 3=replay
                         'position': vehicle_scor.mPlace,
                         'lap': lap,
