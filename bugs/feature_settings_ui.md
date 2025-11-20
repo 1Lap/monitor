@@ -1,10 +1,10 @@
 # Feature: Settings/Configuration UI
 
-**Status**: Not Implemented
+**Status**: ✅ IMPLEMENTED
 **Priority**: Low-Medium
 **Category**: User Interface
 **Related Phase**: Phase 5 (System Tray UI & User Controls)
-**Estimated Effort**: 2-3 days
+**Implemented**: 2025-11-20
 
 ---
 
@@ -389,3 +389,87 @@ def test_restore_defaults():
 - `feature_system_tray.md` - System tray can add "Settings..." menu item
 - `feature_auto_update.md` - Settings could include auto-update preferences
 - Phase 5 in `CLAUDE.md` - This is one component of Phase 5
+
+---
+
+## Implementation Summary
+
+**Date**: 2025-11-20
+
+### What Was Implemented
+
+✅ **All Must-Have Features**:
+- Output directory selection with file browser
+- Enable/disable opponent tracking (checkbox)
+- Enable/disable AI opponent tracking (checkbox)
+- Target process name (text input)
+- Poll interval selection (50, 100, 200 Hz radio buttons)
+- Save/Cancel/Restore Defaults buttons
+- Settings persistence (config.json)
+
+### Files Created
+
+1. **`src/settings_ui.py`** - Settings UI implementation
+   - `SettingsConfig` class - Backend configuration management (load/save/validate)
+   - `SettingsDialog` class - tkinter GUI dialog
+   - `show_settings_dialog()` - Convenience function
+
+2. **`tests/test_settings_ui.py`** - Comprehensive test suite
+   - 13 tests covering all configuration logic
+   - TDD approach (tests written first)
+   - Tests for load, save, validate, defaults, conversions
+
+### Files Modified
+
+1. **`example_app.py`** - Integration with main app
+   - Added `--settings` command line flag
+   - Added `--config` flag for custom config file path
+   - Loads configuration from `config.json` on startup
+   - Falls back to defaults if config doesn't exist
+
+### Usage
+
+```bash
+# Run with saved settings
+python example_app.py
+
+# Open settings dialog first
+python example_app.py --settings
+
+# Use custom config file
+python example_app.py --config my_config.json
+```
+
+### Test Results
+
+All 106 tests pass, including 13 new settings UI tests:
+- ✅ Config load/save/validate
+- ✅ Default values and merging
+- ✅ Hz/interval conversions
+- ✅ Directory validation
+- ✅ No breaking changes to existing functionality
+
+### Technical Decisions
+
+1. **UI Library**: tkinter (built-in, cross-platform, no extra dependencies)
+2. **Architecture**: Separated `SettingsConfig` (backend) from `SettingsDialog` (GUI)
+   - Enables testing without GUI
+   - Clean separation of concerns
+3. **Config Format**: JSON (human-readable, standard format)
+4. **Integration**: Command-line flag approach for standalone app
+   - Can be integrated with system tray later (future work)
+
+### Known Limitations
+
+- GUI testing not automated (manual testing required on each platform)
+- Nice-to-have features not yet implemented:
+  - File naming format template editor
+  - Auto-start with Windows
+  - Logging filters (min lap time, min samples)
+  - UI theme selection
+
+### Future Work
+
+- Integrate with system tray menu (when Phase 5 system tray is implemented)
+- Add nice-to-have features based on user feedback
+- Consider hot-reload (apply settings without restart)

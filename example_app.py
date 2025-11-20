@@ -10,7 +10,8 @@ This example shows how to use all components together:
 5. FileManager - Save to disk
 
 Usage:
-    python example_app.py
+    python example_app.py              # Run with saved settings
+    python example_app.py --settings   # Open settings dialog first
 
 On macOS: Will use mock telemetry and detect python process
 On Windows: Will use real LMU telemetry (when implemented)
@@ -19,29 +20,36 @@ On Windows: Will use real LMU telemetry (when implemented)
 import time
 import signal
 import sys
+import argparse
 from datetime import datetime
 from src.telemetry_loop import TelemetryLoop
 from src.csv_formatter import CSVFormatter
 from src.file_manager import FileManager
 from src.mvp_format import build_metadata_block, detect_sector_boundaries
 from src.telemetry.telemetry_interface import get_telemetry_reader
+from src.settings_ui import SettingsConfig, show_settings_dialog
 
 
 class TelemetryApp:
     """Main application coordinating all components"""
 
-    def __init__(self):
-        """Initialize application"""
-        self.running = False
+    def __init__(self, config_file='config.json'):
+        """Initialize application
 
-        # Configuration
-        import sys
-        target_process = 'Le Mans Ultimate' if sys.platform == 'win32' else 'python'
-        self.config = {
-            'target_process': target_process,  # 'Le Mans Ultimate' on Windows, 'python' on other platforms
-            'poll_interval': 0.01,  # 100Hz
-            'output_dir': './telemetry_output',
-        }
+        Args:
+            config_file: Path to config JSON file
+        """
+        self.running = False
+        self.config_file = config_file
+
+        # Load configuration from config.json (or use defaults)
+        settings = SettingsConfig(config_file)
+        self.config = settings.get_all()
+
+        # If target_process not set, use platform default
+        if not self.config.get('target_process'):
+            import sys
+            self.config['target_process'] = 'Le Mans Ultimate' if sys.platform == 'win32' else 'python'
 
         # Initialize components
         self.csv_formatter = CSVFormatter()
@@ -50,11 +58,12 @@ class TelemetryApp:
 
         # Initialize telemetry loop with lap completion callback
         self.telemetry_loop = TelemetryLoop({
-            **self.config,
+            'target_process': self.config['target_process'],
+            'poll_interval': self.config['poll_interval'],
             'on_lap_complete': self.on_lap_complete,
             'on_opponent_lap_complete': self.on_opponent_lap_complete,
-            'track_opponents': True,  # Enable opponent tracking
-            'track_opponent_ai': False,  # Only track remote players, not AI
+            'track_opponents': self.config.get('track_opponents', True),
+            'track_opponent_ai': self.config.get('track_opponent_ai', False),
         })
 
         # Track statistics
@@ -340,7 +349,40 @@ class TelemetryApp:
 
 def main():
     """Main entry point"""
-    app = TelemetryApp()
+    # Parse command line arguments
+    parser = argparse.ArgumentParser(
+        description='LMU Telemetry Logger - Automatically capture and export telemetry data',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  %(prog)s              # Run with saved settings
+  %(prog)s --settings   # Open settings dialog first
+        """
+    )
+    parser.add_argument(
+        '--settings',
+        action='store_true',
+        help='Open settings dialog before starting'
+    )
+    parser.add_argument(
+        '--config',
+        default='config.json',
+        help='Path to config file (default: config.json)'
+    )
+
+    args = parser.parse_args()
+
+    # Show settings dialog if requested
+    if args.settings:
+        print("Opening settings dialog...")
+        saved = show_settings_dialog(args.config)
+        if not saved:
+            print("Settings cancelled. Exiting.")
+            sys.exit(0)
+        print("Settings saved!\n")
+
+    # Start application
+    app = TelemetryApp(config_file=args.config)
     app.start()
 
 

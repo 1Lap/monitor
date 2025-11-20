@@ -4,14 +4,14 @@
 
 This is a background telemetry logger for Le Mans Ultimate (LMU) that automatically captures and exports telemetry data to CSV files. The project uses a **cross-platform development strategy**: develop on macOS with mocks, then test/deploy on Windows with real LMU data.
 
-**Current Status**: Phases 1-4 and 6 complete (core system fully functional, tested on Windows with live LMU), Phase 5 (System Tray UI) not yet implemented, Phase 7 in progress (executable built, final validation pending)
+**Current Status**: Phases 1-4 and 6 complete (core system fully functional, tested on Windows with live LMU), Phase 5 partially complete (Settings UI ✅, System Tray pending), Phase 7 in progress (executable built, final validation pending)
 
 ## Development Philosophy
 
 ### Test-Driven Development (TDD)
 - **ALWAYS write tests before code** when implementing new features
 - Tests should fail first, then write code to make them pass
-- Current coverage: **60/60 tests passing, 100% coverage of implemented modules**
+- Current coverage: **106/106 tests passing, 100% coverage of implemented modules**
 - If tests can't pass after trying, ask user before modifying tests
 
 ### Cross-Platform Architecture
@@ -68,10 +68,20 @@ This is a background telemetry logger for Le Mans Ultimate (LMU) that automatica
    - Sanitizes filenames, manages output directory
    - Utilities: list, delete, filter by session
 
+8. **SettingsUI** (`src/settings_ui.py`) ✅ **NEW** (2025-11-20)
+   - GUI settings dialog using tkinter (cross-platform, built-in)
+   - `SettingsConfig` - backend configuration management
+   - `SettingsDialog` - GUI dialog for user settings
+   - Configuration: output directory, opponent tracking, poll rate
+   - Persistence: saves/loads config.json
+   - Validation: ensures settings are valid before saving
+   - Command-line integration: `python example_app.py --settings`
+
 ### Integration Example
 - `example_app.py` - Complete working application
 - Demonstrates all components working together
-- Run with: `python example_app.py`
+- Run with: `python example_app.py` (uses saved config)
+- Configure settings: `python example_app.py --settings` (shows GUI dialog)
 
 ## Testing Requirements
 
@@ -101,21 +111,31 @@ pytest --cov=src --cov-report=html
 - `test_csv_formatter.py` - 6 tests (updated for MVP format)
 - `test_sample_normalizer.py` - 5 tests (NEW - MVP format normalization)
 - `test_file_manager.py` - 16 tests
+- `test_settings_ui.py` - 13 tests (NEW - Settings UI configuration)
+- `test_opponent_tracker.py` - 11 tests
+- `test_example_app_integration.py` - 4 tests
+- `test_telemetry_real.py` - 2 tests
+- **Total: 106 tests passing**
 
 ## Phase Status
 
-### Phase Progress (Phases 1-4, 6 Complete; Phase 5 Pending)
+### Phase Progress (Phases 1-4, 6 Complete; Phase 5 Partially Complete)
 - [x] Phase 1: Setup & Cross-Platform Development Foundation
 - [x] Phase 2: Core Logger Service Development
 - [x] Phase 3: CSV Formatter Implementation (MVP format)
 - [x] Phase 4: File Management & Configuration
-- [ ] Phase 5: System Tray UI & User Controls ⚠️ **NOT IMPLEMENTED**
-  - [ ] System tray icon and menu
-  - [ ] Start/Stop/Pause controls via tray
-  - [ ] Settings/configuration UI
-  - [ ] Status display in tray
-  - **Note**: `pystray` is in requirements.txt but no implementation exists yet
-  - **Current**: Application runs as command-line only (`example_app.py`)
+- [~] Phase 5: System Tray UI & User Controls ⚠️ **PARTIALLY IMPLEMENTED**
+  - [ ] System tray icon and menu (not implemented)
+  - [ ] Start/Stop/Pause controls via tray (not implemented)
+  - [x] Settings/configuration UI ✅ **COMPLETE** (2025-11-20)
+    - [x] Settings dialog with tkinter GUI
+    - [x] Output directory, opponent tracking, poll rate configuration
+    - [x] Save/Load/Validate config.json
+    - [x] Integrated with `example_app.py` (--settings flag)
+    - [x] 13 comprehensive tests
+  - [ ] Status display in tray (not implemented)
+  - **Note**: `pystray` is in requirements.txt but system tray not yet implemented
+  - **Current**: Application runs as command-line with optional settings dialog
 - [x] Phase 6: Windows Testing & Real Telemetry
   - [x] `RealTelemetryReader` implemented using `pyRfactor2SharedMemory`
   - [x] Tested with live LMU on Windows
