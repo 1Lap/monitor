@@ -363,3 +363,158 @@ class TestOpponentTracker:
         assert normalized['Gear [int]'] == 5
         assert normalized['X [m]'] == 123.45
         assert normalized['Z [m]'] == -101.23
+
+    def test_partial_lap_discarded_when_joining_mid_race(self):
+        """Test that partial laps are discarded when joining mid-race"""
+        tracker = OpponentTracker()
+
+        # Join mid-race: opponent is 75% through lap 8
+        # We start collecting data from this point
+        track_length = 5000.0
+        lap_start_threshold = 0.05 * track_length  # 250m
+
+        # Collect samples from 75% onwards (3750m to end)
+        for i in range(5):
+            telemetry = create_telemetry_dict(
+                driver_name='Mid-Race Driver',
+                lap=8,
+                lap_distance=3750.0 + (i * 50),  # 3750m, 3800m, 3850m, etc.
+                lap_time=10.0 + i,
+                speed=150.0,
+                control=2
+            )
+            telemetry['track_length'] = track_length
+            completed = tracker.update_opponent(telemetry, timestamp=float(i))
+            assert completed == []
+
+        # Opponent completes lap 8 and starts lap 9
+        telemetry = create_telemetry_dict(
+            driver_name='Mid-Race Driver',
+            lap=9,
+            lap_distance=50.0,  # Just started lap 9
+            lap_time=0.5,
+            last_lap_time=95.0,  # Lap 8 time
+            speed=150.0,
+            control=2
+        )
+        telemetry['track_length'] = track_length
+        completed = tracker.update_opponent(telemetry, timestamp=6.0)
+
+        # Partial lap should be discarded (we never saw lap start)
+        assert completed == []
+        assert tracker.opponents['Mid-Race Driver']['seen_lap_start'] is False
+        assert len(tracker.opponents['Mid-Race Driver']['samples']) == 0
+
+        # Now collect full lap 9 from start to finish
+        # First pass through lap start
+        telemetry = create_telemetry_dict(
+            driver_name='Mid-Race Driver',
+            lap=9,
+            lap_distance=100.0,  # Within lap start threshold (< 250m)
+            lap_time=1.0,
+            speed=150.0,
+            control=2
+        )
+        telemetry['track_length'] = track_length
+        tracker.update_opponent(telemetry, timestamp=7.0)
+        assert tracker.opponents['Mid-Race Driver']['seen_lap_start'] is True
+
+        # Continue through lap 9
+        for i in range(5):
+            telemetry = create_telemetry_dict(
+                driver_name='Mid-Race Driver',
+                lap=9,
+                lap_distance=500.0 + (i * 100),
+                lap_time=5.0 + i,
+                speed=150.0,
+                control=2
+            )
+            telemetry['track_length'] = track_length
+            tracker.update_opponent(telemetry, timestamp=8.0 + i)
+
+        # Complete lap 9
+        telemetry = create_telemetry_dict(
+            driver_name='Mid-Race Driver',
+            lap=10,
+            lap_distance=50.0,
+            lap_time=0.5,
+            last_lap_time=92.0,  # Lap 9 time (faster than lap 8)
+            speed=150.0,
+            control=2
+        )
+        telemetry['track_length'] = track_length
+        completed = tracker.update_opponent(telemetry, timestamp=14.0)
+
+        # This complete lap SHOULD be saved
+        assert len(completed) == 1
+        assert completed[0].lap_number == 9
+        assert completed[0].lap_time == 92.0
+        assert len(completed[0].samples) == 6  # 1 at start + 5 during lap
+
+    def test_lap_number_skip_not_detected(self):
+        """Test that lap number jumps (e.g., 1→3) are not detected as lap completion"""
+        tracker = OpponentTracker()
+
+        # Complete some samples for lap 1
+        for i in range(3):
+            telemetry = create_telemetry_dict(
+                driver_name='Jumpy Driver',
+                lap=1,
+                lap_distance=100.0 * i,
+                lap_time=1.0 * i,
+                speed=150.0,
+                control=2
+            )
+            tracker.update_opponent(telemetry, timestamp=float(i))
+
+        # Lap number jumps from 1 to 3 (skipping 2)
+        # This could happen if telemetry is unreliable
+        telemetry = create_telemetry_dict(
+            driver_name='Jumpy Driver',
+            lap=3,  # Jump from 1 to 3
+            lap_distance=50.0,
+            lap_time=0.5,
+            last_lap_time=95.0,
+            speed=150.0,
+            control=2
+        )
+        completed = tracker.update_opponent(telemetry, timestamp=4.0)
+
+        # Should NOT detect completion (not exactly +1)
+        assert completed == []
+        assert tracker.opponents['Jumpy Driver']['current_lap'] == 3
+
+    def test_lap_start_detection_with_various_distances(self):
+        """Test that lap start is correctly detected at various distances"""
+        tracker = OpponentTracker()
+        track_length = 5000.0
+        lap_start_threshold = 0.05 * track_length  # 250m
+
+        # Test distances at lap start
+        test_cases = [
+            (0.0, True),      # Exactly at start line
+            (50.0, True),     # Within threshold
+            (249.9, True),    # Just inside threshold
+            (250.0, False),   # At threshold boundary
+            (251.0, False),   # Just outside threshold
+            (1000.0, False),  # Mid-lap
+            (4500.0, False),  # Near end of lap
+        ]
+
+        for distance, should_detect_start in test_cases:
+            # Reset tracker for each test
+            tracker.reset()
+
+            telemetry = create_telemetry_dict(
+                driver_name='Distance Test Driver',
+                lap=1,
+                lap_distance=distance,
+                lap_time=5.0,
+                speed=150.0,
+                control=2
+            )
+            telemetry['track_length'] = track_length
+            tracker.update_opponent(telemetry, timestamp=1.0)
+
+            assert tracker.opponents['Distance Test Driver']['seen_lap_start'] == should_detect_start, \
+                f"Failed for distance {distance}m: expected seen_lap_start={should_detect_start}"

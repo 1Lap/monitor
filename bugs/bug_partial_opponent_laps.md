@@ -1,5 +1,26 @@
 # Bug: Partial Opponent Laps Written When Joining Mid-Session
 
+## Status: ✅ RESOLVED
+
+**Resolved:** 2025-11-20
+**Branch:** claude/fix-opponent-lap-bugs-01KA5DeHo42w58EfwoEWbuLs
+
+**Solution:**
+1. Added `seen_lap_start` flag to opponent tracking data structure to track whether we've observed the opponent at the start of a lap (within first 5% of track distance).
+2. Implemented lap start detection: when `lap_distance < 0.05 * track_length`, set `seen_lap_start = True`.
+3. On lap completion, check if `seen_lap_start` is True before saving the lap. If False (partial lap), discard the samples and reset for the next lap.
+4. This ensures only complete laps (tracked from start to finish) are saved, preventing partial lap data when joining mid-session.
+
+**Changes:**
+- `src/opponent_tracker.py:89` - Added `seen_lap_start` flag to opponent tracking structure
+- `src/opponent_tracker.py:121-127` - Check and discard partial laps on completion
+- `src/opponent_tracker.py:161-162` - Detect lap start based on lap distance threshold
+- `tests/test_opponent_tracker.py` - Added tests:
+  - `test_partial_lap_discarded_when_joining_mid_race`
+  - `test_lap_start_detection_with_various_distances`
+
+---
+
 ## Summary
 When joining a multiplayer session mid-race, opponent lap files are created for incomplete laps. This happens because we start collecting telemetry samples from opponents mid-lap, and when they cross the finish line, we write their partial lap data (missing the beginning of the lap).
 

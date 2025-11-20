@@ -86,14 +86,21 @@ class OpponentTracker:
                 'samples': [],
                 'fastest_lap_time': float('inf'),
                 'lap_start_timestamp': timestamp,
+                'seen_lap_start': False,  # Track if we've seen lap start (to detect partial laps)
             }
 
         opponent = self.opponents[driver_name]
         current_lap = telemetry.get('lap', 0)
         completed_laps = []
 
-        # Detect lap completion (lap number increased)
-        if current_lap > opponent['current_lap'] and opponent['current_lap'] > 0:
+        # Get lap position info for lap start detection
+        lap_distance = telemetry.get('lap_distance', 0.0)
+        track_length = telemetry.get('track_length', 5000.0)  # Default ~5km track
+        LAP_START_THRESHOLD = 0.05 * track_length  # First 5% of track
+
+        # Detect lap completion (lap number increased by exactly 1 to avoid skipped laps)
+        # Check BEFORE updating seen_lap_start for the new lap
+        if current_lap == opponent['current_lap'] + 1 and opponent['current_lap'] > 0:
             # Get last completed lap time from shared memory
             # Use 'last_lap_time' (mLastLapTime) not 'lap_time' (mTimeIntoLap)
             # When lap changes 3→4, lap_time=0.5s (time into new lap 4)
@@ -105,6 +112,15 @@ class OpponentTracker:
                 # Clear samples for new lap and continue tracking
                 opponent['samples'] = []
                 opponent['lap_start_timestamp'] = timestamp
+                opponent['current_lap'] = current_lap
+                return []
+
+            # Check if we've seen the lap start (to avoid partial laps when joining mid-race)
+            if not opponent['seen_lap_start']:
+                # Discard partial lap - we joined mid-lap
+                opponent['samples'] = []
+                opponent['lap_start_timestamp'] = timestamp
+                opponent['seen_lap_start'] = False  # Reset for next lap
                 opponent['current_lap'] = current_lap
                 return []
 
@@ -132,12 +148,18 @@ class OpponentTracker:
                 )
                 completed_laps.append(lap_data)
 
-            # Clear samples for new lap
+            # Clear samples for new lap and reset lap start flag
             opponent['samples'] = []
             opponent['lap_start_timestamp'] = timestamp
+            opponent['seen_lap_start'] = False  # Reset for next lap
 
         # Update current lap
         opponent['current_lap'] = current_lap
+
+        # Detect lap start (within first 5% of track) - do this AFTER lap completion check
+        # This ensures we check the previous lap's seen_lap_start status before updating for new lap
+        if lap_distance < LAP_START_THRESHOLD:
+            opponent['seen_lap_start'] = True
 
         # Add sample to buffer (normalize first, like SessionManager does)
         if current_lap > 0:

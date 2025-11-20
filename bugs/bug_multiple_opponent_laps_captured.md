@@ -1,5 +1,20 @@
 # Bug: Multiple Laps from Opponents Being Captured
 
+## Status: ✅ RESOLVED
+
+**Resolved:** 2025-11-20
+**Branch:** claude/fix-opponent-lap-bugs-01KA5DeHo42w58EfwoEWbuLs
+
+**Solution:**
+1. Changed lap completion detection from `current_lap > opponent['current_lap']` to `current_lap == opponent['current_lap'] + 1` to only detect exactly +1 lap changes, preventing duplicate detections from out-of-order telemetry or lap number jumps.
+2. This stricter check ensures that only valid, sequential lap completions are processed, eliminating the possibility of multiple laps being saved for the same completion event.
+
+**Changes:**
+- `src/opponent_tracker.py:105` - Stricter lap completion check
+- `tests/test_opponent_tracker.py` - Added test `test_lap_number_skip_not_detected`
+
+---
+
 ## Summary
 Multiple lap files are being saved for the same opponent lap, resulting in duplicate data.
 
