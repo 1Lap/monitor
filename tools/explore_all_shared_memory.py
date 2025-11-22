@@ -27,7 +27,7 @@ except ImportError:
         sys.path.insert(0, local_path)
         from sharedMemoryAPI import SimInfoAPI, Cbytestring2Python
     except ImportError as e:
-        print("❌ pyRfactor2SharedMemory not available")
+        print("ERROR: pyRfactor2SharedMemory not available")
         print("   - Is this Windows?")
         print("   - Is the library installed? (pip install pyRfactor2SharedMemory)")
         print(f"   - Error: {e}")
@@ -64,7 +64,7 @@ def explore_object(obj, name="", indent=0, max_depth=3):
                 'control', 'assist', 'aid', 'setup'
             ])
 
-            marker = "🔍" if is_interesting else "  "
+            marker = ">>>" if is_interesting else "   "
 
             # Print attribute info
             if callable(value):
@@ -99,12 +99,12 @@ def main():
     info = SimInfoAPI()
 
     if not info.isSharedMemoryAvailable():
-        print("❌ Shared memory not available")
+        print("ERROR: Shared memory not available")
         print("   - Is LMU running?")
         print("   - Is shared memory plugin enabled?")
         return
 
-    print("✅ Shared memory available!")
+    print("SUCCESS: Shared memory available!")
     print()
 
     # Explore main structures
@@ -150,7 +150,7 @@ def main():
     print("\n" + "=" * 80)
     print("SUMMARY")
     print("=" * 80)
-    print("Look for attributes marked with 🔍 - these contain TC/ABS/brake keywords")
+    print("Look for attributes marked with >>> - these contain TC/ABS/brake keywords")
     print("If you find relevant fields, we can add them to telemetry_real.py")
     print("=" * 80)
 
