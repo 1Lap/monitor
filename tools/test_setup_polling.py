@@ -68,35 +68,52 @@ class SetupMonitor:
         """
         # Navigate to garage values
         car_setup = setup_data.get('carSetup', {})
-        garage_values = car_setup.get('garageValues', [])
-
-        # Check if garage_values is valid
-        if not isinstance(garage_values, list):
-            print(f"⚠️  garageValues is not a list: {type(garage_values)}")
-            return {}
+        garage_values = car_setup.get('garageValues', {})
 
         # Extract key parameters
         key_params = {}
 
-        for i, param in enumerate(garage_values):
-            # Handle unexpected data types
-            if not isinstance(param, dict):
-                # Skip non-dict entries (sometimes API returns strings)
-                continue
+        # Handle both dict and list formats
+        if isinstance(garage_values, dict):
+            # Format: {"VM_TRACTION_CONTROL": {value: 7, ...}, ...}
+            for key, param in garage_values.items():
+                if not isinstance(param, dict):
+                    continue
 
-            key = param.get('key', '')
+                # Focus on commonly-adjusted parameters
+                if any(keyword in key for keyword in [
+                    'TRACTION', 'TC', 'ABS', 'BRAKE_BALANCE', 'BRAKE_BIAS',
+                    'ENGINE', 'FUEL', 'MIXTURE', 'MAP'
+                ]):
+                    key_params[key] = {
+                        'value': param.get('value', 0.0),
+                        'stringValue': param.get('stringValue', ''),
+                        'minValue': param.get('minValue', 0.0),
+                        'maxValue': param.get('maxValue', 0.0),
+                    }
 
-            # Focus on commonly-adjusted parameters
-            if any(keyword in key for keyword in [
-                'TRACTION', 'TC', 'ABS', 'BRAKE_BALANCE', 'BRAKE_BIAS',
-                'ENGINE', 'FUEL', 'MIXTURE', 'MAP'
-            ]):
-                key_params[key] = {
-                    'value': param.get('value', 0.0),
-                    'stringValue': param.get('stringValue', ''),
-                    'minValue': param.get('minValue', 0.0),
-                    'maxValue': param.get('maxValue', 0.0),
-                }
+        elif isinstance(garage_values, list):
+            # Format: [{key: "VM_TRACTION_CONTROL", value: 7, ...}, ...]
+            for param in garage_values:
+                if not isinstance(param, dict):
+                    continue
+
+                key = param.get('key', '')
+
+                # Focus on commonly-adjusted parameters
+                if any(keyword in key for keyword in [
+                    'TRACTION', 'TC', 'ABS', 'BRAKE_BALANCE', 'BRAKE_BIAS',
+                    'ENGINE', 'FUEL', 'MIXTURE', 'MAP'
+                ]):
+                    key_params[key] = {
+                        'value': param.get('value', 0.0),
+                        'stringValue': param.get('stringValue', ''),
+                        'minValue': param.get('minValue', 0.0),
+                        'maxValue': param.get('maxValue', 0.0),
+                    }
+        else:
+            print(f"⚠️  garageValues is unexpected type: {type(garage_values)}")
+            return {}
 
         return key_params
 
@@ -205,8 +222,11 @@ class SetupMonitor:
         key_values = self.extract_key_values(setup_data)
 
         if not key_values:
+            garage_vals = setup_data.get('carSetup', {}).get('garageValues', {})
+            total = len(garage_vals) if isinstance(garage_vals, (dict, list)) else 0
             print("⚠️  Setup data available, but no adjustable parameters found")
-            print(f"   - Total parameters: {len(setup_data.get('carSetup', {}).get('garageValues', []))}")
+            print(f"   - Total parameters: {total}")
+            print("   - Try searching for TC, ABS, BRAKE in the data structure")
             return True
 
         # Detect changes
