@@ -212,25 +212,56 @@ class Monitor:
         print(f"Target process: {self.config['target_process']}")
         print("=" * 60)
         print("Waiting for LMU...")
+        print("(Tip: Use tools/test_process_detection.py to diagnose issues)")
 
         self.running = True
         update_interval = 1.0 / self.config['update_rate_hz']
         last_update = 0
+        last_status_print = 0
+        process_detected = False
 
         try:
             while self.running:
+                current_time = time.time()
+
                 # Check if LMU is running
                 if not self.process_monitor.is_running():
+                    # Print status every 5 seconds while waiting
+                    if current_time - last_status_print >= 5:
+                        print(f"[Monitor] Still waiting for {self.config['target_process']}...")
+                        last_status_print = current_time
+                    process_detected = False
                     time.sleep(1)
                     continue
 
+                # Process detected!
+                if not process_detected:
+                    proc_info = self.process_monitor.get_process_info()
+                    if proc_info:
+                        print(f"\n[Monitor] ✅ Process detected: {proc_info['name']} (PID: {proc_info['pid']})")
+                    else:
+                        print("\n[Monitor] ✅ Process detected")
+
+                    # Check if telemetry is available
+                    if self.telemetry.is_available():
+                        print("[Monitor] ✅ Telemetry available")
+                    else:
+                        print("[Monitor] ⚠️  Telemetry not available (may need to be in session)")
+
+                    process_detected = True
+                    print()  # Blank line before telemetry output
+
                 # Log telemetry at configured rate
-                current_time = time.time()
                 if current_time - last_update >= update_interval:
                     if self.telemetry.is_available():
                         data = self.telemetry.read()
                         if data:
                             log_telemetry(data)
+                    else:
+                        # Telemetry not available - check periodically
+                        if current_time - last_status_print >= 5:
+                            print("[Monitor] Waiting for telemetry (enter a session in LMU)...")
+                            last_status_print = current_time
                     last_update = current_time
 
                 time.sleep(self.config['poll_interval'])
