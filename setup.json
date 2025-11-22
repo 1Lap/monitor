@@ -1,0 +1,111 @@
+{
+  "endpoint": "/rest/garage/setup",
+  "timestamp": "2025-11-22T06:17:03.877518",
+  "setup": [
+    {
+      "created": "",
+      "modified": "",
+      "name": "Bahrain\\",
+      "numDiffUpgrades": 0,
+      "sameVehicleClass": true
+    },
+    {
+      "created": "",
+      "modified": "",
+      "name": "Circuit Of The Americas\\",
+      "numDiffUpgrades": 0,
+      "sameVehicleClass": true
+    },
+    {
+      "created": "",
+      "modified": "",
+      "name": "Fuji\\",
+      "numDiffUpgrades": 0,
+      "sameVehicleClass": true
+    },
+    {
+      "created": "",
+      "modified": "",
+      "name": "Imola\\",
+      "numDiffUpgrades": 0,
+      "sameVehicleClass": true
+    },
+    {
+      "created": "",
+      "modified": "",
+      "name": "Interlagos\\",
+      "numDiffUpgrades": 0,
+      "sameVehicleClass": true
+    },
+    {
+      "created": "",
+      "modified": "",
+      "name": "Lemans\\",
+      "numDiffUpgrades": 0,
+      "sameVehicleClass": true
+    },
+    {
+      "created": "",
+      "modified": "",
+      "name": "Monza\\",
+      "numDiffUpgrades": 0,
+      "sameVehicleClass": true
+    },
+    {
+      "created": "",
+      "modified": "",
+      "name": "Portimao\\",
+      "numDiffUpgrades": 0,
+      "sameVehicleClass": true
+    },
+    {
+      "created": "",
+      "modified": "",
+      "name": "Qatar\\",
+      "numDiffUpgrades": 0,
+      "sameVehicleClass": true
+    },
+    {
+      "created": "",
+      "modified": "",
+      "name": "Sebring\\",
+      "numDiffUpgrades": 0,
+      "sameVehicleClass": true
+    },
+    {
+      "created": "",
+      "modified": "",
+      "name": "Showroom\\",
+      "numDiffUpgrades": 0,
+      "sameVehicleClass": true
+    },
+    {
+      "created": "",
+      "modified": "",
+      "name": "Silverstone\\",
+      "numDiffUpgrades": 0,
+      "sameVehicleClass": true
+    },
+    {
+      "created": "",
+      "modified": "",
+      "name": "Spa\\",
+      "numDiffUpgrades": 0,
+      "sameVehicleClass": true
+    },
+    {
+      "created": "",
+      "modified": "",
+      "name": "<Coach Dave Setup>",
+      "numDiffUpgrades": 0,
+      "sameVehicleClass": true
+    },
+    {
+      "created": "",
+      "modified": "",
+      "name": "<Factory Defaults>",
+      "numDiffUpgrades": 0,
+      "sameVehicleClass": true
+    }
+  ]
+}

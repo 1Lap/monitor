@@ -150,3 +150,46 @@ Based on `RACE_DASHBOARD_PLAN.md`, we need to validate these fields exist:
 ---
 
 **Next Steps:** After completing this, we can validate which fields to publish to the dashboard and create the `DashboardPublisher` implementation.
+
+## Status
+
+✅ **COMPLETE** - Tested 2025-11-22
+
+**What was tested:**
+- Tool: `tools/explore_shared_memory.py` created and tested
+- Platform: Windows + Le Mans Ultimate
+- Results: Successfully read telemetry at 94.9 Hz
+
+**Key Findings:**
+- **55 telemetry fields** available from shared memory
+- **Update rate:** 94.9 Hz (within expected 50-100 Hz range)
+- **Field naming:** Uses British spelling (`tyre_*` not `tire_*`)
+- **All critical dashboard fields present:**
+  - ✅ Fuel: `fuel`, `fuel_capacity`
+  - ✅ Tires: `tyre_pressure`, `tyre_temp`, `tyre_wear`
+  - ✅ Brakes: `brake_temp`
+  - ✅ Engine: `engine_temp`
+  - ✅ Weather: `track_temp`, `ambient_temp`
+  - ✅ Position: `lap`, `lap_time`
+  - ✅ Speed/RPM: `speed`, `rpm`, `gear`
+  - ✅ Session: `player_name`, `car_name`, `track_name`, `session_type`
+
+**Field Mapping Issues Found & Fixed:**
+- ❌ Missing `race_position` → ✅ Added (uses `scor.mPlace`)
+- ✅ Tire fields already using British spelling (correct)
+
+**Actions Taken:**
+1. Created `tools/explore_shared_memory.py`
+2. Tested with real LMU (Autodromo Enzo e Dino Ferrari, Practice session)
+3. Updated `telemetry_real.py` to add missing `race_position` field
+4. Updated `dashboard_publisher.py` to handle field name variations
+
+**Test Results Saved:**
+- Console output captured
+- All 55 fields documented
+- Sample data collected
+
+**Next Steps:**
+- ✅ Field mappings updated
+- ✅ Monitor tested and working
+- Ready for server integration testing

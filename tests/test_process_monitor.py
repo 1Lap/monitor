@@ -33,5 +33,5 @@ class TestProcessMonitor:
     def test_default_target_process(self):
         """Should have default target process"""
         monitor = ProcessMonitor({})
-        # Default should be LMU.exe
-        assert monitor.target_process == 'LMU.exe'
+        # Default should be "Le Mans Ultimate" (the actual Windows process name)
+        assert monitor.target_process == 'Le Mans Ultimate'

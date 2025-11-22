@@ -143,18 +143,21 @@ class DashboardPublisher:
         Returns:
             Dashboard-compatible telemetry dictionary
         """
+        # Handle field name variations between real and mock telemetry
+        # Real LMU uses: fuel, fuel_capacity, race_position
+        # Mock may use: fuel_remaining, fuel_at_start, race_position
         return {
             'timestamp': datetime.utcnow().isoformat() + 'Z',
             'lap': telemetry.get('lap', 0),
             'position': telemetry.get('race_position', 0),
             'lap_time': telemetry.get('lap_time', 0.0),
-            'fuel': telemetry.get('fuel_remaining', 0.0),
-            'fuel_capacity': telemetry.get('fuel_at_start', 90.0),
+            'fuel': telemetry.get('fuel', telemetry.get('fuel_remaining', 0.0)),
+            'fuel_capacity': telemetry.get('fuel_capacity', telemetry.get('fuel_at_start', 90.0)),
             'tire_pressures': telemetry.get('tyre_pressure', {}),
             'tire_temps': telemetry.get('tyre_temp', {}),
             'tire_wear': telemetry.get('tyre_wear', {}),
             'brake_temps': telemetry.get('brake_temp', {}),
-            'engine_water_temp': telemetry.get('engine_temp', 0.0),
+            'engine_water_temp': telemetry.get('engine_temp', telemetry.get('engine_water_temp', 0.0)),
             'track_temp': telemetry.get('track_temp', 0.0),
             'ambient_temp': telemetry.get('ambient_temp', 0.0),
             'speed': telemetry.get('speed', 0.0),
