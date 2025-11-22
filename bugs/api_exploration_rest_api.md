@@ -167,3 +167,58 @@ If these don't work, we may need to:
 ---
 
 **Next Steps:** After completing this, we'll know exactly which setup data is available and can design the dashboard setup display accordingly.
+
+## Status
+
+✅ **COMPLETE** - Tested 2025-11-22
+
+**What was tested:**
+- Tool: `tools/explore_rest_api.py` created and tested
+- Platform: Windows + Le Mans Ultimate
+- Endpoint: `/rest/garage/setup`
+
+**Key Findings:**
+
+**Setup Data Structure:**
+- **172 setup parameters** available when in garage with setup loaded
+- Structure: `carSetup.garageValues` contains all parameters
+- Each parameter includes: `key`, `value`, `stringValue`, `minValue`, `maxValue`, `available`
+
+**Setup Parameters Include:**
+- ✅ Brake balance: `VM_BRAKE_BALANCE`
+- ✅ Brake ducts: `VM_BRAKE_DUCTS`, `VM_BRAKE_DUCTS_REAR`
+- ✅ Brake migration: `VM_BRAKE_MIGRATION`
+- ✅ Brake pressure: `VM_BRAKE_PRESSURE`
+- ✅ Springs, dampers, ARBs (all suspension components)
+- ✅ Aerodynamics settings
+- ✅ Gearing ratios
+- ✅ Differential settings
+- ✅ And 160+ more parameters!
+
+**Endpoint Behavior:**
+- When **not in garage:** Returns list of available setup names
+- When **in garage with setup:** Returns full setup data with 172 parameters
+- Endpoint path: `GET http://localhost:6397/rest/garage/setup`
+
+**Actions Taken:**
+1. Created `tools/explore_rest_api.py`
+2. Tested in multiple contexts (menu, garage)
+3. Updated `lmu_rest_api.py` to handle both list and dict responses
+4. Added fallback to `/rest/garage/UIScreen/CarSetupOverview` endpoint
+
+**Code Updates:**
+- `src/lmu_rest_api.py`:
+  - Now tries `/rest/garage/UIScreen/CarSetupOverview` first
+  - Falls back to `/rest/garage/setup`
+  - Detects and handles list vs dict responses
+  - Returns empty dict when setup not loaded
+
+**Test Results:**
+- ✅ API accessible at `http://localhost:6397`
+- ✅ Setup data structure documented in `explore_rest_api.log`
+- ✅ All critical setup categories present
+
+**Next Steps:**
+- ✅ REST API integration complete
+- Ready for setup data publishing to dashboard
+- Server integration testing pending
