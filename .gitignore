@@ -50,3 +50,6 @@ pyRfactor2SharedMemory/
 
 # Installer build outputs
 installer/output/
+
+# other repos
+dashboard
