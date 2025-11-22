@@ -9,17 +9,29 @@ SimHub and Tiny Pedal get this data somehow - let's find it!
 """
 
 import sys
+import os
 from pathlib import Path
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
+# Try to import shared memory library (same logic as telemetry_real.py)
 try:
     from pyRfactor2SharedMemory.sharedMemoryAPI import SimInfoAPI, Cbytestring2Python
 except ImportError:
-    print("❌ pyRfactor2SharedMemory not available (Windows only)")
-    print("This tool must be run on Windows with LMU running")
-    sys.exit(1)
+    # Try vendored copy
+    try:
+        local_path = os.path.join(
+            os.path.dirname(__file__), "..", "src", "pyRfactor2SharedMemory"
+        )
+        sys.path.insert(0, local_path)
+        from sharedMemoryAPI import SimInfoAPI, Cbytestring2Python
+    except ImportError as e:
+        print("❌ pyRfactor2SharedMemory not available")
+        print("   - Is this Windows?")
+        print("   - Is the library installed? (pip install pyRfactor2SharedMemory)")
+        print(f"   - Error: {e}")
+        sys.exit(1)
 
 
 def explore_object(obj, name="", indent=0, max_depth=3):
