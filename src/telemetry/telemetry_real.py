@@ -171,6 +171,7 @@ class RealTelemetryReader(TelemetryReaderInterface):
                 'sector2_time': sector2_time,
                 'sector3_time': 0.0,  # Sector 3 calculated from lap - S1 - S2
                 'current_sector': current_sector,  # 0-indexed sector (0, 1, or 2)
+                'race_position': scor.mPlace,  # Current position in race
 
                 # Track Info
                 'track_id': 0,  # TODO: Get from game

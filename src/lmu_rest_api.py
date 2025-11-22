@@ -225,16 +225,36 @@ class LMURestAPI:
         """
         Fetch current car setup from REST API
 
-        Fetches the complete car setup from the /rest/garage/setup endpoint.
-        This includes suspension, aerodynamics, brakes, gearing, differential, etc.
+        Tries multiple endpoints to get the car setup data:
+        1. /rest/garage/UIScreen/CarSetupOverview - UI screen data
+        2. /rest/garage/setup - Setup list (may return list instead of actual data)
 
         Returns:
             Setup data dictionary or empty dict if unavailable
         """
+        # Try CarSetupOverview first - this returns the actual setup data
+        try:
+            req = Request(f"{self.base_url}/rest/garage/UIScreen/CarSetupOverview")
+            with urlopen(req, timeout=2) as response:
+                data = json.loads(response.read().decode('utf-8'))
+                # Check if we got valid setup data (dict with setup fields)
+                if isinstance(data, dict) and data:
+                    return data
+        except (URLError, HTTPError, socket.timeout, ConnectionRefusedError):
+            pass  # Try next endpoint
+        except Exception as e:
+            print(f"[DEBUG] CarSetupOverview unavailable: {e}")
+
+        # Try standard setup endpoint as fallback
         try:
             req = Request(f"{self.base_url}/rest/garage/setup")
             with urlopen(req, timeout=2) as response:
-                return json.loads(response.read().decode('utf-8'))
+                data = json.loads(response.read().decode('utf-8'))
+                # Check if this is a list of setup names (not what we want)
+                if isinstance(data, list):
+                    print("[DEBUG] /rest/garage/setup returned list of setups, not actual data")
+                    return {}
+                return data if isinstance(data, dict) else {}
         except (URLError, HTTPError, socket.timeout, ConnectionRefusedError):
             # API not available - return empty dict
             return {}
