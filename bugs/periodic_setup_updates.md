@@ -33,28 +33,31 @@ Dashboard should reflect setup changes made during a session, either:
 
 Before implementing, we need to answer:
 
-### 1. Is REST API available while on-track?
+### 1. Is REST API available while on-track? ✅ TESTED
 
-**Current understanding:**
-- Documentation says: "only available when in garage with setup loaded"
-- But user changed TC on-track via HUD
-- **Question:** Does the REST API work on-track, or only in garage?
+**Test Results (2025-11-22):**
+- ✅ REST API works in garage with setup loaded
+- ❌ REST API returns "No setup data" when car loads onto track
+- ❌ REST API NOT available during on-track sessions
 
-**Test:**
-```bash
-# While on-track in LMU
-python tools/explore_rest_api.py
-# Check if /rest/garage/UIScreen/CarSetupOverview returns data
+**Conclusion:** REST API is **GARAGE-ONLY**, not available while on-track.
+
+**Test output:**
+```
+[18:23:33] Poll #22
+✅ REST API available
+⚠️  No setup data returned
+   - On-track? API may not be available during session
 ```
 
-### 2. Does REST API reflect HUD changes?
+**Impact:** Cannot poll setup changes during race sessions via REST API.
 
-**Test procedure:**
-1. Load setup in garage, note TC value
-2. Start session, go on-track
-3. Change TC via in-game HUD (e.g., 7 → 4)
-4. Poll REST API while on-track
-5. **Question:** Does API show new TC value (4) or old value (7)?
+### 2. Does REST API reflect HUD changes? ❌ CANNOT TEST
+
+**Cannot test:** REST API doesn't work on-track, so we cannot test if it would reflect HUD changes.
+
+**Original question:** Does API show new TC value after HUD change?
+**Answer:** N/A - API not available on-track to poll for changes.
 
 ### 3. What fields can change on-track vs. garage?
 
@@ -224,14 +227,74 @@ Add to `config.json`:
 ## Next Steps
 
 1. ✅ Create this bug file
-2. ⏳ Test REST API availability on-track vs. garage
-3. ⏳ Test if HUD changes are reflected in REST API
-4. ⏳ Implement Option B (periodic polling + change detection)
-5. ⏳ Add configuration option
-6. ⏳ Write tests
-7. ⏳ Update documentation
+2. ✅ Test REST API availability on-track vs. garage
+3. ❌ Test if HUD changes are reflected in REST API (cannot test - API unavailable on-track)
+4. ⏳ Investigate alternative data sources for on-track setup changes
+5. ⏳ Decide on implementation approach based on findings
+6. ⏳ Document limitations if no solution found
+
+---
+
+## Conclusion (Updated 2025-11-22)
+
+**Test Results:**
+- ✅ REST API works perfectly in garage
+- ❌ REST API does NOT work on-track (returns empty/no data)
+- ❌ Cannot poll for setup changes during race sessions
+
+**Root Cause:**
+User reported TC change (7→4) not appearing on dashboard because REST API only provides data in garage, not during active sessions.
+
+**Impact:**
+- Current behavior is CORRECT - we can only fetch setup once at session start
+- HUD changes made on-track cannot be detected via REST API
+- Dashboard will show stale setup values if driver changes TC/brake bias on-track
+
+**Alternative Approaches to Investigate:**
+
+### Option 1: Accept Limitation (Simplest)
+Document that dashboard shows garage setup only, not on-track HUD adjustments.
+
+**Pros:** No code changes needed
+**Cons:** Dashboard shows incorrect values if user changes setup on-track
+
+### Option 2: Shared Memory Investigation
+Check if shared memory exposes TC/brake bias/ABS values.
+
+**Research needed:**
+```bash
+python tools/explore_shared_memory.py
+# Look for fields like:
+# - mTractionControl
+# - mABS
+# - mBrakeBias
+```
+
+**If found in shared memory:**
+- Could read current values during telemetry polling
+- Would show live adjustments
+- More reliable than REST API
+
+### Option 3: Periodic Garage Polling
+Poll REST API when back in garage (between sessions).
+
+**Use case:** Practice → Garage → Adjust setup → Dashboard updates
+**Limitation:** Still won't detect on-track HUD changes
+
+### Option 4: Disclaimer/Warning
+Show setup data but add warning: "Setup shown is from garage. On-track adjustments (TC, brake bias) may differ."
+
+---
+
+**Recommended Next Steps:**
+
+1. **Investigate shared memory** - Check if TC/ABS/brake bias available
+2. **If in shared memory:** Use live telemetry values instead of REST API
+3. **If NOT in shared memory:** Document limitation and add disclaimer
+
+**Status:** BLOCKED - Need to investigate shared memory as alternative data source
 
 ---
 
 **Dependencies:** None (isolated feature)
-**Blocked by:** Investigation of REST API behavior on-track
+**Blocked by:** Need to check shared memory for setup values

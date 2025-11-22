@@ -35,17 +35,19 @@ from src.lmu_rest_api import LMURestAPI
 class SetupMonitor:
     """Monitor setup changes via REST API"""
 
-    def __init__(self, poll_interval: float = 2.0):
+    def __init__(self, poll_interval: float = 2.0, debug: bool = False):
         """
         Initialize setup monitor
 
         Args:
             poll_interval: Seconds between polls (default: 2.0)
+            debug: Enable debug output (default: False)
         """
         self.api = LMURestAPI()
         self.poll_interval = poll_interval
         self.previous_setup = None
         self.poll_count = 0
+        self.debug = debug
 
     def extract_key_values(self, setup_data: dict) -> dict:
         """
@@ -68,10 +70,20 @@ class SetupMonitor:
         car_setup = setup_data.get('carSetup', {})
         garage_values = car_setup.get('garageValues', [])
 
+        # Check if garage_values is valid
+        if not isinstance(garage_values, list):
+            print(f"⚠️  garageValues is not a list: {type(garage_values)}")
+            return {}
+
         # Extract key parameters
         key_params = {}
 
-        for param in garage_values:
+        for i, param in enumerate(garage_values):
+            # Handle unexpected data types
+            if not isinstance(param, dict):
+                # Skip non-dict entries (sometimes API returns strings)
+                continue
+
             key = param.get('key', '')
 
             # Focus on commonly-adjusted parameters
@@ -142,6 +154,8 @@ class SetupMonitor:
         print("=" * 80)
         print(f"Poll interval: {self.poll_interval}s")
         print(f"REST API: {self.api.base_url}")
+        if self.debug:
+            print("Debug mode: ENABLED (raw API responses will be saved)")
         print("=" * 80)
         print("\nTest scenarios:")
         print("  1. GARAGE: Load a setup, verify values are shown")
@@ -173,6 +187,13 @@ class SetupMonitor:
 
         # Fetch setup data
         setup_data = self.api.fetch_setup_data()
+
+        # Debug: Save raw API response
+        if self.debug and setup_data:
+            debug_file = f"debug_setup_{timestamp.replace(':', '')}.json"
+            with open(debug_file, 'w') as f:
+                json.dump(setup_data, f, indent=2)
+            print(f"🔍 Debug: Saved raw API response to {debug_file}")
 
         if not setup_data:
             print("⚠️  No setup data returned")
@@ -265,10 +286,15 @@ Test procedure:
         default=2.0,
         help='Polling interval in seconds (default: 2.0)'
     )
+    parser.add_argument(
+        '--debug',
+        action='store_true',
+        help='Enable debug mode (saves raw API responses to files)'
+    )
 
     args = parser.parse_args()
 
-    monitor = SetupMonitor(poll_interval=args.interval)
+    monitor = SetupMonitor(poll_interval=args.interval, debug=args.debug)
     monitor.run()
 
 
