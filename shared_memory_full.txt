@@ -1,0 +1,446 @@
+================================================================================
+rFactor 2 / LMU Shared Memory - Comprehensive Explorer
+================================================================================
+Looking for TC/ABS/brake bias values...
+================================================================================
+
+SUCCESS: Shared memory available!
+
+
+================================================================================
+SimInfoAPI - Main API object
+================================================================================
+    Rf2Ext: rF2Extended
+      is64bit: int = 1
+      mCurrentPitSpeedLimit: float = 0.0
+      mDirectMemoryAccessEnabled: int = 0
+      mDisplayedMessageUpdateCapture: c_ubyte_Array_128
+  >>> mHWControlInputEnabled: int = 1
+      mInRealtimeFC: int = 1
+      mLSIOrderInstructionMessage: c_ubyte_Array_96
+      mLSIPhaseMessage: c_ubyte_Array_96
+      mLSIPitStateMessage: c_ubyte_Array_96
+      mLSIRulesInstructionMessage: c_ubyte_Array_96
+      mLastHistoryMessage: c_ubyte_Array_128
+      mMultimediaThreadStarted: int = 0
+      mPhysics: rF2PhysicsOptions
+    >>> mAIControl: int = 0
+    >>> mAllowPitcrewPush: int = 0
+        mAlternateNeutral: int = 0
+    >>> mAntiLockBrakes: int = 0
+        mAutoBlip: int = 0
+    >>> mAutoClutch: int = 0
+        mAutoLift: int = 0
+        mAutoPit: int = 0
+        mAutoReverse: int = 0
+        mAutoShift: int = 0
+        mAutoShiftOverrideTime: float = 0.0
+        mBrakingHelp: int = 0
+        mFuelMult: int = 0
+    >>> mHoldClutch: int = 0
+        mInvulnerable: int = 0
+        mManualShiftOverrideTime: float = 0.0
+        mMechFail: int = 0
+        mOppositeLock: int = 0
+        mRepeatShifts: int = 0
+        mSpeedSensitiveSteering: float = 0.0
+        mSpinRecovery: int = 0
+    >>> mStabilityControl: int = 0
+        mSteerRatioSpeed: float = 0.0
+        mSteeringHelp: int = 0
+        mTireMult: int = 0
+    >>> mTractionControl: int = 0
+        mUnused1: int = 0
+        mUnused2: int = 0
+  >>> mRulesControlInputEnabled: int = 0
+      mSCRPluginDoubleFileType: int = -1
+      mSCRPluginEnabled: int = 0
+      mSessionStarted: int = 1
+      mSessionTransitionCapture: rF2SessionTransitionCapture
+        mGamePhase: int = 0
+        mNumScoringVehicles: int = 18
+        mScoringVehicles: rF2VehScoringCapture_Array_128
+        mSession: int = 5
+      mSimulationThreadStarted: int = 1
+      mStatusMessage: c_ubyte_Array_128
+      mTicksLSIOrderInstructionMessageUpdated: float = 0.0
+      mTicksLSIPhaseMessageUpdated: float = 0.0
+      mTicksLSIPitStateMessageUpdated: float = 0.0
+      mTicksLSIRulesInstructionMessageUpdated: float = 0.0
+      mTicksLastHistoryMessageUpdated: float = 0.0
+      mTicksSessionEnded: float = 0.0
+      mTicksSessionStarted: float = 9.6319047e-316
+      mTicksStatusMessageUpdated: float = 0.0
+      mTrackedDamages: rF2TrackedDamage_Array_512
+      mUnsubscribedBuffersMask: int = 160
+      mVersion: c_ubyte_Array_12
+      mVersionUpdateBegin: int = 5151
+      mVersionUpdateEnd: int = 5151
+  >>> mWeatherControlInputEnabled: int = 0
+    Rf2Scor: rF2Scoring
+      mBytesUpdatedHint: int = 11064
+      mScoringInfo: rF2ScoringInfo
+        mAmbientTemp: float = 25.0
+        mAvgPathWetness: float = 0.0
+        mCurrentET: float = 1032.6
+        mDarkCloud: float = 0.0
+        mEndET: float = 1205.0
+        mExpansion: c_ubyte_Array_200
+        mGameMode: int = 0
+        mGamePhase: int = 5
+        mInRealtime: int = 1
+        mIsPasswordProtected: int = 0
+        mLapDist: float = 4273.22216796875
+        mMaxLaps: int = 2147483647
+        mMaxPathWetness: float = 0.0
+        mMaxPlayers: int = 0
+        mMinPathWetness: float = 0.0
+        mNumRedLights: int = 5
+        mNumVehicles: int = 18
+        mPlayerName: c_ubyte_Array_32
+        mPlrFileName: c_ubyte_Array_64
+        mRaining: float = 0.0
+        mSectorFlag: c_ubyte_Array_3
+        mServerName: c_ubyte_Array_32
+        mServerPort: int = 0
+        mServerPublicIP: int = 0
+        mSession: int = 5
+        mStartET: float = 52200.0
+        mStartLight: int = 0
+        mTrackName: c_ubyte_Array_64
+        mTrackTemp: float = 33.97004806741535
+        mWind: rF2Vec3
+        mYellowFlagState: int = 0
+        pointer1: c_ubyte_Array_8
+        pointer2: c_ubyte_Array_8
+      mVehicles: rF2VehicleScoring_Array_128
+      mVersionUpdateBegin: int = 5146
+      mVersionUpdateEnd: int = 5146
+    Rf2Tele: rF2Telemetry
+      mBytesUpdatedHint: int = 33992
+      mNumVehicles: int = 18
+      mVehicles: rF2VehicleTelemetry_Array_128
+      mVersionUpdateBegin: int = 51424
+      mVersionUpdateEnd: int = 51424
+    close() -> method
+    driverName() -> method
+>>> isAiDriving() -> method
+    isOnTrack() -> method
+    isRF2running() -> method
+    isSharedMemoryAvailable() -> method
+    isTrackLoaded() -> method
+    minimumSupportedVersionParts: list
+      append() -> builtin_function_or_method
+      clear() -> builtin_function_or_method
+      copy() -> builtin_function_or_method
+      count() -> builtin_function_or_method
+      extend() -> builtin_function_or_method
+      index() -> builtin_function_or_method
+      insert() -> builtin_function_or_method
+      pop() -> builtin_function_or_method
+      remove() -> builtin_function_or_method
+      reverse() -> builtin_function_or_method
+      sort() -> builtin_function_or_method
+    playersVehicleScoring() -> method
+    playersVehicleTelemetry() -> method
+    rf2_pid: NoneType
+    rf2_pid_counter: int = 0
+    rf2_running: bool = False
+    sharedMemoryVerified: bool = True
+    vehicleName() -> method
+    versionCheck() -> method
+    versionCheckMsg: str = 
+rFactor 2 Shared Memory
+version: 3.7.15.1 64bit.
+
+================================================================================
+Rf2Tele - Telemetry structure
+================================================================================
+    mBytesUpdatedHint: int = 33992
+    mNumVehicles: int = 18
+    mVehicles: rF2VehicleTelemetry_Array_128
+    mVersionUpdateBegin: int = 51424
+    mVersionUpdateEnd: int = 51424
+
+================================================================================
+Rf2Scor - Scoring structure
+================================================================================
+    mBytesUpdatedHint: int = 11064
+    mScoringInfo: rF2ScoringInfo
+      mAmbientTemp: float = 25.0
+      mAvgPathWetness: float = 0.0
+      mCurrentET: float = 1032.6
+      mDarkCloud: float = 0.0
+      mEndET: float = 1205.0
+      mExpansion: c_ubyte_Array_200
+      mGameMode: int = 0
+      mGamePhase: int = 5
+      mInRealtime: int = 1
+      mIsPasswordProtected: int = 0
+      mLapDist: float = 4273.22216796875
+      mMaxLaps: int = 2147483647
+      mMaxPathWetness: float = 0.0
+      mMaxPlayers: int = 0
+      mMinPathWetness: float = 0.0
+      mNumRedLights: int = 5
+      mNumVehicles: int = 18
+      mPlayerName: c_ubyte_Array_32
+      mPlrFileName: c_ubyte_Array_64
+      mRaining: float = 0.0
+      mSectorFlag: c_ubyte_Array_3
+      mServerName: c_ubyte_Array_32
+      mServerPort: int = 0
+      mServerPublicIP: int = 0
+      mSession: int = 5
+      mStartET: float = 52200.0
+      mStartLight: int = 0
+      mTrackName: c_ubyte_Array_64
+      mTrackTemp: float = 33.97004806741535
+      mWind: rF2Vec3
+        x: float = 0.0
+        y: float = 0.0
+        z: float = 0.0
+      mYellowFlagState: int = 0
+      pointer1: c_ubyte_Array_8
+      pointer2: c_ubyte_Array_8
+    mVehicles: rF2VehicleScoring_Array_128
+    mVersionUpdateBegin: int = 5146
+    mVersionUpdateEnd: int = 5146
+
+================================================================================
+Rf2Ext - Extended structure
+================================================================================
+    is64bit: int = 1
+    mCurrentPitSpeedLimit: float = 0.0
+    mDirectMemoryAccessEnabled: int = 0
+    mDisplayedMessageUpdateCapture: c_ubyte_Array_128
+>>> mHWControlInputEnabled: int = 1
+    mInRealtimeFC: int = 1
+    mLSIOrderInstructionMessage: c_ubyte_Array_96
+    mLSIPhaseMessage: c_ubyte_Array_96
+    mLSIPitStateMessage: c_ubyte_Array_96
+    mLSIRulesInstructionMessage: c_ubyte_Array_96
+    mLastHistoryMessage: c_ubyte_Array_128
+    mMultimediaThreadStarted: int = 0
+    mPhysics: rF2PhysicsOptions
+  >>> mAIControl: int = 0
+  >>> mAllowPitcrewPush: int = 0
+      mAlternateNeutral: int = 0
+  >>> mAntiLockBrakes: int = 0
+      mAutoBlip: int = 0
+  >>> mAutoClutch: int = 0
+      mAutoLift: int = 0
+      mAutoPit: int = 0
+      mAutoReverse: int = 0
+      mAutoShift: int = 0
+      mAutoShiftOverrideTime: float = 0.0
+      mBrakingHelp: int = 0
+      mFuelMult: int = 0
+  >>> mHoldClutch: int = 0
+      mInvulnerable: int = 0
+      mManualShiftOverrideTime: float = 0.0
+      mMechFail: int = 0
+      mOppositeLock: int = 0
+      mRepeatShifts: int = 0
+      mSpeedSensitiveSteering: float = 0.0
+      mSpinRecovery: int = 0
+  >>> mStabilityControl: int = 0
+      mSteerRatioSpeed: float = 0.0
+      mSteeringHelp: int = 0
+      mTireMult: int = 0
+  >>> mTractionControl: int = 0
+      mUnused1: int = 0
+      mUnused2: int = 0
+>>> mRulesControlInputEnabled: int = 0
+    mSCRPluginDoubleFileType: int = -1
+    mSCRPluginEnabled: int = 0
+    mSessionStarted: int = 1
+    mSessionTransitionCapture: rF2SessionTransitionCapture
+      mGamePhase: int = 0
+      mNumScoringVehicles: int = 18
+      mScoringVehicles: rF2VehScoringCapture_Array_128
+      mSession: int = 5
+    mSimulationThreadStarted: int = 1
+    mStatusMessage: c_ubyte_Array_128
+    mTicksLSIOrderInstructionMessageUpdated: float = 0.0
+    mTicksLSIPhaseMessageUpdated: float = 0.0
+    mTicksLSIPitStateMessageUpdated: float = 0.0
+    mTicksLSIRulesInstructionMessageUpdated: float = 0.0
+    mTicksLastHistoryMessageUpdated: float = 0.0
+    mTicksSessionEnded: float = 0.0
+    mTicksSessionStarted: float = 9.6319047e-316
+    mTicksStatusMessageUpdated: float = 0.0
+    mTrackedDamages: rF2TrackedDamage_Array_512
+    mUnsubscribedBuffersMask: int = 160
+    mVersion: c_ubyte_Array_12
+    mVersionUpdateBegin: int = 5151
+    mVersionUpdateEnd: int = 5151
+>>> mWeatherControlInputEnabled: int = 0
+
+================================================================================
+Player Vehicle Telemetry (detailed)
+================================================================================
+    mAntiStallActivated: int = 0
+>>> mClutchRPM: float = -0.03780929326454755
+    mCurrentSector: int = 0
+    mDeltaTime: float = 0.009999999776482582
+    mDentSeverity: c_ubyte_Array_8
+    mDetached: int = 0
+    mDrag: float = 0.0
+    mElapsedTime: float = 1032.6425000000002
+    mEngineMaxRPM: float = 9000.0
+    mEngineOilTemp: float = 60.578477613006896
+    mEngineRPM: float = 3442.8029321545278
+    mEngineTorque: float = -2.4726887204451486e-12
+    mEngineWaterTemp: float = 64.77986165312893
+    mExpansion: c_ubyte_Array_152
+>>> mFilteredBrake: float = 0.0
+>>> mFilteredClutch: float = 1.0
+    mFilteredSteering: float = 0.0
+    mFilteredThrottle: float = 0.0
+    mFront3rdDeflection: float = 0.003562552730151658
+    mFrontDownforce: float = 0.0
+    mFrontFlapActivated: int = 0
+    mFrontRideHeight: float = 0.0
+    mFrontTireCompoundIndex: int = 1
+    mFrontTireCompoundName: c_ubyte_Array_18
+    mFrontWingHeight: float = 0.0
+    mFuel: float = 96.62503948876235
+    mFuelCapacity: float = 115.0
+    mGear: int = 0
+    mHeadlights: int = 0
+    mID: int = 0
+    mIgnitionStarter: int = 1
+    mLapNumber: int = 1
+    mLapStartET: float = 630.075927734375
+    mLastImpactET: float = 1032.4000244140625
+    mLastImpactMagnitude: float = 17.305509567260742
+    mLastImpactPos: rF2Vec3
+      x: float = -0.9961526393890381
+      y: float = -0.22624574601650238
+      z: float = -2.514127731323242
+    mLocalAccel: rF2Vec3
+      x: float = -0.000496208667755127
+      y: float = 3.1572561264038086
+      z: float = -0.38763582706451416
+    mLocalRot: rF2Vec3
+      x: float = -0.0004483795491978526
+      y: float = 0.0006871209479868412
+      z: float = -0.0012760520912706852
+    mLocalRotAccel: rF2Vec3
+      x: float = -4.789454460144043
+      y: float = -0.02575472928583622
+      z: float = 0.013211330398917198
+    mLocalVel: rF2Vec3
+      x: float = 0.00015978261944837868
+      y: float = 0.0011315281735733151
+      z: float = 0.000318303209496662
+    mMaxGears: int = 7
+    mOri: rF2Vec3_Array_3
+    mOverheating: int = 0
+    mPhysicalSteeringWheelRange: float = 0.0
+    mPhysicsToGraphicsOffset: c_float_Array_3
+    mPos: rF2Vec3
+      x: float = 283.714111328125
+      y: float = 25.368741989135742
+      z: float = -396.314697265625
+    mRear3rdDeflection: float = 0.006497439764247048
+>>> mRearBrakeBias: float = 0.4405
+    mRearDownforce: float = 0.0
+    mRearFlapActivated: int = 0
+    mRearFlapLegalStatus: int = 0
+    mRearRideHeight: float = 0.0
+    mRearTireCompoundIndex: int = 1
+    mRearTireCompoundName: c_ubyte_Array_18
+    mScheduledStops: int = 255
+    mSpeedLimiter: int = 0
+    mSpeedLimiterAvailable: int = 1
+    mSteeringShaftTorque: float = -2.38283103967529
+    mTrackName: c_ubyte_Array_64
+    mTurboBoostPressure: float = 101325.0
+>>> mUnfilteredBrake: float = 0.0
+>>> mUnfilteredClutch: float = 0.0
+    mUnfilteredSteering: float = 0.0
+    mUnfilteredThrottle: float = 0.0
+    mUnused: c_ubyte_Array_2
+    mVehicleName: c_ubyte_Array_64
+    mVisualSteeringWheelRange: float = 719.0
+    mWheels: rF2Wheel_Array_4
+
+================================================================================
+Player Vehicle Scoring (detailed)
+================================================================================
+    mBestLapSector1: float = -1.0
+    mBestLapSector2: float = -1.0
+    mBestLapTime: float = -1.0
+    mBestSector1: float = -1.0
+    mBestSector2: float = -1.0
+>>> mControl: int = 0
+    mCountLapFlag: int = 1
+    mCurSector1: float = -1.0
+    mCurSector2: float = -1.0
+    mDriverName: c_ubyte_Array_32
+    mEstimatedLapTime: float = 88.5736083984375
+    mExpansion: c_ubyte_Array_48
+    mFinishStatus: int = 0
+    mFlag: int = 0
+    mHeadlights: int = 0
+    mID: int = 0
+    mInGarageStall: int = 0
+    mInPits: int = 0
+    mIndividualPhase: int = 5
+    mIsPlayer: int = 1
+    mLapDist: float = 677.2515869140625
+    mLapStartET: float = 630.075927734375
+    mLapsBehindLeader: int = 4
+    mLapsBehindNext: int = 5
+    mLastLapTime: float = -1.0
+    mLastSector1: float = -1.0
+    mLastSector2: float = -1.0
+    mLocalAccel: rF2Vec3
+      x: float = 0.02776859700679779
+      y: float = 3.1862823963165283
+      z: float = -0.39274778962135315
+    mLocalRot: rF2Vec3
+      x: float = -0.00045149773359298706
+      y: float = -0.0004984763218089938
+      z: float = 0.00040998344775289297
+    mLocalRotAccel: rF2Vec3
+      x: float = 0.0
+      y: float = 0.0
+      z: float = 0.0
+    mLocalVel: rF2Vec3
+      x: float = 0.0004186922451481223
+      y: float = 0.0008720607729628682
+      z: float = 0.0001826775260269642
+    mNumPenalties: int = 0
+    mNumPitstops: int = 0
+    mOri: rF2Vec3_Array_3
+    mPathLateral: float = 5.735248565673828
+    mPitGroup: c_ubyte_Array_24
+    mPitLapDist: float = 148.21165466308594
+    mPitState: int = 0
+    mPlace: int = 18
+    mPos: rF2Vec3
+      x: float = 283.7141418457031
+      y: float = 25.36872673034668
+      z: float = -396.3147277832031
+    mQualification: int = 10
+    mSector: int = 1
+    mServerScored: int = 1
+    mTimeBehindLeader: float = 0.0
+    mTimeBehindNext: float = 0.0
+    mTimeIntoLap: float = 14.58039379119873
+    mTotalLaps: int = 1
+    mTrackEdge: float = 6.445000171661377
+    mUnderYellow: int = 0
+    mUpgradePack: c_ubyte_Array_16
+    mVehicleClass: c_ubyte_Array_32
+    mVehicleName: c_ubyte_Array_64
+
+================================================================================
+SUMMARY
+================================================================================
+Look for attributes marked with >>> - these contain TC/ABS/brake keywords
+If you find relevant fields, we can add them to telemetry_real.py
+================================================================================

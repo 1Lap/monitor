@@ -1,0 +1,1419 @@
+[
+  {
+    "PMC Value": 1,
+    "currentSetting": 0,
+    "default": 0,
+    "name": "DAMAGE:",
+    "settings": [
+      {
+        "text": "N/A"
+      }
+    ]
+  },
+  {
+    "PMC Value": 4,
+    "currentSetting": 0,
+    "default": 0,
+    "name": "DRIVER:",
+    "settings": [
+      {
+        "text": "D Davids"
+      }
+    ]
+  },
+  {
+    "PMC Value": 5,
+    "currentSetting": 100,
+    "default": 100,
+    "name": "VIRTUAL ENERGY:",
+    "settings": [
+      {
+        "text": "0% 0 laps"
+      },
+      {
+        "text": "1% 0 laps"
+      },
+      {
+        "text": "2% 0 laps"
+      },
+      {
+        "text": "3% 1 lap"
+      },
+      {
+        "text": "4% 1 lap"
+      },
+      {
+        "text": "5% 1 lap"
+      },
+      {
+        "text": "6% 2 laps"
+      },
+      {
+        "text": "7% 2 laps"
+      },
+      {
+        "text": "8% 3 laps"
+      },
+      {
+        "text": "9% 3 laps"
+      },
+      {
+        "text": "10% 3 laps"
+      },
+      {
+        "text": "11% 4 laps"
+      },
+      {
+        "text": "12% 4 laps"
+      },
+      {
+        "text": "13% 5 laps"
+      },
+      {
+        "text": "14% 5 laps"
+      },
+      {
+        "text": "15% 5 laps"
+      },
+      {
+        "text": "16% 6 laps"
+      },
+      {
+        "text": "17% 6 laps"
+      },
+      {
+        "text": "18% 7 laps"
+      },
+      {
+        "text": "19% 7 laps"
+      },
+      {
+        "text": "20% 7 laps"
+      },
+      {
+        "text": "21% 8 laps"
+      },
+      {
+        "text": "22% 8 laps"
+      },
+      {
+        "text": "23% 9 laps"
+      },
+      {
+        "text": "24% 9 laps"
+      },
+      {
+        "text": "25% 9 laps"
+      },
+      {
+        "text": "26% 10 laps"
+      },
+      {
+        "text": "27% 10 laps"
+      },
+      {
+        "text": "28% 11 laps"
+      },
+      {
+        "text": "29% 11 laps"
+      },
+      {
+        "text": "30% 11 laps"
+      },
+      {
+        "text": "31% 12 laps"
+      },
+      {
+        "text": "32% 12 laps"
+      },
+      {
+        "text": "33% 13 laps"
+      },
+      {
+        "text": "34% 13 laps"
+      },
+      {
+        "text": "35% 13 laps"
+      },
+      {
+        "text": "36% 14 laps"
+      },
+      {
+        "text": "37% 14 laps"
+      },
+      {
+        "text": "38% 15 laps"
+      },
+      {
+        "text": "39% 15 laps"
+      },
+      {
+        "text": "40% 15 laps"
+      },
+      {
+        "text": "41% 16 laps"
+      },
+      {
+        "text": "42% 16 laps"
+      },
+      {
+        "text": "43% 17 laps"
+      },
+      {
+        "text": "44% 17 laps"
+      },
+      {
+        "text": "45% 17 laps"
+      },
+      {
+        "text": "46% 18 laps"
+      },
+      {
+        "text": "47% 18 laps"
+      },
+      {
+        "text": "48% 19 laps"
+      },
+      {
+        "text": "49% 19 laps"
+      },
+      {
+        "text": "50% 19 laps"
+      },
+      {
+        "text": "51% 20 laps"
+      },
+      {
+        "text": "52% 20 laps"
+      },
+      {
+        "text": "53% 21 laps"
+      },
+      {
+        "text": "54% 21 laps"
+      },
+      {
+        "text": "55% 21 laps"
+      },
+      {
+        "text": "56% 22 laps"
+      },
+      {
+        "text": "57% 22 laps"
+      },
+      {
+        "text": "58% 23 laps"
+      },
+      {
+        "text": "59% 23 laps"
+      },
+      {
+        "text": "60% 23 laps"
+      },
+      {
+        "text": "61% 24 laps"
+      },
+      {
+        "text": "62% 24 laps"
+      },
+      {
+        "text": "63% 25 laps"
+      },
+      {
+        "text": "64% 25 laps"
+      },
+      {
+        "text": "65% 25 laps"
+      },
+      {
+        "text": "66% 26 laps"
+      },
+      {
+        "text": "67% 26 laps"
+      },
+      {
+        "text": "68% 27 laps"
+      },
+      {
+        "text": "69% 27 laps"
+      },
+      {
+        "text": "70% 27 laps"
+      },
+      {
+        "text": "71% 28 laps"
+      },
+      {
+        "text": "72% 28 laps"
+      },
+      {
+        "text": "73% 29 laps"
+      },
+      {
+        "text": "74% 29 laps"
+      },
+      {
+        "text": "75% 29 laps"
+      },
+      {
+        "text": "76% 30 laps"
+      },
+      {
+        "text": "77% 30 laps"
+      },
+      {
+        "text": "78% 31 laps"
+      },
+      {
+        "text": "79% 31 laps"
+      },
+      {
+        "text": "80% 31 laps"
+      },
+      {
+        "text": "81% 32 laps"
+      },
+      {
+        "text": "82% 32 laps"
+      },
+      {
+        "text": "83% 33 laps"
+      },
+      {
+        "text": "84% 33 laps"
+      },
+      {
+        "text": "85% 33 laps"
+      },
+      {
+        "text": "86% 34 laps"
+      },
+      {
+        "text": "87% 34 laps"
+      },
+      {
+        "text": "88% 35 laps"
+      },
+      {
+        "text": "89% 35 laps"
+      },
+      {
+        "text": "90% 35 laps"
+      },
+      {
+        "text": "91% 36 laps"
+      },
+      {
+        "text": "92% 36 laps"
+      },
+      {
+        "text": "93% 37 laps"
+      },
+      {
+        "text": "94% 37 laps"
+      },
+      {
+        "text": "95% 37 laps"
+      },
+      {
+        "text": "96% 38 laps"
+      },
+      {
+        "text": "97% 38 laps"
+      },
+      {
+        "text": "98% 39 laps"
+      },
+      {
+        "text": "99% 39 laps"
+      },
+      {
+        "text": "100% 39 laps"
+      }
+    ]
+  },
+  {
+    "PMC Value": 6,
+    "currentSetting": 92,
+    "default": 92,
+    "name": "FUEL RATIO:",
+    "settings": [
+      {
+        "text": "0.05"
+      },
+      {
+        "text": "0.06"
+      },
+      {
+        "text": "0.07"
+      },
+      {
+        "text": "0.08"
+      },
+      {
+        "text": "0.09"
+      },
+      {
+        "text": "0.10"
+      },
+      {
+        "text": "0.11"
+      },
+      {
+        "text": "0.12"
+      },
+      {
+        "text": "0.13"
+      },
+      {
+        "text": "0.14"
+      },
+      {
+        "text": "0.15"
+      },
+      {
+        "text": "0.16"
+      },
+      {
+        "text": "0.17"
+      },
+      {
+        "text": "0.18"
+      },
+      {
+        "text": "0.19"
+      },
+      {
+        "text": "0.20"
+      },
+      {
+        "text": "0.21"
+      },
+      {
+        "text": "0.22"
+      },
+      {
+        "text": "0.23"
+      },
+      {
+        "text": "0.24"
+      },
+      {
+        "text": "0.25"
+      },
+      {
+        "text": "0.26"
+      },
+      {
+        "text": "0.27"
+      },
+      {
+        "text": "0.28"
+      },
+      {
+        "text": "0.29"
+      },
+      {
+        "text": "0.30"
+      },
+      {
+        "text": "0.31"
+      },
+      {
+        "text": "0.32"
+      },
+      {
+        "text": "0.33"
+      },
+      {
+        "text": "0.34"
+      },
+      {
+        "text": "0.35"
+      },
+      {
+        "text": "0.36"
+      },
+      {
+        "text": "0.37"
+      },
+      {
+        "text": "0.38"
+      },
+      {
+        "text": "0.39"
+      },
+      {
+        "text": "0.40"
+      },
+      {
+        "text": "0.41"
+      },
+      {
+        "text": "0.42"
+      },
+      {
+        "text": "0.43"
+      },
+      {
+        "text": "0.44"
+      },
+      {
+        "text": "0.45"
+      },
+      {
+        "text": "0.46"
+      },
+      {
+        "text": "0.47"
+      },
+      {
+        "text": "0.48"
+      },
+      {
+        "text": "0.49"
+      },
+      {
+        "text": "0.50"
+      },
+      {
+        "text": "0.51"
+      },
+      {
+        "text": "0.52"
+      },
+      {
+        "text": "0.53"
+      },
+      {
+        "text": "0.54"
+      },
+      {
+        "text": "0.55"
+      },
+      {
+        "text": "0.56"
+      },
+      {
+        "text": "0.57"
+      },
+      {
+        "text": "0.58"
+      },
+      {
+        "text": "0.59"
+      },
+      {
+        "text": "0.60"
+      },
+      {
+        "text": "0.61"
+      },
+      {
+        "text": "0.62"
+      },
+      {
+        "text": "0.63"
+      },
+      {
+        "text": "0.64"
+      },
+      {
+        "text": "0.65"
+      },
+      {
+        "text": "0.66"
+      },
+      {
+        "text": "0.67"
+      },
+      {
+        "text": "0.68"
+      },
+      {
+        "text": "0.69"
+      },
+      {
+        "text": "0.70"
+      },
+      {
+        "text": "0.71"
+      },
+      {
+        "text": "0.72"
+      },
+      {
+        "text": "0.73"
+      },
+      {
+        "text": "0.74"
+      },
+      {
+        "text": "0.75"
+      },
+      {
+        "text": "0.76"
+      },
+      {
+        "text": "0.77"
+      },
+      {
+        "text": "0.78"
+      },
+      {
+        "text": "0.79"
+      },
+      {
+        "text": "0.80"
+      },
+      {
+        "text": "0.81"
+      },
+      {
+        "text": "0.82"
+      },
+      {
+        "text": "0.83"
+      },
+      {
+        "text": "0.84"
+      },
+      {
+        "text": "0.85"
+      },
+      {
+        "text": "0.86"
+      },
+      {
+        "text": "0.87"
+      },
+      {
+        "text": "0.88"
+      },
+      {
+        "text": "0.89"
+      },
+      {
+        "text": "0.90"
+      },
+      {
+        "text": "0.91"
+      },
+      {
+        "text": "0.92"
+      },
+      {
+        "text": "0.93"
+      },
+      {
+        "text": "0.94"
+      },
+      {
+        "text": "0.95"
+      },
+      {
+        "text": "0.96"
+      },
+      {
+        "text": "0.97"
+      },
+      {
+        "text": "0.98"
+      },
+      {
+        "text": "0.99"
+      },
+      {
+        "text": "1.00"
+      },
+      {
+        "text": "1.01"
+      },
+      {
+        "text": "1.02"
+      },
+      {
+        "text": "1.03"
+      },
+      {
+        "text": "1.04"
+      },
+      {
+        "text": "1.05"
+      },
+      {
+        "text": "1.06"
+      },
+      {
+        "text": "1.07"
+      },
+      {
+        "text": "1.08"
+      },
+      {
+        "text": "1.09"
+      },
+      {
+        "text": "1.10"
+      },
+      {
+        "text": "1.11"
+      },
+      {
+        "text": "1.12"
+      },
+      {
+        "text": "1.13"
+      },
+      {
+        "text": "1.14"
+      },
+      {
+        "text": "1.15"
+      }
+    ]
+  },
+  {
+    "PMC Value": 7,
+    "currentSetting": 0,
+    "default": 0,
+    "name": "TIRES:",
+    "settings": [
+      {
+        "text": "No Change"
+      },
+      {
+        "isUsed": false,
+        "text": "New Medium ",
+        "type": "Medium"
+      },
+      {
+        "isUsed": false,
+        "text": "New Hard ",
+        "type": "Hard"
+      },
+      {
+        "isUsed": false,
+        "text": "New Wet ",
+        "type": "Wet"
+      },
+      {
+        "isUsed": true,
+        "text": "Used Medium  0%",
+        "type": "Medium"
+      },
+      {
+        "isUsed": true,
+        "text": "Used Medium  0%",
+        "type": "Hard"
+      }
+    ]
+  },
+  {
+    "PMC Value": 12,
+    "currentSetting": 0,
+    "default": 0,
+    "name": "FL TIRE:",
+    "settings": [
+      {
+        "text": "No Change"
+      },
+      {
+        "isUsed": false,
+        "text": "New Medium ",
+        "type": "Medium"
+      },
+      {
+        "isUsed": false,
+        "text": "New Hard ",
+        "type": "Hard"
+      },
+      {
+        "isUsed": false,
+        "text": "New Wet ",
+        "type": "Wet"
+      },
+      {
+        "isUsed": true,
+        "text": "Used Medium  0%",
+        "type": "Medium"
+      },
+      {
+        "isUsed": true,
+        "text": "Used Medium  0%",
+        "type": "Hard"
+      }
+    ]
+  },
+  {
+    "PMC Value": 13,
+    "currentSetting": 0,
+    "default": 0,
+    "name": "FR TIRE:",
+    "settings": [
+      {
+        "text": "No Change"
+      },
+      {
+        "isUsed": false,
+        "text": "New Medium ",
+        "type": "Medium"
+      },
+      {
+        "isUsed": false,
+        "text": "New Hard ",
+        "type": "Hard"
+      },
+      {
+        "isUsed": false,
+        "text": "New Wet ",
+        "type": "Wet"
+      },
+      {
+        "isUsed": true,
+        "text": "Used Medium  0%",
+        "type": "Medium"
+      },
+      {
+        "isUsed": true,
+        "text": "Used Medium  0%",
+        "type": "Hard"
+      }
+    ]
+  },
+  {
+    "PMC Value": 14,
+    "currentSetting": 0,
+    "default": 0,
+    "name": "RL TIRE:",
+    "settings": [
+      {
+        "text": "No Change"
+      },
+      {
+        "isUsed": false,
+        "text": "New Medium ",
+        "type": "Medium"
+      },
+      {
+        "isUsed": false,
+        "text": "New Hard ",
+        "type": "Hard"
+      },
+      {
+        "isUsed": false,
+        "text": "New Wet ",
+        "type": "Wet"
+      },
+      {
+        "isUsed": true,
+        "text": "Used Medium  0%",
+        "type": "Medium"
+      },
+      {
+        "isUsed": true,
+        "text": "Used Medium  0%",
+        "type": "Hard"
+      }
+    ]
+  },
+  {
+    "PMC Value": 15,
+    "currentSetting": 0,
+    "default": 0,
+    "name": "RR TIRE:",
+    "settings": [
+      {
+        "text": "No Change"
+      },
+      {
+        "isUsed": false,
+        "text": "New Medium ",
+        "type": "Medium"
+      },
+      {
+        "isUsed": false,
+        "text": "New Hard ",
+        "type": "Hard"
+      },
+      {
+        "isUsed": false,
+        "text": "New Wet ",
+        "type": "Wet"
+      },
+      {
+        "isUsed": true,
+        "text": "Used Medium  0%",
+        "type": "Medium"
+      },
+      {
+        "isUsed": true,
+        "text": "Used Medium  0%",
+        "type": "Hard"
+      }
+    ]
+  },
+  {
+    "PMC Value": 19,
+    "currentSetting": 12,
+    "default": 12,
+    "name": "R WING:",
+    "settings": [
+      {
+        "text": "P1 (-12)"
+      },
+      {
+        "text": "P2 (-11)"
+      },
+      {
+        "text": "P3 (-10)"
+      },
+      {
+        "text": "P4 (-9)"
+      },
+      {
+        "text": "P5 (-8)"
+      },
+      {
+        "text": "P6 (-7)"
+      },
+      {
+        "text": "P7 (-6)"
+      },
+      {
+        "text": "P8 (-5)"
+      },
+      {
+        "text": "P9 (-4)"
+      },
+      {
+        "text": "P10 (-3)"
+      },
+      {
+        "text": "P11 (-2)"
+      },
+      {
+        "text": "P12 (-1)"
+      },
+      {
+        "text": "P13"
+      },
+      {
+        "text": "P14 (+1)"
+      },
+      {
+        "text": "P15 (+2)"
+      },
+      {
+        "text": "P16 (+3)"
+      },
+      {
+        "text": "P17 (+4)"
+      },
+      {
+        "text": "P18 (+5)"
+      }
+    ]
+  },
+  {
+    "PMC Value": 21,
+    "currentSetting": 0,
+    "default": 0,
+    "name": "GRILLE:",
+    "settings": [
+      {
+        "text": "1"
+      },
+      {
+        "text": "2 (+1)"
+      },
+      {
+        "text": "3 (+2)"
+      },
+      {
+        "text": "4 (+3)"
+      },
+      {
+        "text": "5 (+4)"
+      }
+    ]
+  },
+  {
+    "PMC Value": 24,
+    "currentSetting": 0,
+    "default": 0,
+    "name": "FL PRESS:",
+    "settings": [
+      {
+        "text": "135"
+      },
+      {
+        "text": "136 (+1)"
+      },
+      {
+        "text": "137 (+2)"
+      },
+      {
+        "text": "138 (+3)"
+      },
+      {
+        "text": "139 (+4)"
+      },
+      {
+        "text": "140 (+5)"
+      },
+      {
+        "text": "141 (+6)"
+      },
+      {
+        "text": "142 (+7)"
+      },
+      {
+        "text": "143 (+8)"
+      },
+      {
+        "text": "144 (+9)"
+      },
+      {
+        "text": "145 (+10)"
+      },
+      {
+        "text": "146 (+11)"
+      },
+      {
+        "text": "147 (+12)"
+      },
+      {
+        "text": "148 (+13)"
+      },
+      {
+        "text": "149 (+14)"
+      },
+      {
+        "text": "150 (+15)"
+      },
+      {
+        "text": "151 (+16)"
+      },
+      {
+        "text": "152 (+17)"
+      },
+      {
+        "text": "153 (+18)"
+      },
+      {
+        "text": "154 (+19)"
+      },
+      {
+        "text": "155 (+20)"
+      },
+      {
+        "text": "156 (+21)"
+      },
+      {
+        "text": "157 (+22)"
+      },
+      {
+        "text": "158 (+23)"
+      },
+      {
+        "text": "159 (+24)"
+      },
+      {
+        "text": "160 (+25)"
+      },
+      {
+        "text": "161 (+26)"
+      },
+      {
+        "text": "162 (+27)"
+      },
+      {
+        "text": "163 (+28)"
+      },
+      {
+        "text": "164 (+29)"
+      },
+      {
+        "text": "165 (+30)"
+      },
+      {
+        "text": "166 (+31)"
+      },
+      {
+        "text": "167 (+32)"
+      },
+      {
+        "text": "168 (+33)"
+      },
+      {
+        "text": "169 (+34)"
+      },
+      {
+        "text": "170 (+35)"
+      }
+    ]
+  },
+  {
+    "PMC Value": 25,
+    "currentSetting": 0,
+    "default": 0,
+    "name": "FR PRESS:",
+    "settings": [
+      {
+        "text": "135"
+      },
+      {
+        "text": "136 (+1)"
+      },
+      {
+        "text": "137 (+2)"
+      },
+      {
+        "text": "138 (+3)"
+      },
+      {
+        "text": "139 (+4)"
+      },
+      {
+        "text": "140 (+5)"
+      },
+      {
+        "text": "141 (+6)"
+      },
+      {
+        "text": "142 (+7)"
+      },
+      {
+        "text": "143 (+8)"
+      },
+      {
+        "text": "144 (+9)"
+      },
+      {
+        "text": "145 (+10)"
+      },
+      {
+        "text": "146 (+11)"
+      },
+      {
+        "text": "147 (+12)"
+      },
+      {
+        "text": "148 (+13)"
+      },
+      {
+        "text": "149 (+14)"
+      },
+      {
+        "text": "150 (+15)"
+      },
+      {
+        "text": "151 (+16)"
+      },
+      {
+        "text": "152 (+17)"
+      },
+      {
+        "text": "153 (+18)"
+      },
+      {
+        "text": "154 (+19)"
+      },
+      {
+        "text": "155 (+20)"
+      },
+      {
+        "text": "156 (+21)"
+      },
+      {
+        "text": "157 (+22)"
+      },
+      {
+        "text": "158 (+23)"
+      },
+      {
+        "text": "159 (+24)"
+      },
+      {
+        "text": "160 (+25)"
+      },
+      {
+        "text": "161 (+26)"
+      },
+      {
+        "text": "162 (+27)"
+      },
+      {
+        "text": "163 (+28)"
+      },
+      {
+        "text": "164 (+29)"
+      },
+      {
+        "text": "165 (+30)"
+      },
+      {
+        "text": "166 (+31)"
+      },
+      {
+        "text": "167 (+32)"
+      },
+      {
+        "text": "168 (+33)"
+      },
+      {
+        "text": "169 (+34)"
+      },
+      {
+        "text": "170 (+35)"
+      }
+    ]
+  },
+  {
+    "PMC Value": 26,
+    "currentSetting": 0,
+    "default": 0,
+    "name": "RL PRESS:",
+    "settings": [
+      {
+        "text": "135"
+      },
+      {
+        "text": "136 (+1)"
+      },
+      {
+        "text": "137 (+2)"
+      },
+      {
+        "text": "138 (+3)"
+      },
+      {
+        "text": "139 (+4)"
+      },
+      {
+        "text": "140 (+5)"
+      },
+      {
+        "text": "141 (+6)"
+      },
+      {
+        "text": "142 (+7)"
+      },
+      {
+        "text": "143 (+8)"
+      },
+      {
+        "text": "144 (+9)"
+      },
+      {
+        "text": "145 (+10)"
+      },
+      {
+        "text": "146 (+11)"
+      },
+      {
+        "text": "147 (+12)"
+      },
+      {
+        "text": "148 (+13)"
+      },
+      {
+        "text": "149 (+14)"
+      },
+      {
+        "text": "150 (+15)"
+      },
+      {
+        "text": "151 (+16)"
+      },
+      {
+        "text": "152 (+17)"
+      },
+      {
+        "text": "153 (+18)"
+      },
+      {
+        "text": "154 (+19)"
+      },
+      {
+        "text": "155 (+20)"
+      },
+      {
+        "text": "156 (+21)"
+      },
+      {
+        "text": "157 (+22)"
+      },
+      {
+        "text": "158 (+23)"
+      },
+      {
+        "text": "159 (+24)"
+      },
+      {
+        "text": "160 (+25)"
+      },
+      {
+        "text": "161 (+26)"
+      },
+      {
+        "text": "162 (+27)"
+      },
+      {
+        "text": "163 (+28)"
+      },
+      {
+        "text": "164 (+29)"
+      },
+      {
+        "text": "165 (+30)"
+      },
+      {
+        "text": "166 (+31)"
+      },
+      {
+        "text": "167 (+32)"
+      },
+      {
+        "text": "168 (+33)"
+      },
+      {
+        "text": "169 (+34)"
+      },
+      {
+        "text": "170 (+35)"
+      }
+    ]
+  },
+  {
+    "PMC Value": 27,
+    "currentSetting": 0,
+    "default": 0,
+    "name": "RR PRESS:",
+    "settings": [
+      {
+        "text": "135"
+      },
+      {
+        "text": "136 (+1)"
+      },
+      {
+        "text": "137 (+2)"
+      },
+      {
+        "text": "138 (+3)"
+      },
+      {
+        "text": "139 (+4)"
+      },
+      {
+        "text": "140 (+5)"
+      },
+      {
+        "text": "141 (+6)"
+      },
+      {
+        "text": "142 (+7)"
+      },
+      {
+        "text": "143 (+8)"
+      },
+      {
+        "text": "144 (+9)"
+      },
+      {
+        "text": "145 (+10)"
+      },
+      {
+        "text": "146 (+11)"
+      },
+      {
+        "text": "147 (+12)"
+      },
+      {
+        "text": "148 (+13)"
+      },
+      {
+        "text": "149 (+14)"
+      },
+      {
+        "text": "150 (+15)"
+      },
+      {
+        "text": "151 (+16)"
+      },
+      {
+        "text": "152 (+17)"
+      },
+      {
+        "text": "153 (+18)"
+      },
+      {
+        "text": "154 (+19)"
+      },
+      {
+        "text": "155 (+20)"
+      },
+      {
+        "text": "156 (+21)"
+      },
+      {
+        "text": "157 (+22)"
+      },
+      {
+        "text": "158 (+23)"
+      },
+      {
+        "text": "159 (+24)"
+      },
+      {
+        "text": "160 (+25)"
+      },
+      {
+        "text": "161 (+26)"
+      },
+      {
+        "text": "162 (+27)"
+      },
+      {
+        "text": "163 (+28)"
+      },
+      {
+        "text": "164 (+29)"
+      },
+      {
+        "text": "165 (+30)"
+      },
+      {
+        "text": "166 (+31)"
+      },
+      {
+        "text": "167 (+32)"
+      },
+      {
+        "text": "168 (+33)"
+      },
+      {
+        "text": "169 (+34)"
+      },
+      {
+        "text": "170 (+35)"
+      }
+    ]
+  },
+  {
+    "PMC Value": 32,
+    "currentSetting": 0,
+    "default": 0,
+    "name": "REPLACE BRAKES:",
+    "settings": [
+      {
+        "text": "No"
+      },
+      {
+        "text": "Yes"
+      }
+    ]
+  }
+]
