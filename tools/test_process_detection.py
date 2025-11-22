@@ -42,7 +42,7 @@ def main():
     print("[2] Testing ProcessMonitor class:")
     print("-" * 70)
 
-    config = {'target_process': 'LMU.exe'}
+    config = {'target_process': 'Le Mans Ultimate'}
     monitor = ProcessMonitor(config)
 
     print(f"  Target process: {config['target_process']}")
@@ -57,7 +57,7 @@ def main():
     else:
         print("  ❌ ProcessMonitor did NOT detect LMU")
         print("\nTroubleshooting:")
-        print("  1. Ensure LMU.exe is running")
+        print("  1. Ensure 'Le Mans Ultimate.exe' is running")
         print("  2. Check Task Manager to verify process name")
         print("  3. Try running this script as Administrator")
 
@@ -66,7 +66,7 @@ def main():
     print("[3] Testing alternative process names:")
     print("-" * 70)
 
-    alternatives = ['LMU', 'lmu.exe', 'LeMAnsUltimate']
+    alternatives = ['Le Mans Ultimate', 'Le Mans Ultimate.exe', 'LMU', 'lmu.exe']
     for alt in alternatives:
         config_alt = {'target_process': alt}
         monitor_alt = ProcessMonitor(config_alt)

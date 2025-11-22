@@ -125,7 +125,7 @@ class Monitor:
             "session_id": "auto",
             "update_rate_hz": 2,
             "poll_interval": 0.01,
-            "target_process": "LMU.exe"
+            "target_process": "Le Mans Ultimate"
         }
         with open(config_path, 'w') as f:
             json.dump(default_config, f, indent=2)

@@ -9,9 +9,9 @@ from typing import Dict, Any, Optional
 
 class ProcessMonitor:
     """
-    Monitors for target process (LMU.exe or test process on macOS)
+    Monitors for target process (Le Mans Ultimate or test process on macOS)
 
-    On Windows: Looks for LMU.exe
+    On Windows: Looks for "Le Mans Ultimate.exe"
     On macOS: Configurable test process (e.g., "Chrome", "python")
     """
 
@@ -22,9 +22,9 @@ class ProcessMonitor:
         Args:
             config: Configuration dictionary with optional 'target_process' key
         """
-        # On Windows: look for LMU.exe
+        # On Windows: look for "Le Mans Ultimate" (matches "Le Mans Ultimate.exe")
         # On macOS: configurable test process (e.g., "Chrome", "python")
-        self.target_process = config.get('target_process', 'LMU.exe')
+        self.target_process = config.get('target_process', 'Le Mans Ultimate')
         self._process = None
 
     def is_running(self) -> bool:
