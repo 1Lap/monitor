@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://1lap.dev/schemas/setup_data.v1.json",
+  "title": "Setup Data Envelope v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["session_id", "timestamp", "setup"],
+  "properties": {
+    "session_id": { "type": "string", "format": "uuid" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "setup": {
+      "type": "object",
+      "description": "Opaque LMU setup payload; server stores and broadcasts as-is.",
+      "additionalProperties": true
+    }
+  }
+}
