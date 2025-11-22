@@ -1,10 +1,9 @@
 # Windows-specific dependencies for monitor
+# This file should be installed AFTER requirements.txt
 
-# Core functionality (same as requirements.txt)
-psutil>=5.9.0                   # Process detection
-requests>=2.31.0                # REST API client for LMU setup data
-python-socketio[client]>=5.9.0  # WebSocket client for dashboard server
+# Note: Core dependencies (psutil, requests, python-socketio) are in requirements.txt
+# This file only contains Windows-only packages
 
-# Windows-only
-# Note: pyRfactor2SharedMemory is vendored in src/pyRfactor2SharedMemory/, not from PyPI
-# No additional Windows-only packages needed for monitor MVP
+# Windows-only packages
+# pyRfactor2SharedMemory is vendored in src/pyRfactor2SharedMemory/, not from PyPI
+# No additional Windows-only pip packages needed for monitor MVP
