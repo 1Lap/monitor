@@ -1,156 +1,110 @@
-# LMU Telemetry Logger
+# 1Lap Race Dashboard Monitor
 
-A background telemetry logger for Le Mans Ultimate that automatically captures and exports telemetry data to CSV files.
+Background service that reads LMU telemetry and publishes to dashboard server for real-time team viewing.
 
-## Project Status
+## Overview
 
-🎉 **v0.3.0 Released** - System Tray UI & Auto-Update!
+The **monitor** is one component of the 1Lap Race Dashboard system:
 
-### Latest Release: v0.3.0 (2025-11-20)
-- ✅ **NEW**: System Tray UI with visual state indicators
-- ✅ **NEW**: Settings GUI dialog for easy configuration
-- ✅ **NEW**: Auto-Update system with one-click installation
-- ✅ **NEW**: Windows Installer with custom directory selection
-- ✅ Bug fixes: Terminal window, opponent laps, filename consistency
-- ✅ 175/175 unit tests passing (100% coverage)
+```
+┌─────────────┐     WebSocket     ┌─────────────┐     WebSocket     ┌─────────────┐
+│   Monitor   │ ──────────────────>│   Server    │ ──────────────────>│  Dashboard  │
+│  (Python)   │      2Hz           │   (Flask)   │      Broadcast     │   (Browser) │
+└─────────────┘                    └─────────────┘                    └─────────────┘
+      ↑                                                                       ↑
+      │ Shared Memory                                                         │
+      │ + REST API                                                            │
+      │                                                                       │
+┌─────────────┐                                                     ┌─────────────────┐
+│   LMU.exe   │                                                     │  Team Members   │
+│  (Windows)  │                                                     │ (any device)    │
+└─────────────┘                                                     └─────────────────┘
+```
 
-### Completed Features
-- ✅ **System Tray UI** - Runs in background with right-click menu
-- ✅ **Settings Dialog** - GUI configuration (output dir, opponents, poll rate)
-- ✅ **Auto-Update** - Automatic updates from GitHub with checksum verification
-- ✅ **Windows Installer** - Professional installation experience
-- ✅ Automatic player lap capture
-- ✅ Opponent lap capture (multiplayer)
-- ✅ Mock telemetry system for macOS development
-- ✅ Platform detection (macOS/Windows)
-- ✅ Process monitoring with auto-detection
-- ✅ Session management and lap tracking
-- ✅ Telemetry polling loop (~43-50Hz, optimal)
-- ✅ CSV formatter for LMUTelemetry v3 (10-channel MVP schema)
-- ✅ File management with smart naming
-- ✅ Cross-platform development (macOS → Windows)
-- ✅ Windows testing with real LMU telemetry
+**Purpose:** Read telemetry from Le Mans Ultimate and publish to server so team can monitor car settings, fuel, tire temps, etc. without distracting the driver.
 
-### Phase Status
-- ✅ Phase 1-4: Core telemetry system (Complete)
-- ✅ Phase 5: System Tray UI & User Controls (Complete)
-- ✅ Phase 6: Windows Testing & Auto-Update (Complete)
-- ✅ Phase 7: Distribution & Installer (Complete)
-- 🚀 **Feature Complete!**
+## Quick Start
 
-## 🚀 Quick Start (Windows)
-
-### Option 1: Windows Installer (Recommended)
-
-1. **Download**: Get `LMU_Telemetry_Logger_Setup.exe` from [GitHub Releases](https://github.com/davedean/eztel-writer/releases/tag/v0.3.0)
-2. **Install**: Run the installer and follow the wizard
-3. **Launch**: Start from Start Menu or Desktop shortcut
-4. **Configure**: Right-click tray icon → Settings
-5. **Use**: Launch LMU and drive - telemetry is captured automatically!
-
-### Option 2: Portable Executable
-
-1. **Download**: Get `LMU_Telemetry_Logger.zip` from [GitHub Releases](https://github.com/davedean/eztel-writer/releases/tag/v0.3.0)
-2. **Extract**: Unzip to any folder
-3. **Run**: Double-click `LMU_Telemetry_Logger.exe`
-
-### Option 3: Build from Source
-
-1. **Clone**:
-   ```cmd
-   git clone --branch v0.3.0 https://github.com/davedean/eztel-writer.git
-   cd eztel-writer
-   ```
-
-2. **Setup**:
-   ```cmd
-   python -m venv venv
-   venv\Scripts\activate
-   pip install -r requirements.txt -r requirements-windows.txt
-   pip install pyinstaller
-   ```
-
-3. **Build**:
-   ```cmd
-   build.bat
-   ```
-
-4. **Build Installer** (optional):
-   ```cmd
-   build_installer.bat
-   ```
-
-For detailed build instructions, see [WINDOWS_BUILD_INSTRUCTIONS.md](WINDOWS_BUILD_INSTRUCTIONS.md)
-
-**Output Location**: `./telemetry_output/*.csv`
-
-See [RELEASE_NOTES_v0.3.0.md](RELEASE_NOTES_v0.3.0.md) for complete feature list and usage instructions.
-
-## Key Features
-
-- ✅ **System Tray UI** - Runs in background with visual state indicators
-- ✅ **Auto-Detection** - Automatically starts/stops with LMU
-- ✅ **Settings GUI** - Easy configuration via dialog
-- ✅ **Auto-Update** - One-click updates from GitHub
-- ✅ **CSV Export** - LMUTelemetry v3 format (metadata + 10 channels)
-- ✅ **Opponent Tracking** - Capture opponent laps in multiplayer
-- ✅ **Windows Installer** - Professional installation experience
-- ✅ **Cross-Platform Dev** - Develop on macOS, deploy on Windows
-
-## Development Setup (macOS)
+### Installation
 
 ```bash
 # Clone repository
-git clone <repo-url>
-cd telemetry_writer
+git clone https://github.com/1Lap/monitor.git
+cd monitor
 
 # Create virtual environment
-python3 -m venv venv
-source venv/bin/activate
+python -m venv venv
+source venv/bin/activate  # macOS/Linux
+venv\Scripts\activate     # Windows
 
 # Install dependencies
-pip install -r requirements.txt -r requirements-dev.txt
+pip install -r requirements.txt
 
-# Run tests
-pytest -v
-
-# Run example app (uses mock telemetry on macOS)
-python example_app.py
+# Windows only (for LMU integration)
+pip install -r requirements-windows.txt
 ```
 
-## Project Structure
+### Configuration
 
-```
-telemetry_writer/
-├── src/
-│   ├── telemetry/
-│   │   ├── telemetry_interface.py   # Abstract interface ✅
-│   │   ├── telemetry_mock.py        # macOS: mock data ✅
-│   │   └── telemetry_real.py        # Windows: real data (TODO)
-│   ├── process_monitor.py           # Process auto-detection ✅
-│   ├── session_manager.py           # Session & lap tracking ✅
-│   ├── telemetry_loop.py            # Main polling loop ✅
-│   ├── csv_formatter.py             # CSV formatting ✅
-│   └── file_manager.py              # File operations ✅
-├── tests/
-│   ├── test_telemetry_mock.py       # 7 tests ✅
-│   ├── test_process_monitor.py      # 5 tests ✅
-│   ├── test_session_manager.py      # 7 tests ✅
-│   ├── test_telemetry_loop.py       # 13 tests ✅
-│   ├── test_csv_formatter.py        # 13 tests ✅
-│   └── test_file_manager.py         # 16 tests ✅
-├── requirements.txt
-└── example.csv                       # MVP 12-channel reference output
+Create `config.json`:
+
+```json
+{
+  "server_url": "http://localhost:5000",
+  "session_id": "auto",
+  "update_rate_hz": 2,
+  "poll_interval": 0.01,
+  "target_process": "LMU.exe"
+}
 ```
 
-## Documentation
+**Configuration Options:**
+- `server_url` - Dashboard server URL (local or cloud)
+- `session_id` - "auto" to request from server, or specific ID
+- `update_rate_hz` - Telemetry publish rate (default: 2Hz)
+- `poll_interval` - Telemetry read rate (default: 0.01s = 100Hz)
+- `target_process` - Process to monitor (LMU.exe on Windows)
 
-- **[TELEMETRY_LOGGER_PLAN.md](TELEMETRY_LOGGER_PLAN.md)** - High-level plan and architecture
-- **[TECHNICAL_SPEC.md](TECHNICAL_SPEC.md)** - Detailed implementation guide
-- **[GITHUB_ISSUES.md](GITHUB_ISSUES.md)** - Task breakdown
-- **[IMPLEMENTATION_GUIDE.md](IMPLEMENTATION_GUIDE.md)** - How to use the docs
+### Running
 
-## Testing
+```bash
+# Start monitor (publishes to server)
+python monitor.py
+
+# Log-only mode (console output, no server)
+python monitor.py --log-only
+```
+
+## Features
+
+- **Cross-platform:** Develop on macOS with mocks, deploy on Windows with LMU
+- **Real-time telemetry:** Reads from LMU shared memory at 100Hz, publishes at 2Hz
+- **Car setup:** Fetches complete setup from LMU REST API
+- **Auto-connect:** Detects LMU process, connects to server automatically
+- **WebSocket:** Efficient real-time communication with server
+
+## Data Published
+
+### Telemetry (2Hz updates)
+- **Session:** Lap, position, lap time, player/car/track names
+- **Fuel:** Current fuel, capacity, estimated laps remaining
+- **Tires:** Pressures, temperatures, wear (FL/FR/RL/RR)
+- **Brakes:** Temperatures (FL/FR/RL/RR)
+- **Engine:** Water temperature
+- **Weather:** Track temp, ambient temp
+- **Driving:** Speed, gear, RPM
+
+### Setup (once per session)
+- Suspension (springs, dampers, ARBs, ride height)
+- Aerodynamics (wing angles)
+- Brakes (bias, balance)
+- Gearing (ratios)
+- Differential (settings)
+- Base tire pressures
+
+## Development
+
+### Testing
 
 ```bash
 # Run all tests
@@ -159,22 +113,111 @@ pytest -v
 # Run with coverage
 pytest --cov=src --cov-report=html
 
-# Run specific test file
-pytest tests/test_telemetry_mock.py -v
+# Run specific test
+pytest tests/test_dashboard_publisher.py -v
 ```
 
-Current test coverage: **100%** of implemented modules
+### Architecture
 
-## Timeline
+**Components:**
+- `src/telemetry/` - Telemetry reading (mock + real)
+- `src/process_monitor.py` - LMU process detection
+- `src/lmu_rest_api.py` - REST API client for setup
+- `src/dashboard_publisher.py` - WebSocket publisher
+- `monitor.py` - Main entry point
 
-- **Days 1-4**: macOS development (mock telemetry) ← **Currently here**
-- **Days 5-6**: Windows testing and `.exe` build
+**Design Principles:**
+- Test-Driven Development (TDD)
+- Cross-platform compatibility
+- Simple configuration
+- Minimal dependencies
+
+See `.claude/CLAUDE.md` for detailed development instructions.
+
+## Project Structure
+
+```
+monitor/
+├── src/
+│   ├── telemetry/              # Telemetry reading (interface + implementations)
+│   ├── process_monitor.py      # Process detection
+│   ├── lmu_rest_api.py         # REST API client
+│   └── dashboard_publisher.py  # WebSocket publisher
+├── tests/                      # Unit and integration tests
+├── bugs/                       # Task breakdown and feature requests
+├── _archive/                   # Archived writer project code (reference)
+├── monitor.py                  # Main entry point
+├── config.json                 # Configuration
+├── requirements.txt            # Python dependencies
+└── README.md                   # This file
+```
+
+## Related Projects
+
+- **[server](https://github.com/1Lap/server)** - Dashboard web service
+- **[RACE_DASHBOARD_PLAN.md](RACE_DASHBOARD_PLAN.md)** - Complete 3-repo system plan
+
+## Requirements
+
+- **Python:** 3.8+
+- **LMU:** Le Mans Ultimate (Windows only)
+- **Network:** Access to dashboard server
+
+## Deployment
+
+### Local Network
+1. Run server on driver's PC
+2. Run monitor on same PC
+3. Team connects via LAN: `http://<ip>:5000/dashboard/<session-id>`
+
+### Cloud Hosted
+1. Deploy server to cloud (Heroku, Railway, etc.)
+2. Run monitor on driver's PC
+3. Team connects from anywhere: `https://dashboard.1lap.io/<session-id>`
+
+See [RACE_DASHBOARD_PLAN.md](RACE_DASHBOARD_PLAN.md) for deployment details.
+
+## Troubleshooting
+
+### Monitor not detecting LMU
+- **Windows:** Ensure LMU.exe is running
+- **macOS:** Change `target_process` to a running process for testing
+
+### Can't connect to server
+- Check server is running: `curl http://localhost:5000`
+- Verify `server_url` in config.json
+- Check firewall settings
+
+### REST API not available
+- Verify LMU REST API is enabled (localhost:6397)
+- Check LMU settings for API configuration
+
+### Tests failing
+- Activate virtual environment
+- Install all dependencies: `pip install -r requirements.txt -r requirements-dev.txt`
+- Run `pytest -v` to see detailed error messages
+
+## Contributing
+
+See `bugs/MVP_MONITOR_TASKS.md` for current development tasks.
+
+Development workflow:
+1. Read `.claude/CLAUDE.md` for context
+2. Pick a task from `bugs/`
+3. Write tests first (TDD)
+4. Implement feature
+5. All tests must pass
+6. Submit pull request
 
 ## License
 
-TBD
+See LICENSE file.
+
+## Support
+
+- **GitHub Issues:** [1Lap/monitor/issues](https://github.com/1Lap/monitor/issues)
+- **Documentation:** [RACE_DASHBOARD_PLAN.md](RACE_DASHBOARD_PLAN.md)
 
 ---
 
-**Version**: 1.0.0-dev
-**Last Updated**: 2025-01-17
+**Note:** This project was forked from the `writer` telemetry logger. Old writer code is archived in `_archive/` for reference. The monitor is simpler: it publishes to a server instead of writing CSV files.
