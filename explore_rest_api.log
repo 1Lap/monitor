@@ -1,0 +1,1974 @@
+PS C:\Users\david\Documents\Projects\lmu-telemetry\monitor> python.exe .\tools\explore_rest_api.py
+======================================================================
+LMU REST API CONNECTION TEST
+======================================================================
+Testing connection to: http://localhost:6397
+
+✅ LMU REST API is available
+
+======================================================================
+FETCHING SETUP DATA
+======================================================================
+Endpoint: GET /rest/garage/setup
+
+✅ Setup data received (7 top-level keys)
+
+======================================================================
+SETUP DATA STRUCTURE
+======================================================================
+carPresetSetups: {dict with 1 keys}
+  presets: [list with 3 items]
+    Example item:
+      translated: str = fast
+      unTranslated: str = fast
+carSetup: {dict with 1 keys}
+  garageValues: {dict with 172 keys}
+    VM_ANTILOCKBRAKESYSTEMMAP: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_ANTILOCKBRAKESYSTEMMAP
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_ANTILOCK_BRAKES: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_ANTILOCK_BRAKES
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_BRAKE_BALANCE: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_BRAKE_BALANCE
+      lastSavedStringValue: str = 60.0:40.0
+      maxValue: int = 45
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 54.1:45.9
+      value: int = 13
+    VM_BRAKE_DUCTS: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_BRAKE_DUCTS
+      lastSavedStringValue: str = Open
+      maxValue: int = 5
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 50%
+      value: int = 2
+    VM_BRAKE_DUCTS_REAR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_BRAKE_DUCTS_REAR
+      lastSavedStringValue: str = Open
+      maxValue: int = 5
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Closed
+      value: int = 4
+    VM_BRAKE_MIGRATION: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_BRAKE_MIGRATION
+      lastSavedStringValue: str = 2.5% F
+      maxValue: int = 6
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 1.0% F
+      value: int = 3
+    VM_BRAKE_PRESSURE: {dict with 11 keys}
+      available: bool = True
+      caption: str = MAX PEDAL FORCE
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_BRAKE_PRESSURE
+      lastSavedStringValue: str = 40 kgf (33%)
+      maxValue: int = 81
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 110 kgf (92%)
+      value: int = 70
+    VM_CHASSIS_ADJ_00: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_CHASSIS_ADJ_00
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_CHASSIS_ADJ_01: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_CHASSIS_ADJ_01
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_CHASSIS_ADJ_02: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_CHASSIS_ADJ_02
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_CHASSIS_ADJ_03: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_CHASSIS_ADJ_03
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_CHASSIS_ADJ_04: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_CHASSIS_ADJ_04
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_CHASSIS_ADJ_05: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_CHASSIS_ADJ_05
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_CHASSIS_ADJ_06: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_CHASSIS_ADJ_06
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_CHASSIS_ADJ_07: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_CHASSIS_ADJ_07
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_CHASSIS_ADJ_08: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_CHASSIS_ADJ_08
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_CHASSIS_ADJ_09: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_CHASSIS_ADJ_09
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_CHASSIS_ADJ_10: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_CHASSIS_ADJ_10
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_CHASSIS_ADJ_11: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_CHASSIS_ADJ_11
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_DIFF_COAST: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_DIFF_COAST
+      lastSavedStringValue: str = 10%
+      maxValue: int = 19
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 60%
+      value: int = 10
+    VM_DIFF_POWER: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_DIFF_POWER
+      lastSavedStringValue: str = 10%
+      maxValue: int = 19
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 30%
+      value: int = 4
+    VM_DIFF_PRELOAD: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_DIFF_PRELOAD
+      lastSavedStringValue: str = 0 Nm
+      maxValue: int = 61
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 50 Nm
+      value: int = 10
+    VM_DIFF_PUMP: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_DIFF_PUMP
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_ELECTRIC_MOTOR_MAP: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_ELECTRIC_MOTOR_MAP
+      lastSavedStringValue: str = Off
+      maxValue: int = 6
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 40kW
+      value: int = 4
+    VM_ENGINE_BOOST: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_ENGINE_BOOST
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_ENGINE_BRAKEMAP: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_ENGINE_BRAKEMAP
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_ENGINE_MIXTURE: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_ENGINE_MIXTURE
+      lastSavedStringValue: str = Full
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Full
+      value: int = 0
+    VM_FRONT_3RD_FASTBUMP: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_FRONT_3RD_FASTBUMP
+      lastSavedStringValue: str = 1 (soft)
+      maxValue: int = 12
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 6
+      value: int = 5
+    VM_FRONT_3RD_FASTREBOUND: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_FRONT_3RD_FASTREBOUND
+      lastSavedStringValue: str = 1 (soft)
+      maxValue: int = 12
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 6
+      value: int = 5
+    VM_FRONT_3RD_PACKERS: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_FRONT_3RD_PACKERS
+      lastSavedStringValue: str = 0.0 cm
+      maxValue: int = 21
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 1.0 cm
+      value: int = 10
+    VM_FRONT_3RD_SLOWBUMP: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_FRONT_3RD_SLOWBUMP
+      lastSavedStringValue: str = 1 (soft)
+      maxValue: int = 12
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 6
+      value: int = 5
+    VM_FRONT_3RD_SLOWREBOUND: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_FRONT_3RD_SLOWREBOUND
+      lastSavedStringValue: str = 1 (soft)
+      maxValue: int = 12
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 6
+      value: int = 5
+    VM_FRONT_3RD_SPRING: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_FRONT_3RD_SPRING
+      lastSavedStringValue: str = detached
+      maxValue: int = 16
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 10
+      value: int = 10
+    VM_FRONT_3RD_TENDERSPRING: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_FRONT_3RD_TENDERSPRING
+      lastSavedStringValue: str = Detached
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Detached
+      value: int = 0
+    VM_FRONT_3RD_TENDERSPRINGTRAVEL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_FRONT_3RD_TENDERSPRINGTRAVEL
+      lastSavedStringValue: str = Detached
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Detached
+      value: int = 0
+    VM_FRONT_ANTISWAY: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_FRONT_ANTISWAY
+      lastSavedStringValue: str = Detached
+      maxValue: int = 17
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = P5
+      value: int = 5
+    VM_FRONT_DIFF_COAST: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_FRONT_DIFF_COAST
+      lastSavedStringValue: str = 0%
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 0%
+      value: int = 0
+    VM_FRONT_DIFF_POWER: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_FRONT_DIFF_POWER
+      lastSavedStringValue: str = 0%
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 0%
+      value: int = 0
+    VM_FRONT_DIFF_PRELOAD: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_FRONT_DIFF_PRELOAD
+      lastSavedStringValue: str = 1
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 1
+      value: int = 0
+    VM_FRONT_DIFF_PUMP: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_FRONT_DIFF_PUMP
+      lastSavedStringValue: str = 0%
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 0%
+      value: int = 0
+    VM_FRONT_TIRE_COMPOUND: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_FRONT_TIRE_COMPOUND
+      lastSavedStringValue: str = Medium
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Medium
+      value: int = 0
+    VM_FRONT_TOEIN: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_FRONT_TOEIN
+      lastSavedStringValue: str = -0.94 deg
+      maxValue: int = 33
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = -0.06 deg
+      value: int = 15
+    VM_FRONT_TOEOFFSET: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_FRONT_TOEOFFSET
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_FRONT_WHEEL_TRACK: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_FRONT_WHEEL_TRACK
+      lastSavedStringValue: str = Non-adjustable
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Non-adjustable
+      value: int = 0
+    VM_FRONT_WING: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_FRONT_WING
+      lastSavedStringValue: str = Standard
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Standard
+      value: int = 0
+    VM_FUEL_CAPACITY: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_FUEL_CAPACITY
+      lastSavedStringValue: str = 97.0L (43.6 laps)
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 97.0L (0.0 laps)
+      value: int = 0
+    VM_FUEL_LEVEL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_FUEL_LEVEL
+      lastSavedStringValue: str = 0.05
+      maxValue: int = 111
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 0.97
+      value: int = 92
+    VM_GEAR_1: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_GEAR_1
+      lastSavedStringValue: str = 2.69 (9.27)
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 2.69 (9.27)
+      value: int = 0
+    VM_GEAR_2: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_GEAR_2
+      lastSavedStringValue: str = 2.06 (7.10)
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 2.06 (7.10)
+      value: int = 0
+    VM_GEAR_3: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_GEAR_3
+      lastSavedStringValue: str = 1.72 (5.93)
+      maxValue: int = 2
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 1.72 (5.93)
+      value: int = 0
+    VM_GEAR_4: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_GEAR_4
+      lastSavedStringValue: str = 1.47 (5.07)
+      maxValue: int = 2
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 1.47 (5.07)
+      value: int = 0
+    VM_GEAR_5: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_GEAR_5
+      lastSavedStringValue: str = 1.30 (4.47)
+      maxValue: int = 2
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 1.30 (4.47)
+      value: int = 0
+    VM_GEAR_6: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_GEAR_6
+      lastSavedStringValue: str = 1.17 (4.04)
+      maxValue: int = 2
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 1.17 (4.04)
+      value: int = 0
+    VM_GEAR_7: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_GEAR_7
+      lastSavedStringValue: str = 1.09 (3.74)
+      maxValue: int = 2
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 1.09 (3.74)
+      value: int = 0
+    VM_GEAR_8: {dict with 10 keys}
+      available: bool = False
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_GEAR_8
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_GEAR_9: {dict with 10 keys}
+      available: bool = False
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_GEAR_9
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_GEAR_AUTODOWNSHIFT: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_GEAR_AUTODOWNSHIFT
+      lastSavedStringValue: str = Off
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Off
+      value: int = 0
+    VM_GEAR_AUTOUPSHIFT: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_GEAR_AUTOUPSHIFT
+      lastSavedStringValue: str = Off
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Off
+      value: int = 0
+    VM_GEAR_FINAL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_GEAR_FINAL
+      lastSavedStringValue: str = 3.44:1
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 3.44:1
+      value: int = 0
+    VM_GEAR_REVERSE: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_GEAR_REVERSE
+      lastSavedStringValue: str = 2.38 (8.21)
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 2.38 (8.21)
+      value: int = 0
+    VM_GEAR_UPSHIFT_RPM_1: {dict with 10 keys}
+      available: bool = False
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_GEAR_UPSHIFT_RPM_1
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_GEAR_UPSHIFT_RPM_2: {dict with 10 keys}
+      available: bool = False
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_GEAR_UPSHIFT_RPM_2
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_GEAR_UPSHIFT_RPM_3: {dict with 10 keys}
+      available: bool = False
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_GEAR_UPSHIFT_RPM_3
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_GEAR_UPSHIFT_RPM_4: {dict with 10 keys}
+      available: bool = False
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_GEAR_UPSHIFT_RPM_4
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_GEAR_UPSHIFT_RPM_5: {dict with 10 keys}
+      available: bool = False
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_GEAR_UPSHIFT_RPM_5
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_GEAR_UPSHIFT_RPM_6: {dict with 10 keys}
+      available: bool = False
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_GEAR_UPSHIFT_RPM_6
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_GEAR_UPSHIFT_RPM_7: {dict with 10 keys}
+      available: bool = False
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_GEAR_UPSHIFT_RPM_7
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_GEAR_UPSHIFT_RPM_8: {dict with 10 keys}
+      available: bool = False
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_GEAR_UPSHIFT_RPM_8
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_HANDBRAKE_PRESSURE: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_HANDBRAKE_PRESSURE
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_HANDFRONTBRAKE_PRESSURE: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_HANDFRONTBRAKE_PRESSURE
+      lastSavedStringValue: str = 0%
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 0%
+      value: int = 0
+    VM_LEFT_CASTER: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_LEFT_CASTER
+      lastSavedStringValue: str = Non-adjustable
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Non-adjustable
+      value: int = 0
+    VM_LEFT_FENDER_FLARE: {dict with 11 keys}
+      available: bool = True
+      caption: str = DIVE PLANE
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_LEFT_FENDER_FLARE
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_LEFT_TRACK_BAR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_LEFT_TRACK_BAR
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_NUM_PITSTOPS: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_NUM_PITSTOPS
+      lastSavedStringValue: str =
+      maxValue: int = 4
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str =
+      value: int = 0
+    VM_OIL_RADIATOR: {dict with 11 keys}
+      available: bool = True
+      caption: str = OIL RADIATOR COVER
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_OIL_RADIATOR
+      lastSavedStringValue: str = No tape
+      maxValue: int = 5
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = No tape
+      value: int = 0
+    VM_PITSTOP_1: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_PITSTOP_1
+      lastSavedStringValue: str = N/A
+      maxValue: int = 116
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 98
+    VM_PITSTOP_2: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_PITSTOP_2
+      lastSavedStringValue: str = N/A
+      maxValue: int = 116
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 98
+    VM_PITSTOP_3: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_PITSTOP_3
+      lastSavedStringValue: str = N/A
+      maxValue: int = 116
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 98
+    VM_RATIO_SET: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_RATIO_SET
+      lastSavedStringValue: str = Short
+      maxValue: int = 2
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Short
+      value: int = 0
+    VM_REAR_3RD_FASTBUMP: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_REAR_3RD_FASTBUMP
+      lastSavedStringValue: str = 1 (soft)
+      maxValue: int = 12
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 6
+      value: int = 5
+    VM_REAR_3RD_FASTREBOUND: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_REAR_3RD_FASTREBOUND
+      lastSavedStringValue: str = 1 (soft)
+      maxValue: int = 12
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 6
+      value: int = 5
+    VM_REAR_3RD_PACKERS: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_REAR_3RD_PACKERS
+      lastSavedStringValue: str = 0.0 cm
+      maxValue: int = 26
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 1.3 cm
+      value: int = 13
+    VM_REAR_3RD_SLOWBUMP: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_REAR_3RD_SLOWBUMP
+      lastSavedStringValue: str = 1 (soft)
+      maxValue: int = 12
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 6
+      value: int = 5
+    VM_REAR_3RD_SLOWREBOUND: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_REAR_3RD_SLOWREBOUND
+      lastSavedStringValue: str = 1 (soft)
+      maxValue: int = 12
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 10
+      value: int = 9
+    VM_REAR_3RD_SPRING: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_REAR_3RD_SPRING
+      lastSavedStringValue: str = detached
+      maxValue: int = 16
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 6
+      value: int = 6
+    VM_REAR_3RD_TENDERSPRING: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_REAR_3RD_TENDERSPRING
+      lastSavedStringValue: str = Detached
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Detached
+      value: int = 0
+    VM_REAR_3RD_TENDERSPRINGTRAVEL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_REAR_3RD_TENDERSPRINGTRAVEL
+      lastSavedStringValue: str = Detached
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Detached
+      value: int = 0
+    VM_REAR_ANTISWAY: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_REAR_ANTISWAY
+      lastSavedStringValue: str = Detached
+      maxValue: int = 13
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = P3
+      value: int = 3
+    VM_REAR_TIRE_COMPOUND: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_REAR_TIRE_COMPOUND
+      lastSavedStringValue: str = Medium
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Medium
+      value: int = 0
+    VM_REAR_TOEIN: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_REAR_TOEIN
+      lastSavedStringValue: str = -0.94 deg
+      maxValue: int = 33
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 0.23 deg
+      value: int = 20
+    VM_REAR_TOEOFFSET: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_REAR_TOEOFFSET
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_REAR_WHEEL_TRACK: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_REAR_WHEEL_TRACK
+      lastSavedStringValue: str = Non-adjustable
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Non-adjustable
+      value: int = 0
+    VM_REAR_WING: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_REAR_WING
+      lastSavedStringValue: str = P1
+      maxValue: int = 18
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = P16
+      value: int = 15
+    VM_REGEN_LEVEL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_REGEN_LEVEL
+      lastSavedStringValue: str = Off
+      maxValue: int = 11
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 170kW
+      value: int = 10
+    VM_REV_LIMITER: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_REV_LIMITER
+      lastSavedStringValue: str = 9,000
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 9,000
+      value: int = 0
+    VM_RIGHT_CASTER: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_RIGHT_CASTER
+      lastSavedStringValue: str = Non-adjustable
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Non-adjustable
+      value: int = 0
+    VM_RIGHT_FENDER_FLARE: {dict with 11 keys}
+      available: bool = True
+      caption: str = DIVE PLANE
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_RIGHT_FENDER_FLARE
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_RIGHT_TRACK_BAR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_RIGHT_TRACK_BAR
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    VM_STEER_LOCK: {dict with 11 keys}
+      available: bool = True
+      caption: str = Wheel Range (Lock)
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_STEER_LOCK
+      lastSavedStringValue: str = 360 (13.3) deg
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 360 (13.3) deg
+      value: int = 0
+    VM_TORQUE_SPLIT: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_TORQUE_SPLIT
+      lastSavedStringValue: str =  0.0:100.0
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str =  0.0:100.0
+      value: int = 0
+    VM_TRACTIONCONTROLMAP: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_TRACTIONCONTROLMAP
+      lastSavedStringValue: str =  (Off)
+      maxValue: int = 12
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 7
+      value: int = 7
+    VM_TRACTIONCONTROLPOWERCUTMAP: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_TRACTIONCONTROLPOWERCUTMAP
+      lastSavedStringValue: str = 0 (Off)
+      maxValue: int = 12
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 6
+      value: int = 6
+    VM_TRACTIONCONTROLSLIPANGLEMAP: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_TRACTIONCONTROLSLIPANGLEMAP
+      lastSavedStringValue: str = 0 (Off)
+      maxValue: int = 12
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 10
+      value: int = 10
+    VM_TRACTION_CONTROL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_TRACTION_CONTROL
+      lastSavedStringValue: str = Available
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Available
+      value: int = 0
+    VM_VIRTUAL_ENERGY: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_VIRTUAL_ENERGY
+      lastSavedStringValue: str = 100% (39.8 laps)
+      maxValue: int = 101
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 100%
+      value: int = 100
+    VM_WATER_RADIATOR: {dict with 11 keys}
+      available: bool = True
+      caption: str = WATER RADIATOR COVER
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_WATER_RADIATOR
+      lastSavedStringValue: str = No tape
+      maxValue: int = 5
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = No tape
+      value: int = 0
+    VM_WEIGHT_DISTRIB: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_WEIGHT_DISTRIB
+      lastSavedStringValue: str = Non-adjustable
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Non-adjustable
+      value: int = 0
+    VM_WEIGHT_LATERAL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_WEIGHT_LATERAL
+      lastSavedStringValue: str = Non-adjustable
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Non-adjustable
+      value: int = 0
+    VM_WEIGHT_VERTICAL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_WEIGHT_VERTICAL
+      lastSavedStringValue: str = Non-adjustable
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Non-adjustable
+      value: int = 0
+    VM_WEIGHT_WEDGE: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = VM_WEIGHT_WEDGE
+      lastSavedStringValue: str = N/A
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = N/A
+      value: int = 0
+    WM_BRAKEDISC-W_FL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_BRAKEDISC-W_FL
+      lastSavedStringValue: str = 3.70 cm
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 3.70 cm
+      value: int = 0
+    WM_BRAKEDISC-W_FR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_BRAKEDISC-W_FR
+      lastSavedStringValue: str = 3.70 cm
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 3.70 cm
+      value: int = 0
+    WM_BRAKEDISC-W_RL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_BRAKEDISC-W_RL
+      lastSavedStringValue: str = 3.20 cm
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 3.20 cm
+      value: int = 0
+    WM_BRAKEDISC-W_RR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_BRAKEDISC-W_RR
+      lastSavedStringValue: str = 3.20 cm
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 3.20 cm
+      value: int = 0
+    WM_BRAKEPAD-W_FL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_BRAKEPAD-W_FL
+      lastSavedStringValue: str = 1
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 1
+      value: int = 0
+    WM_BRAKEPAD-W_FR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_BRAKEPAD-W_FR
+      lastSavedStringValue: str = 1
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 1
+      value: int = 0
+    WM_BRAKEPAD-W_RL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_BRAKEPAD-W_RL
+      lastSavedStringValue: str = 1
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 1
+      value: int = 0
+    WM_BRAKEPAD-W_RR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_BRAKEPAD-W_RR
+      lastSavedStringValue: str = 1
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 1
+      value: int = 0
+    WM_CAMBER-W_FL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_CAMBER-W_FL
+      lastSavedStringValue: str = -4.0 deg
+      maxValue: int = 31
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = -1.2 deg
+      value: int = 28
+    WM_CAMBER-W_FR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_CAMBER-W_FR
+      lastSavedStringValue: str = -4.0 deg
+      maxValue: int = 31
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = -1.2 deg
+      value: int = 28
+    WM_CAMBER-W_RL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_CAMBER-W_RL
+      lastSavedStringValue: str = -3.0 deg
+      maxValue: int = 21
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = -1.0 deg
+      value: int = 20
+    WM_CAMBER-W_RR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_CAMBER-W_RR
+      lastSavedStringValue: str = -3.0 deg
+      maxValue: int = 21
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = -1.0 deg
+      value: int = 20
+    WM_COMPOUND-W_FL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_COMPOUND-W_FL
+      lastSavedStringValue: str = Medium
+      maxValue: int = 6
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Medium
+      value: int = 1
+    WM_COMPOUND-W_FR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_COMPOUND-W_FR
+      lastSavedStringValue: str = Medium
+      maxValue: int = 6
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Medium
+      value: int = 1
+    WM_COMPOUND-W_RL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_COMPOUND-W_RL
+      lastSavedStringValue: str = Medium
+      maxValue: int = 6
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Medium
+      value: int = 1
+    WM_COMPOUND-W_RR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_COMPOUND-W_RR
+      lastSavedStringValue: str = Medium
+      maxValue: int = 6
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Medium
+      value: int = 1
+    WM_FASTBUMP-W_FL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_FASTBUMP-W_FL
+      lastSavedStringValue: str = 1 (soft)
+      maxValue: int = 12
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 4
+      value: int = 3
+    WM_FASTBUMP-W_FR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_FASTBUMP-W_FR
+      lastSavedStringValue: str = 1 (soft)
+      maxValue: int = 12
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 4
+      value: int = 3
+    WM_FASTBUMP-W_RL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_FASTBUMP-W_RL
+      lastSavedStringValue: str = 1 (soft)
+      maxValue: int = 12
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 4
+      value: int = 3
+    WM_FASTBUMP-W_RR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_FASTBUMP-W_RR
+      lastSavedStringValue: str = 1 (soft)
+      maxValue: int = 12
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 4
+      value: int = 3
+    WM_FASTREBOUND-W_FL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_FASTREBOUND-W_FL
+      lastSavedStringValue: str = 1 (soft)
+      maxValue: int = 12
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 5
+      value: int = 4
+    WM_FASTREBOUND-W_FR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_FASTREBOUND-W_FR
+      lastSavedStringValue: str = 1 (soft)
+      maxValue: int = 12
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 5
+      value: int = 4
+    WM_FASTREBOUND-W_RL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_FASTREBOUND-W_RL
+      lastSavedStringValue: str = 1 (soft)
+      maxValue: int = 12
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 2
+      value: int = 1
+    WM_FASTREBOUND-W_RR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_FASTREBOUND-W_RR
+      lastSavedStringValue: str = 1 (soft)
+      maxValue: int = 12
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 2
+      value: int = 1
+    WM_PACKERS-W_FL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_PACKERS-W_FL
+      lastSavedStringValue: str = 0.0 cm
+      maxValue: int = 21
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 0.0 cm
+      value: int = 0
+    WM_PACKERS-W_FR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_PACKERS-W_FR
+      lastSavedStringValue: str = 0.0 cm
+      maxValue: int = 21
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 0.0 cm
+      value: int = 0
+    WM_PACKERS-W_RL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_PACKERS-W_RL
+      lastSavedStringValue: str = 0.0 cm
+      maxValue: int = 26
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 0.0 cm
+      value: int = 0
+    WM_PACKERS-W_RR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_PACKERS-W_RR
+      lastSavedStringValue: str = 0.0 cm
+      maxValue: int = 26
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 0.0 cm
+      value: int = 0
+    WM_PRESSURE-W_FL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_PRESSURE-W_FL
+      lastSavedStringValue: str = 135 kPa
+      maxValue: int = 36
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 135 kPa
+      value: int = 0
+    WM_PRESSURE-W_FR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_PRESSURE-W_FR
+      lastSavedStringValue: str = 135 kPa
+      maxValue: int = 36
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 135 kPa
+      value: int = 0
+    WM_PRESSURE-W_RL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_PRESSURE-W_RL
+      lastSavedStringValue: str = 135 kPa
+      maxValue: int = 36
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 135 kPa
+      value: int = 0
+    WM_PRESSURE-W_RR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_PRESSURE-W_RR
+      lastSavedStringValue: str = 135 kPa
+      maxValue: int = 36
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 135 kPa
+      value: int = 0
+    WM_RIDEHEIGHT-W_FL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_RIDEHEIGHT-W_FL
+      lastSavedStringValue: str = 4.0 cm
+      maxValue: int = 31
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 4.3 cm
+      value: int = 3
+    WM_RIDEHEIGHT-W_FR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_RIDEHEIGHT-W_FR
+      lastSavedStringValue: str = 4.0 cm
+      maxValue: int = 31
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 4.3 cm
+      value: int = 3
+    WM_RIDEHEIGHT-W_RL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_RIDEHEIGHT-W_RL
+      lastSavedStringValue: str = 6.0 cm
+      maxValue: int = 26
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 7.4 cm
+      value: int = 14
+    WM_RIDEHEIGHT-W_RR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_RIDEHEIGHT-W_RR
+      lastSavedStringValue: str = 6.0 cm
+      maxValue: int = 26
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 7.4 cm
+      value: int = 14
+    WM_SLOWBUMP-W_FL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_SLOWBUMP-W_FL
+      lastSavedStringValue: str = 1 (soft)
+      maxValue: int = 12
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 3
+      value: int = 2
+    WM_SLOWBUMP-W_FR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_SLOWBUMP-W_FR
+      lastSavedStringValue: str = 1 (soft)
+      maxValue: int = 12
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 3
+      value: int = 2
+    WM_SLOWBUMP-W_RL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_SLOWBUMP-W_RL
+      lastSavedStringValue: str = 1 (soft)
+      maxValue: int = 12
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 3
+      value: int = 2
+    WM_SLOWBUMP-W_RR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_SLOWBUMP-W_RR
+      lastSavedStringValue: str = 1 (soft)
+      maxValue: int = 12
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 3
+      value: int = 2
+    WM_SLOWREBOUND-W_FL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_SLOWREBOUND-W_FL
+      lastSavedStringValue: str = 1 (soft)
+      maxValue: int = 12
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 4
+      value: int = 3
+    WM_SLOWREBOUND-W_FR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_SLOWREBOUND-W_FR
+      lastSavedStringValue: str = 1 (soft)
+      maxValue: int = 12
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 4
+      value: int = 3
+    WM_SLOWREBOUND-W_RL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_SLOWREBOUND-W_RL
+      lastSavedStringValue: str = 1 (soft)
+      maxValue: int = 12
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 10
+      value: int = 9
+    WM_SLOWREBOUND-W_RR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_SLOWREBOUND-W_RR
+      lastSavedStringValue: str = 1 (soft)
+      maxValue: int = 12
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 10
+      value: int = 9
+    WM_SPRING-W_FL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_SPRING-W_FL
+      lastSavedStringValue: str = 1
+      maxValue: int = 10
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 4
+      value: int = 3
+    WM_SPRING-W_FR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_SPRING-W_FR
+      lastSavedStringValue: str = 1
+      maxValue: int = 10
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 4
+      value: int = 3
+    WM_SPRING-W_RL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_SPRING-W_RL
+      lastSavedStringValue: str = 1
+      maxValue: int = 9
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 3
+      value: int = 2
+    WM_SPRING-W_RR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_SPRING-W_RR
+      lastSavedStringValue: str = 1
+      maxValue: int = 9
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = 3
+      value: int = 2
+    WM_SRUBBER-W_FL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_SRUBBER-W_FL
+      lastSavedStringValue: str = Detached
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Detached
+      value: int = 0
+    WM_SRUBBER-W_FR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_SRUBBER-W_FR
+      lastSavedStringValue: str = Detached
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Detached
+      value: int = 0
+    WM_SRUBBER-W_RL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_SRUBBER-W_RL
+      lastSavedStringValue: str = Detached
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Detached
+      value: int = 0
+    WM_SRUBBER-W_RR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_SRUBBER-W_RR
+      lastSavedStringValue: str = Detached
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Detached
+      value: int = 0
+    WM_TENDERSPRING-W_FL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_TENDERSPRING-W_FL
+      lastSavedStringValue: str = Detached
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Detached
+      value: int = 0
+    WM_TENDERSPRING-W_FR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_TENDERSPRING-W_FR
+      lastSavedStringValue: str = Detached
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Detached
+      value: int = 0
+    WM_TENDERSPRING-W_RL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_TENDERSPRING-W_RL
+      lastSavedStringValue: str = Detached
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Detached
+      value: int = 0
+    WM_TENDERSPRING-W_RR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_TENDERSPRING-W_RR
+      lastSavedStringValue: str = Detached
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Detached
+      value: int = 0
+    WM_TENDERSPRINGTRAVEL-W_FL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_TENDERSPRINGTRAVEL-W_FL
+      lastSavedStringValue: str = Detached
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Detached
+      value: int = 0
+    WM_TENDERSPRINGTRAVEL-W_FR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_TENDERSPRINGTRAVEL-W_FR
+      lastSavedStringValue: str = Detached
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Detached
+      value: int = 0
+    WM_TENDERSPRINGTRAVEL-W_RL: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_TENDERSPRINGTRAVEL-W_RL
+      lastSavedStringValue: str = Detached
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Detached
+      value: int = 0
+    WM_TENDERSPRINGTRAVEL-W_RR: {dict with 10 keys}
+      available: bool = True
+      diffComparisonValue: int = 0
+      isFreeSetting: bool = True
+      key: str = WM_TENDERSPRINGTRAVEL-W_RR
+      lastSavedStringValue: str = Detached
+      maxValue: int = 1
+      minValue: int = 0
+      numChangesValue: int = 0
+      stringValue: str = Detached
+      value: int = 0
+    gearGraph: {dict with 4 keys}
+      kiloRPM: [list with 20 items]
+      numForwardGears: int = 7
+      topSpeed: [list with 10 items]
+      unit: str = kph
+    symmetric: bool = False
+currentWeather: {dict with 8 keys}
+  airPressure: float = 99.0
+  ambientTempKelvin: float = 292.1499706056869
+  cloudCoverage: float = 0.0
+  humidity: float = 0.5
+  lightLevel: float = 0.9554447531700134
+  rainIntensity: float = 0.0
+  raining: float = 0.0
+  trackTempKelvin: float = 304.816650390651
+racePosition: {dict with 6 keys}
+  gapToFirstInClassLaps: int = 0
+  gapToFirstInClassTime: float = 1.8903037309646606
+  gapToLastInClassLaps: int = 0
+  gapToLastInClassTime: float = 1.1870877742767334
+  placeInClass: int = 9
+  placeOverall: int = 9
+sessionTime: {dict with 1 keys}
+  timeOfDay: float = 44414.69140625
+teamInfo: {dict with 3 keys}
+  driverNames: [list with 1 items]
+  teamName: str = Alpine Endurance Team
+  vehicleName: str = Alpine Endurance Team 2025 #35:EC
+weatherForecast: {dict with 1 keys}
+  nodes: {dict with 8 keys}
+    Duration: [list with 5 items]
+    Humidity: [list with 5 items]
+    RainChance: [list with 5 items]
+    Sky: [list with 5 items]
+    StartTime: [list with 5 items]
+    Temperature: [list with 5 items]
+    WindDirection: [list with 5 items]
+    WindSpeed: [list with 5 items]
+
+======================================================================
+CRITICAL SETUP FIELDS CHECK
+======================================================================
+
+Suspension:
+  ❌ No matching fields found (searched: springs, dampers, antiroll, ride_height)
+
+Aerodynamics:
+  ✅ VM_FRONT_WING
+  ✅ VM_REAR_WING
+
+Gearing:
+  ❌ No matching fields found (searched: gear_ratios, final_drive)
+
+Differential:
+  ❌ No matching fields found (searched: diff_settings, differential)
+
+Brakes:
+  ✅ VM_BRAKE_BALANCE
+
+Tires:
+  ❌ No matching fields found (searched: tire_pressures, tire_pressure, pressures)
+
+======================================================================
+NEXT STEPS
+======================================================================
+1. Review setup data structure above
+2. Identify fields needed for dashboard display
+3. Update dashboard_data_requirements.md with actual field names
+4. Compare with shared memory telemetry fields
+
+Tip: Use --output to save data for detailed analysis
+Tip: Use --all to explore additional REST API endpoints
+PS C:\Users\david\Documents\Projects\lmu-telemetry\monitor>
