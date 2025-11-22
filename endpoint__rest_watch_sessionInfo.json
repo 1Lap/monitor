@@ -1,0 +1,46 @@
+{
+  "ambientTemp": 24.85934702755503,
+  "averagePathWetness": 0.0,
+  "currentEventTime": 905.0,
+  "darkCloud": 0.0,
+  "endEventTime": 3600.0,
+  "gameMode": "UNKNOWN",
+  "gamePhase": 9,
+  "inRealtime": true,
+  "lapDistance": 4273.22216796875,
+  "maxPathWetness": 0.0,
+  "maxPlayers": 0,
+  "maxTime": 1200.0,
+  "maximumLaps": 4294967295,
+  "minPathWetness": 0.0,
+  "numRedLights": 5,
+  "numberOfPlayers": 0,
+  "numberOfVehicles": 18,
+  "passwordProtected": false,
+  "playerFileName": "Settings",
+  "playerName": "Dean Davids",
+  "raceCompletion": {
+    "timeCompletion": 0.75
+  },
+  "raining": 0.0,
+  "sectorFlag": [
+    "UNKNOWN",
+    "UNKNOWN",
+    "UNKNOWN"
+  ],
+  "serverName": "-none-",
+  "serverPort": 0,
+  "session": "QUALIFY1",
+  "startEventTime": 5.0,
+  "startLightFrame": 0,
+  "timeRemainingInGamePhase": 300.85247802734375,
+  "trackName": "Aut\u00f3dromo Jos\u00e9 Carlos Pace",
+  "trackTemp": 33.97491217656227,
+  "windSpeed": {
+    "velocity": 0.0,
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+  },
+  "yellowFlagState": "NONE"
+}

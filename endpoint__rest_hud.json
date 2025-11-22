@@ -1,0 +1,7 @@
+{
+  "chat": true,
+  "mfd": true,
+  "speedo": false,
+  "timing": true,
+  "trackMap": true
+}
