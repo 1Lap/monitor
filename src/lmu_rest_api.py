@@ -220,3 +220,24 @@ class LMURestAPI:
     def clear_cache(self):
         """Clear cached vehicle data"""
         self.vehicle_cache = None
+
+    def fetch_setup_data(self) -> Dict[str, Any]:
+        """
+        Fetch current car setup from REST API
+
+        Fetches the complete car setup from the /rest/garage/setup endpoint.
+        This includes suspension, aerodynamics, brakes, gearing, differential, etc.
+
+        Returns:
+            Setup data dictionary or empty dict if unavailable
+        """
+        try:
+            req = Request(f"{self.base_url}/rest/garage/setup")
+            with urlopen(req, timeout=2) as response:
+                return json.loads(response.read().decode('utf-8'))
+        except (URLError, HTTPError, socket.timeout, ConnectionRefusedError):
+            # API not available - return empty dict
+            return {}
+        except Exception as e:
+            print(f"[WARNING] Setup data unavailable: {e}")
+            return {}

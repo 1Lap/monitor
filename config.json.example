@@ -1,0 +1,7 @@
+{
+  "server_url": "http://localhost:5000",
+  "session_id": "auto",
+  "update_rate_hz": 2,
+  "poll_interval": 0.01,
+  "target_process": "LMU.exe"
+}

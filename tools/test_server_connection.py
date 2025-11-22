@@ -1,62 +1,14 @@
-# Feature: Test Server Connection Script
-
-**Type:** Testing Tool
-**Priority:** Low
-**Phase:** MVP - Phase 1
-**Estimated Time:** 30 minutes
-
----
-
-## Overview
-
-Create a simple test script to validate connection to the dashboard server before running the full monitor. This helps debug server connectivity issues independently.
-
-## Objective
-
-Build a minimal test script that:
-1. Attempts to connect to server
-2. Requests session ID
-3. Sends test data
-4. Validates WebSocket communication
-5. Reports success/failure
-
-## Requirements
-
-### Must Have
-
-1. **Script: `tools/test_server_connection.py`**
-   - Command-line tool
-   - Takes server URL as argument
-   - Tests WebSocket connection
-   - Displays results
-
-2. **Connection Tests**
-   - Connect to server
-   - Request session ID
-   - Send test setup data
-   - Send test telemetry data
-   - Disconnect cleanly
-
-3. **Output**
-   - Clear success/failure messages
-   - Connection status
-   - Session ID received
-   - Any errors encountered
-
-### Nice to Have
-
-- Timeout handling
-- Retry logic
-- Performance metrics (latency)
-- Verbose mode for debugging
-
-## Implementation
-
-```python
 #!/usr/bin/env python3
 """
 Test Dashboard Server Connection
-Simple script to validate WebSocket connection to dashboard server
+
+Simple script to validate WebSocket connection to dashboard server.
+Tests connection, session ID request, and data publishing.
+
+Usage:
+    python tools/test_server_connection.py                          # Test localhost
+    python tools/test_server_connection.py --server http://localhost:5000
+    python tools/test_server_connection.py -v                       # Verbose output
 """
 import sys
 import time
@@ -67,7 +19,7 @@ from datetime import datetime
 
 def test_server_connection(server_url: str, verbose: bool = False):
     """
-    Test connection to dashboard server
+    Test connection to dashboard server.
 
     Args:
         server_url: Server URL (e.g., 'http://localhost:5000')
@@ -236,7 +188,12 @@ def test_server_connection(server_url: str, verbose: bool = False):
 def main():
     """Main entry point"""
     parser = argparse.ArgumentParser(
-        description='Test connection to dashboard server'
+        description='Test connection to dashboard server',
+        epilog='Examples:\n'
+               '  %(prog)s                              # Test localhost\n'
+               '  %(prog)s --server http://localhost:5000\n'
+               '  %(prog)s -v                           # Verbose output',
+        formatter_class=argparse.RawDescriptionHelpFormatter
     )
     parser.add_argument(
         '--server',
@@ -258,147 +215,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-```
-
-## Usage
-
-### Basic Test
-```bash
-# Test localhost server
-python tools/test_server_connection.py
-
-# Expected output:
-# ============================================================
-# Dashboard Server Connection Test
-# ============================================================
-# Server URL: http://localhost:5000
-#
-# [1/4] Testing connection...
-# ✅ Connected to server
-# ✅ Session ID received: abc-def-ghi
-#    Dashboard URL: http://localhost:5000/dashboard/abc-def-ghi
-#
-# [2/4] Testing setup data publish...
-# ✅ Setup data sent
-#
-# [3/4] Testing telemetry publish...
-# ✅ Telemetry data sent (3 updates)
-#
-# [4/4] Testing disconnect...
-# ✅ Disconnected cleanly
-#
-# ============================================================
-# Test Summary
-# ============================================================
-# Connection:     ✅ PASS
-# Session ID:     ✅ PASS
-# Setup publish:  ✅ PASS
-# Telemetry pub:  ✅ PASS
-# ============================================================
-# 🎉 All tests passed!
-```
-
-### Test Custom Server
-```bash
-# Test cloud server
-python tools/test_server_connection.py --server http://dashboard.1lap.io
-
-# Test with verbose output
-python tools/test_server_connection.py -v
-```
-
-### Test Failure Scenarios
-
-```bash
-# Server offline (should fail gracefully)
-python tools/test_server_connection.py --server http://localhost:9999
-
-# Expected output:
-# ============================================================
-# Dashboard Server Connection Test
-# ============================================================
-# Server URL: http://localhost:9999
-#
-# [1/4] Testing connection...
-# ❌ Error: Connection error
-```
-
-## Use Cases
-
-1. **Pre-flight Check:** Verify server is running before starting monitor
-2. **Network Debugging:** Test connectivity to cloud server
-3. **Server Validation:** Verify server implements correct API
-4. **CI/CD Testing:** Automated server testing
-
-## Validation Checklist
-
-- [x] Script connects to server
-- [x] Receives session ID
-- [x] Sends setup data
-- [x] Sends telemetry data
-- [x] Disconnects cleanly
-- [x] Handles errors gracefully
-- [x] Clear pass/fail output
-- [x] Works with local server
-- [x] Works with cloud server
-
-## Dependencies
-
-- `python-socketio[client]` (already in requirements.txt)
-
-## Integration with Monitor
-
-Can be used as pre-flight check in monitor:
-
-```python
-# In monitor.py (optional)
-def check_server(self):
-    """Pre-flight server check"""
-    print("[Monitor] Testing server connection...")
-
-    # Quick connection test
-    try:
-        test_sio = socketio.Client()
-        test_sio.connect(self.config['server_url'], wait_timeout=5)
-        test_sio.disconnect()
-        print("[Monitor] ✅ Server is reachable")
-        return True
-    except Exception as e:
-        print(f"[Monitor] ❌ Server not reachable: {e}")
-        print("[Monitor] Use tools/test_server_connection.py to debug")
-        return False
-```
-
-## Related Files
-
-- `src/dashboard_publisher.py` - Publisher implementation
-- `monitor.py` - Main application
-- `RACE_DASHBOARD_PLAN.md` - API contract
-
----
-
-## Status
-
-✅ **COMPLETE** - Created `/home/user/monitor/tools/test_server_connection.py`
-
-**Implementation Date:** 2025-11-22
-
-**What was implemented:**
-- Standalone test script for WebSocket connection validation
-- Comprehensive test sequence (connection → session ID → setup data → telemetry → disconnect)
-- Verbose mode for debugging
-- Clear pass/fail output with visual indicators (✅, ❌)
-- Proper error handling and timeout management
-- Command-line argument parsing for custom server URLs
-
-**Files Created:**
-- `tools/test_server_connection.py` (executable, 6.2 KB)
-
-**Usage:**
-```bash
-python tools/test_server_connection.py                    # Test localhost
-python tools/test_server_connection.py --server http://localhost:5000
-python tools/test_server_connection.py -v                 # Verbose mode
-```
-
-**Next Steps:** Use this tool to validate server implementation when server repo is ready.
