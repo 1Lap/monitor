@@ -117,6 +117,7 @@ class RealTelemetryReader(TelemetryReaderInterface):
             tele = self.info.playersVehicleTelemetry()
             scor = self.info.playersVehicleScoring()
             scor_info = self.info.Rf2Scor.mScoringInfo
+            ext = self.info.Rf2Ext  # Extended structure for TC/ABS/etc.
 
             # Extract track info (prefer telemetry buffer for layout/variant)
             track_name = self.Cbytestring2Python(tele.mTrackName) or self.Cbytestring2Python(
@@ -286,6 +287,11 @@ class RealTelemetryReader(TelemetryReaderInterface):
                 'drs_available': 0,
                 'ers_level': 0.0,
                 'kers_level': 0.0,
+
+                # Driver Assist Settings (live values from Rf2Ext)
+                'brake_bias': (1.0 - tele.mRearBrakeBias) * 100,  # Convert rear bias to front %
+                'traction_control': ext.mPhysics.mTractionControl,
+                'abs': ext.mPhysics.mAntiLockBrakes,
             }
 
         except Exception as e:
