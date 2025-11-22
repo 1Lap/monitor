@@ -529,7 +529,7 @@ def test_monitor_create_default_config(monitor_class):
         assert config['session_id'] == 'auto'
         assert config['update_rate_hz'] == 2
         assert config['poll_interval'] == 0.01
-        assert config['target_process'] == 'LMU.exe'
+        assert config['target_process'] == 'Le Mans Ultimate'
 
     finally:
         if os.path.exists(config_path):
