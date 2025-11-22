@@ -166,22 +166,26 @@ def test_monitor_load_config_missing_file(monitor_class):
 
 def test_monitor_load_config_invalid_json(monitor_class):
     """Test Monitor handles invalid JSON in config file"""
+    # Create temp file and close it before using (Windows compatibility)
     with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
         f.write("{ invalid json }")
         f.flush()
+        temp_path = f.name
 
-        try:
-            with patch('monitor.get_telemetry_reader'), \
-                 patch('monitor.LMURestAPI'), \
-                 patch('monitor.ProcessMonitor'), \
-                 patch('monitor.DashboardPublisher'), \
-                 patch('monitor.signal.signal'), \
-                 patch('builtins.print'), \
-                 pytest.raises(SystemExit):
+    # File is now closed, safe to use and delete on Windows
+    try:
+        with patch('monitor.get_telemetry_reader'), \
+             patch('monitor.LMURestAPI'), \
+             patch('monitor.ProcessMonitor'), \
+             patch('monitor.DashboardPublisher'), \
+             patch('monitor.signal.signal'), \
+             patch('builtins.print'), \
+             pytest.raises(SystemExit):
 
-                monitor = monitor_class(f.name)
-        finally:
-            os.remove(f.name)
+            monitor = monitor_class(temp_path)
+    finally:
+        if os.path.exists(temp_path):
+            os.remove(temp_path)
 
 
 def test_monitor_start_connects_to_server(temp_config, monitor_class, mock_components):
