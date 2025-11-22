@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://1lap.dev/schemas/telemetry_update.v1.json",
+  "title": "Telemetry Update Envelope v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["session_id", "telemetry"],
+  "properties": {
+    "session_id": { "type": "string", "format": "uuid" },
+    "telemetry": {
+      "$ref": "#/definitions/TelemetryPayload"
+    }
+  },
+  "definitions": {
+    "FourWheels": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "fl": { "type": "number" },
+        "fr": { "type": "number" },
+        "rl": { "type": "number" },
+        "rr": { "type": "number" }
+      }
+    },
+    "TelemetryPayload": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "timestamp", "lap", "position", "fuel", "fuel_capacity",
+        "player_name", "car_name", "track_name", "session_type"
+      ],
+      "properties": {
+        "timestamp": { "type": "string", "format": "date-time" },
+        "lap": { "type": "integer", "minimum": 0 },
+        "position": { "type": "integer", "minimum": 0 },
+        "lap_time": { "type": "number", "minimum": 0 },
+        "fuel": { "type": "number", "minimum": 0 },
+        "fuel_capacity": { "type": "number", "minimum": 0 },
+        "tire_pressures": { "$ref": "#/definitions/FourWheels" },
+        "tire_temps": { "$ref": "#/definitions/FourWheels" },
+        "tire_wear": { "$ref": "#/definitions/FourWheels" },
+        "brake_temps": { "$ref": "#/definitions/FourWheels" },
+        "engine_water_temp": { "type": "number" },
+        "track_temp": { "type": "number" },
+        "ambient_temp": { "type": "number" },
+        "speed": { "type": "number" },
+        "gear": { "type": "integer" },
+        "rpm": { "type": "number" },
+        "player_name": { "type": "string" },
+        "car_name": { "type": "string" },
+        "track_name": { "type": "string" },
+        "session_type": { "type": "string" }
+      }
+    }
+  }
+}
